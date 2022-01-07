@@ -1,0 +1,32 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details.
+{
+  "dockerComposeFile": "docker-compose.yaml",
+  "extensions": [
+    "amatiasq.sort-imports",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "github.copilot",
+    "ms-vsliveshare.vsliveshare-pack",
+    "tyriar.sort-lines",
+    "thinker.sort-json"
+  ],
+  "service": "workspace",
+  "settings": {
+    "eslint.workingDirectories": [
+      "site/components",
+      "site/pages",
+      "site/theme"
+    ],
+    "prettier.configPath": "/kitty/.prettierrc",
+    "search.exclude": {
+      "**/*.log": true
+    },
+    "terminal.integrated.cwd": "/kitty",
+    "workbench.colorCustomizations": {
+      "activityBar.background": "#00b5c8",
+      "titleBar.activeBackground": "#f3037e",
+      "titleBar.activeForeground": "#FFFBFC"
+    }
+  },
+  "workspaceFolder": "/kitty"
+}

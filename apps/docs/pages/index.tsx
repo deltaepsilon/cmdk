@@ -1,10 +1,12 @@
-import { Button } from "ui";
+import { Button, KittyThemeProvider } from 'ui';
 
 export default function Docs() {
   return (
-    <div>
-      <h1>Docs</h1>
-      <Button />
-    </div>
+    <KittyThemeProvider>
+      <div>
+        <h1>Docs</h1>
+        <Button>Docs Button</Button>
+      </div>
+    </KittyThemeProvider>
   );
 }

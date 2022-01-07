@@ -1,0 +1,43 @@
+version: '3'
+services:
+  workspace:
+    container_name: workspace-kitty
+    build: ./dev/workspace
+    env_file: ./dev/workspace/env.list
+    ports:
+      - '3000:3000'
+      - '3001:3001'
+      - '4000:4000'
+      - '8080:8080'
+    volumes:
+      - './.turbo:/kitty/.turbo'
+      - './.prettierrc:/kitty/.prettierrc'
+      - './bin:/kitty/bin'
+      - './meta:/kitty/meta'
+      - './apps:/kitty/apps'
+      - './packages:/kitty/packages'
+      - './node_modules:/kitty/node_modules'
+      - './package.json:/kitty/package.json'
+      - './yarn.lock:/kitty/yarn.lock'
+  nginx:
+    container_name: nginx
+    image: nginx:1.15-alpine
+    depends_on:
+      - workspace
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./dev/nginx:/etc/nginx/conf.d
+      - ./dev/certbot/conf:/etc/letsencrypt
+      - ./dev/certbot/www:/var/www/certbot
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    depends_on:
+      - nginx
+    volumes:
+      - ./dev/certbot/conf:/etc/letsencrypt
+      - ./dev/certbot/www:/var/www/certbot
+      - ./dev/certbot/scripts:/scripts
+    entrypoint: sh /scripts/challenge.sh

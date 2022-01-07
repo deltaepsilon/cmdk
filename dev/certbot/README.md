@@ -1,0 +1,8 @@
+- Turn off your Firewall. Check McAffee LiveSafe.
+- Comment out the 443 rules in `dev/nginx/app.conf`
+- Run `dc up nginx` in one tab. Make sure Nginx survives.
+- Add `--dry-run to the end of `dev/certbot/scripts/challenge.sh`
+- Run `dc up certbot` and watch for a successful test run.
+- If successful, remove `--dry-run` and run `dc up certbot` again.
+- Restore commented lines in `app.conf`.
+- Run `dc up` to test, and `down && dc up -d` once it's working.
