@@ -1,2 +1,2 @@
-import * as React from "react";
-export * from "./command-k";
+import * as React from 'react';
+export { default as CommandK } from './command-k';

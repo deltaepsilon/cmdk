@@ -1,4 +1,6 @@
 export * from './components';
+export * from './utils';
+
 import { ThemeProvider } from 'theme-ui';
 import theme from './theme';
 

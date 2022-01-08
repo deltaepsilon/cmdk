@@ -1,0 +1,28 @@
+{
+  "name": "@quiver/script-kitty",
+  "version": "0.0.0",
+  "main": "index.tsx",
+  "types": "index.tsx",
+  "license": "MIT",
+  "scripts": {
+    "bundle": "webpack --config ./webpack.config.js",
+    "bundle:watch": "webpack watch --config ./webpack.config.js",
+    "dev": "yarn bundle:watch"
+  },
+  "bundledDependencies": [
+    "command-k",
+    "ui"
+  ],
+  "dependencies": {
+    "command-k": "*",
+    "ui": "*"
+  },
+  "devDependencies": {
+    "@swc/cli": "^0.1.55",
+    "@swc/core": "^1.2.126",
+    "chokidar": "^3.5.2",
+    "swc-loader": "^0.1.15",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
