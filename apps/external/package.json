@@ -5,9 +5,9 @@
   "types": "index.tsx",
   "license": "MIT",
   "scripts": {
-    "bundle": "webpack --config ./webpack.config.js",
-    "bundle:watch": "webpack watch --config ./webpack.config.js",
-    "dev": "yarn bundle:watch"
+    "build": "webpack --config ./webpack.config.js",
+    "build:watch": "webpack watch --config ./webpack.config.js",
+    "dev": "yarn build:watch"
   },
   "bundledDependencies": [
     "command-k",

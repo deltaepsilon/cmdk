@@ -4,9 +4,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "../../packages/command-k/index.tsx",
+    "../../packages/command-k/*.tsx",
   ],
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": [],
 }
