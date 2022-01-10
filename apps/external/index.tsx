@@ -1,19 +1,26 @@
-import { useEffect } from 'react';
+import { KittyThemeProvider, NOOP } from 'ui';
+import createCache, { EmotionCache } from '@emotion/cache';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import ReactDOM from 'react-dom';
+import { CacheProvider } from '@emotion/react';
 import { CommandK } from 'command-k';
-import { KittyThemeProvider } from 'ui';
+import ReactDOM from 'react-dom';
 
-
-
-function NOOP () {}
-
-// function CommandK() {
-//   return <div>Command K</div>;
-// }
+declare global {
+  interface Window {
+    __kitty: { mount: (isActive?: boolean) => () => void; unmount: () => void };
+  }
+}
 
 const ID = 'script-kitty';
 const IS_SERVER = typeof window === 'undefined';
+
+if (!IS_SERVER) {
+  window.__kitty = {
+    mount,
+    unmount,
+  };
+}
 
 export function useScriptKitty(isActive = !IS_SERVER) {
   useEffect(() => {
@@ -23,30 +30,60 @@ export function useScriptKitty(isActive = !IS_SERVER) {
   }, []);
 }
 
+function ThemedCommandK() {
+  const [cache, setCache] = useState<EmotionCache>(
+    createCache({ container: document.body, key: 'command-k' }),
+  );
+  const onRender = useCallback((ref) => {
+    const container = ref.current as HTMLElement;
+
+    setCache(
+      createCache({
+        container,
+        prepend: true,
+        key: 'command-k',
+      }),
+    );
+
+    const oldStyles = document.querySelectorAll('[data-emotion="command-k"]');
+
+    oldStyles.forEach((el) => el.remove());
+  }, []);
+
+  return (
+    <CacheProvider value={cache}>
+      <KittyThemeProvider>
+        <CommandK onRender={onRender} />
+      </KittyThemeProvider>
+    </CacheProvider>
+  );
+}
+
 export function mount(isActive = !IS_SERVER) {
-  let unmount = NOOP;
+  let unmountReturn = NOOP;
 
   if (isActive) {
     let shadowRoot = getShadowRoot();
 
+    unmount();
+
     if (shadowRoot) {
-      console.log({ shadowRoot });
-      ReactDOM.render(<CommandK />, shadowRoot);
+      ReactDOM.render(<ThemedCommandK />, shadowRoot);
 
       return NOOP;
     } else {
       shadowRoot = createShadowRoot();
 
-      ReactDOM.render(<CommandK />, shadowRoot);
+      ReactDOM.render(<ThemedCommandK />, shadowRoot);
 
-      unmount = unmountEl;
+      unmountReturn = unmount;
     }
   }
 
-  return unmount;
+  return unmountReturn;
 }
 
-function unmountEl() {
+function unmount() {
   const el = document.getElementById(ID);
 
   if (el) {
@@ -64,7 +101,6 @@ function getShadowRoot() {
 }
 
 function createShadowRoot() {
-  console.log({ document });
   const el = document.createElement('div');
 
   el.id = ID;

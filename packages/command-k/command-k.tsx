@@ -1,8 +1,20 @@
-import { Flex, Text } from 'ui';
+import { NOOP, Box, Flex, Text } from 'ui';
+import { ForwardedRef, forwardRef, useEffect, useRef } from 'react';
 
-export default function CommandK() {
+interface Props {
+  onRender?: (ref: ForwardedRef<HTMLDivElement>) => void;
+}
+
+export default function CommandK({ onRender = NOOP }: Props) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    onRender(ref);
+  }, []);
+
   return (
     <Flex
+      ref={ref}
       sx={{
         position: 'fixed',
         inset: 0,

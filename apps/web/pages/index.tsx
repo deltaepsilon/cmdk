@@ -16,7 +16,20 @@ export default function Web() {
           <Text variant="headline2">Web</Text>
           <Text>Hey</Text>
         </Grid>
+        <Box
+          as="textarea"
+          defaultValue={`(() => {
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://local.chrisesplin.com/dist/index.js';
+  script.onload = () => __kitty.mount();
+  document.head.appendChild(script);
+})();
+          `}
+          sx={{ height: 300, width: 500 }}
+        />
       </Flex>
+
       <CommandK />
     </KittyThemeProvider>
   );

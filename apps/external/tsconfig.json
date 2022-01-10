@@ -1,10 +1,15 @@
 {
-  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "lib": [
+      "es6",
+      "dom"
+    ]
+  },
+  "extends": "tsconfig/react-library.json",
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "../../packages/command-k/*.tsx",
   ],
   "exclude": [],
 }

@@ -5,24 +5,12 @@
   "types": "index.tsx",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --config ./webpack.config.js",
-    "build:watch": "webpack watch --config ./webpack.config.js",
+    "build": "esbuild index.tsx --bundle --outfile=dist/index.js --inject:./react-shim.js",
+    "build:watch": "chokidar \"**/*.tsx\" -c \"yarn build\"",
     "dev": "yarn build:watch"
   },
-  "bundledDependencies": [
-    "command-k",
-    "ui"
-  ],
-  "dependencies": {
-    "command-k": "*",
-    "ui": "*"
-  },
   "devDependencies": {
-    "@swc/cli": "^0.1.55",
-    "@swc/core": "^1.2.126",
-    "chokidar": "^3.5.2",
-    "swc-loader": "^0.1.15",
-    "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1"
+    "chokidar-cli": "^3.0.0",
+    "esbuild": "^0.14.11"
   }
 }
