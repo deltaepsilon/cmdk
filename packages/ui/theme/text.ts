@@ -67,7 +67,6 @@ const cta: ThemeUIStyleObject = {
   lineHeight: '1rem',
 };
 
-
 export default {
   headline1,
   headline2,

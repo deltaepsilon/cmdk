@@ -1,9 +1,10 @@
-import { Box, Grid, Flex, Text, Button, KittyThemeProvider } from 'ui';
+import { Box, Flex, Grid, Text } from 'ui';
+
 import { CommandK } from 'command-k';
 
-export default function Web() {
+export default function IndexPage() {
   return (
-    <KittyThemeProvider>
+    <>
       <Flex
         sx={{
           justifyContent: 'center',
@@ -31,6 +32,6 @@ export default function Web() {
       </Flex>
 
       <CommandK />
-    </KittyThemeProvider>
+    </>
   );
 }

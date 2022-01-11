@@ -2,6 +2,11 @@ import { ThemeUIStyleObject } from 'theme-ui';
 
 const breakpoints = ['40rem', '49rem', '64rem', '80rem'];
 
+const config = {
+  initialColorModeName: 'light',
+  useLocalStorage: false,
+};
+
 const fonts = {
   body: '"Modern Era", sans-serif',
   heading: '"GT Flexa", sans-serif',
@@ -157,6 +162,7 @@ const styles = {
 
 const base = {
   breakpoints,
+  config,
   fonts,
   fontSizes,
   fontWeights,

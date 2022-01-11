@@ -1,4 +1,4 @@
-import { KittyThemeProvider, NOOP } from 'ui';
+import { KittyThemeProvider, NOOP, constants } from 'ui';
 import createCache, { EmotionCache } from '@emotion/cache';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -13,16 +13,15 @@ declare global {
 }
 
 const ID = 'script-kitty';
-const IS_SERVER = typeof window === 'undefined';
 
-if (!IS_SERVER) {
+if (!constants.IS_SERVER) {
   window.__kitty = {
     mount,
     unmount,
   };
 }
 
-export function useScriptKitty(isActive = !IS_SERVER) {
+export function useScriptKitty(isActive = !constants.IS_SERVER) {
   useEffect(() => {
     const unmount = mount(isActive);
 
@@ -59,7 +58,7 @@ function ThemedCommandK() {
   );
 }
 
-export function mount(isActive = !IS_SERVER) {
+export function mount(isActive = !constants.IS_SERVER) {
   let unmountReturn = NOOP;
 
   if (isActive) {

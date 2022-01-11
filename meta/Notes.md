@@ -1,6 +1,18 @@
 ## To Do
 
-- [ ] Create external kitty build
+- [ ] Style modal
+- [ ] Handle keystrokes with Fuse.js
+
+### 2022/01/11
+- 2 hours
+- [x] Theming
+- [x] Pop modal
+- [x] Colors docs
+
+### 2022/01/10
+
+- 2 hours
+- [x] Create external kitty build
 
 ### 2022/01/07
 
