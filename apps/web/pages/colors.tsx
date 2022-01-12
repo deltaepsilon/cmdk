@@ -1,4 +1,5 @@
-import { Box, Grid, Flex, Text, Button, KittyThemeProvider } from 'ui';
+import { Box, Button, CmdkThemeProvider, Flex, Grid, Text } from 'ui';
+
 import ColorsDocs from 'ui/theme/colors.docs';
 import { CommandK } from 'command-k';
 

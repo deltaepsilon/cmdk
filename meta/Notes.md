@@ -3,7 +3,15 @@
 - [ ] Style modal
 - [ ] Handle keystrokes with Fuse.js
 
+### 2022/01/12
+
+- 3 hours
+- [x] Fonts
+- [x] Layout
+- [x] Theme switching
+
 ### 2022/01/11
+
 - 2 hours
 - [x] Theming
 - [x] Pop modal
@@ -12,7 +20,7 @@
 ### 2022/01/10
 
 - 2 hours
-- [x] Create external kitty build
+- [x] Create external cmdk build
 
 ### 2022/01/07
 

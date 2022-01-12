@@ -7,4 +7,4 @@ export NVM_DIR="$HOME/.nvm"
 alias ll="ls -al"
 
 # Symlinks
-ln -s /kitty/bin/dev.sh /usr/bin/dev
+ln -s /cmdk/bin/dev.sh /usr/bin/dev

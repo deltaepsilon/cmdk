@@ -5,31 +5,22 @@ import { CommandK } from 'command-k';
 export default function IndexPage() {
   return (
     <>
-      <Flex
-        sx={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '50vh',
-          backgroundColor: 'gray200',
-        }}
-      >
-        <Grid>
-          <Text variant="headline2">Web</Text>
-          <Text>Hey</Text>
-        </Grid>
+      <Grid>
+        <Text variant="title">Copy/paste into Dev Tools to install</Text>
+
         <Box
           as="textarea"
           defaultValue={`(() => {
   const script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = 'https://local.chrisesplin.com/dist/index.js';
-  script.onload = () => __kitty.mount();
+  script.onload = () => __cmdk.mount();
   document.head.appendChild(script);
 })();
           `}
-          sx={{ height: 300, width: 500 }}
+          sx={{ height: 300, width: 500, maxWidth: 'calc(100vw - 1rem)' }}
         />
-      </Flex>
+      </Grid>
 
       <CommandK />
     </>

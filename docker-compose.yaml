@@ -1,7 +1,7 @@
 version: '3'
 services:
   workspace:
-    container_name: workspace-kitty
+    container_name: workspace-cmdk
     build: ./dev/workspace
     env_file: ./dev/workspace/env.list
     ports:
@@ -10,15 +10,15 @@ services:
       - '4000:4000'
       - '8080:8080'
     volumes:
-      - './.turbo:/kitty/.turbo'
-      - './.prettierrc:/kitty/.prettierrc'
-      - './bin:/kitty/bin'
-      - './meta:/kitty/meta'
-      - './apps:/kitty/apps'
-      - './packages:/kitty/packages'
-      - './node_modules:/kitty/node_modules'
-      - './package.json:/kitty/package.json'
-      - './yarn.lock:/kitty/yarn.lock'
+      - './.turbo:/cmdk/.turbo'
+      - './.prettierrc:/cmdk/.prettierrc'
+      - './bin:/cmdk/bin'
+      - './meta:/cmdk/meta'
+      - './apps:/cmdk/apps'
+      - './packages:/cmdk/packages'
+      - './node_modules:/cmdk/node_modules'
+      - './package.json:/cmdk/package.json'
+      - './yarn.lock:/cmdk/yarn.lock'
   nginx:
     container_name: nginx
     image: nginx:1.15-alpine

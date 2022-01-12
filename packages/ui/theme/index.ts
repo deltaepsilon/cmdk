@@ -9,11 +9,11 @@ import images from './images';
 import text from './text';
 import zIndices from './zIndices';
 
-interface KittyTheme extends Theme {
+interface CmdkTheme extends Theme {
   boxes: ThemeUIStyleObject;
 }
 
-const theme: KittyTheme = {
+const theme: CmdkTheme = {
   ...base,
   boxes,
   buttons,
@@ -26,3 +26,4 @@ const theme: KittyTheme = {
 };
 
 export default theme;
+export type { ButtonVariant } from './buttons';

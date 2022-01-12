@@ -1,8 +1,8 @@
-import { Box, Flex, Grid, KittyThemeProvider, Text } from 'ui';
+import { Box, Flex, Grid, Text } from 'ui';
 import { dark, light, porshe, shared } from './colors';
-import { useCallback, useEffect } from 'react';
 
 import tinycolor from 'tinycolor2';
+import { useCallback } from 'react';
 import { useColorMode } from 'theme-ui';
 
 const DARK_FLAT = getFlatColors(dark);
@@ -16,7 +16,11 @@ export default function ColorsDocs() {
   const onClick = useCallback(() => setMode(isDefault ? 'dark' : 'default'), [mode, setMode]);
 
   return (
-    <Grid sx={{ background: 'background', minHeight: '100vh' }} onClick={onClick}>
+    <Grid
+      gap={6}
+      sx={{ background: 'background', minHeight: '100vh', position: 'relative' }}
+      onClick={onClick}
+    >
       {isDefault ? (
         <ColorsBlock colors={LIGHT_FLAT} title="Light" />
       ) : (
@@ -31,7 +35,7 @@ export default function ColorsDocs() {
 function ColorsBlock({ colors, title }: { colors: string[][]; title: string }) {
   return (
     <Box>
-      <Text as="h2" variant="headline1">
+      <Text as="h2" variant="headline1" sx={{ marginBottom: 3 }}>
         {title}
       </Text>
       <Flex
@@ -40,6 +44,7 @@ function ColorsBlock({ colors, title }: { colors: string[][]; title: string }) {
           textAlign: 'center',
           fontSize: 0,
           wordBreak: 'break-all',
+          justifyContent: ['center', 'center', 'flex-start'],
           div: {
             flexDirection: 'column',
             justifyContent: 'center',

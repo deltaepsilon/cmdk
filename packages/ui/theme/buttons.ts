@@ -1,4 +1,4 @@
-import { ThemeUICSSObject } from 'theme-ui';
+import { ThemeUICSSObject, ThemeUIStyleObject } from 'theme-ui';
 import { focus, shadowStates, transition } from './states';
 
 export const smWidth = '10rem';
@@ -88,6 +88,8 @@ const tertiaryVariant = {
   },
   '&:hover:not([disabled]):not(.disabled)': {
     textDecoration: 'underline',
+    textDecorationStyle: 'dashed',
+    textDecorationColor: 'secondary',
   },
   '&:active:not([disabled]):not(.disabled)': {
     color: 'gray500',
@@ -173,6 +175,8 @@ const inlineVariant: ThemeUICSSObject = {
   },
   '&:hover:not([disabled]):not(.disabled)': {
     textDecoration: 'underline',
+    textDecorationStyle: 'dashed',
+    textDecorationColor: 'secondary',
   },
   '&:active:not([disabled]):not(.disabled)': {
     color: 'gray500',
@@ -183,7 +187,7 @@ const ctaVariant = {
   boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.25)',
 };
 
-export const variants = {
+export const variants: { [key: string]: ThemeUIStyleObject } = {
   'pill-primary': {
     ...pillStyles,
     ...primaryVariant,
@@ -216,6 +220,7 @@ export const variants = {
     ...xlVariant,
     ...shadowStates,
   },
+  // @ts-ignore
   'pill-tertiary': {
     ...pillStyles,
     ...tertiaryVariant,
@@ -287,6 +292,7 @@ export const variants = {
     ...secondaryVariant,
     ...shadowStates,
   },
+  // @ts-ignore
   'circle-tertiary': {
     ...circleStyles,
     ...tertiaryVariant,
@@ -317,3 +323,24 @@ export const variants = {
 
 export { variants as buttons };
 export { variants as links };
+
+export type ButtonVariant =
+  | 'pill-primary'
+  | 'pill-primary-medium'
+  | 'pill-primary-xl'
+  | 'pill-secondary'
+  | 'pill-secondary-xl'
+  | 'pill-tertiary'
+  | 'pill-tertiary-colorful'
+  | 'pill-tertiary-xl'
+  | 'pill-reverse-special'
+  | 'pill-special'
+  | 'pill-special-xl'
+  | 'pill-cta'
+  | 'pill-borderless'
+  | 'circle-primary'
+  | 'circle-secondary'
+  | 'circle-secondary-small'
+  | 'circle-tertiary'
+  | 'circle-cta'
+  | 'inline';

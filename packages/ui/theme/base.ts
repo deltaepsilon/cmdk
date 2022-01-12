@@ -4,26 +4,16 @@ const breakpoints = ['40rem', '49rem', '64rem', '80rem'];
 
 const config = {
   initialColorModeName: 'light',
-  useLocalStorage: false,
+  useLocalStorage: true,
 };
 
 const fonts = {
-  body: '"Modern Era", sans-serif',
-  heading: '"GT Flexa", sans-serif',
-  feature: '"GT Flexa", sans-serif',
+  body: '"frank-new", sans-serif',
+  heading: '"lores-12", sans-serif',
+  feature: '"lores-12", sans-serif',
 };
 
-const fontSizes = [
-  '0.875rem',
-  '1rem',
-  '1.25rem',
-  '1.5rem',
-  '1.875rem',
-  '2.25rem',
-  '3rem',
-  '4rem',
-  '4.5rem',
-];
+const fontSizes = ['0.875rem', '1rem', '1.25rem', '1.5rem', '1.875rem', '2.25rem', '3rem', '4rem', '4.5rem'];
 
 const fontWeights = {
   body: 400,
@@ -109,6 +99,8 @@ const styles = {
     textDecoration: 'none',
     ':hover': {
       textDecoration: 'underline',
+      textDecorationStyle: 'dashed !important',
+      textDecorationColor: 'secondary',
     },
   },
   h1: {

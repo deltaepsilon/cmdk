@@ -42,6 +42,6 @@ RUN sed -i 's/\r//' .append-to-zshrc \
   && echo '\n' >> .zshrc
 
 # Rock and Roll
-WORKDIR /kitty
+WORKDIR /cmdk
 
 CMD [ "tail", "-f", "/dev/null" ]

@@ -19,7 +19,7 @@ export const shared = {
 
 export const light = {
   primary: '#000',
-  secondary: porshe.acidGreen,
+  secondary: porshe.rubystoneRed,
   background: '#fff',
   inputBorder: porshe.gentianBlueMetallic,
   modalScrim: 'rgba(0, 0, 0, 0.6)',
@@ -43,7 +43,7 @@ export const light = {
 
 export const dark = {
   primary: '#fff',
-  secondary: porshe.rubystoneRed,
+  secondary: porshe.acidGreen,
   background: '#000',
   inputBorder: porshe.pastelBlue,
   modalScrim: 'rgba(255, 255, 255, 0.6)',

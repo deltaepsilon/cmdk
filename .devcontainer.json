@@ -12,21 +12,23 @@
   ],
   "service": "workspace",
   "settings": {
+    "editor.wordWrapColumn": 110,
+    "editor.rulers": [110],
     "eslint.workingDirectories": [
       "site/components",
       "site/pages",
       "site/theme"
     ],
-    "prettier.configPath": "/kitty/.prettierrc",
+    "prettier.configPath": "/cmdk/.prettierrc",
     "search.exclude": {
       "**/*.log": true
     },
-    "terminal.integrated.cwd": "/kitty",
+    "terminal.integrated.cwd": "/cmdk",
     "workbench.colorCustomizations": {
       "activityBar.background": "#00b5c8",
       "titleBar.activeBackground": "#f3037e",
       "titleBar.activeForeground": "#FFFBFC"
     }
   },
-  "workspaceFolder": "/kitty"
+  "workspaceFolder": "/cmdk"
 }

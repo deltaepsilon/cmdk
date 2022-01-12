@@ -1,4 +1,4 @@
-import { KittyThemeProvider, NOOP, constants } from 'ui';
+import { CmdkThemeProvider, NOOP, constants } from 'ui';
 import createCache, { EmotionCache } from '@emotion/cache';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -8,20 +8,20 @@ import ReactDOM from 'react-dom';
 
 declare global {
   interface Window {
-    __kitty: { mount: (isActive?: boolean) => () => void; unmount: () => void };
+    __cmdk: { mount: (isActive?: boolean) => () => void; unmount: () => void };
   }
 }
 
-const ID = 'script-kitty';
+const ID = 'cmdk';
 
 if (!constants.IS_SERVER) {
-  window.__kitty = {
+  window.__cmdk = {
     mount,
     unmount,
   };
 }
 
-export function useScriptKitty(isActive = !constants.IS_SERVER) {
+export function useScriptCmdk(isActive = !constants.IS_SERVER) {
   useEffect(() => {
     const unmount = mount(isActive);
 
@@ -51,9 +51,9 @@ function ThemedCommandK() {
 
   return (
     <CacheProvider value={cache}>
-      <KittyThemeProvider>
+      <CmdkThemeProvider>
         <CommandK onRender={onRender} />
-      </KittyThemeProvider>
+      </CmdkThemeProvider>
     </CacheProvider>
   );
 }
