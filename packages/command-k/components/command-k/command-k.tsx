@@ -2,14 +2,21 @@ import { ForwardedRef, KeyboardEvent, useCallback, useState } from 'react';
 import { Modal, NOOP } from 'ui';
 
 import CommandKInput from './command-k-input';
+import { CommandKPlugin } from './command-k.d';
 
 interface Props {
   id: string;
   onRender?: (ref: ForwardedRef<HTMLDivElement>) => void;
+  plugins: CommandKPlugin[];
   startOpen?: boolean;
 }
 
-export default function CommandK({ id, onRender: parentOnRender = NOOP, startOpen = false }: Props) {
+export default function CommandK({
+  id,
+  onRender: parentOnRender = NOOP,
+  plugins = [],
+  startOpen = false,
+}: Props) {
   const [isActive, setIsActive] = useState(false);
   const onRender = useCallback(
     (ref) => {
@@ -36,7 +43,7 @@ export default function CommandK({ id, onRender: parentOnRender = NOOP, startOpe
       onRender={onRender}
       startOpen={startOpen}
     >
-      <CommandKInput />
+      <CommandKInput plugins={plugins} />
     </Modal>
   );
 }

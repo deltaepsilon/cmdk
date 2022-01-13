@@ -1,9 +1,9 @@
 import { CmdkThemeProvider, NOOP, constants } from 'ui';
+import { CommandK, CommandKPlugin } from 'command-k';
 import createCache, { EmotionCache } from '@emotion/cache';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { CacheProvider } from '@emotion/react';
-import { CommandK } from 'command-k';
 import ReactDOM from 'react-dom';
 
 declare global {
@@ -13,6 +13,7 @@ declare global {
 }
 
 const ID = 'cmdk';
+const PLUGINS = [] as CommandKPlugin[];
 
 if (!constants.IS_SERVER) {
   window.__cmdk = {
@@ -52,7 +53,7 @@ function ThemedCommandK() {
   return (
     <CacheProvider value={cache}>
       <CmdkThemeProvider>
-        <CommandK id="external-build" onRender={onRender} />
+        <CommandK id="external-build" onRender={onRender} plugins={PLUGINS} />
       </CmdkThemeProvider>
     </CacheProvider>
   );

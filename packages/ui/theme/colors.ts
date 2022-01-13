@@ -46,7 +46,7 @@ export const dark = {
   primary: '#fff',
   secondary: porshe.acidGreen,
   background: '#000',
-  inputBorder: porshe.pastelBlue,
+  inputBorder: '#fff',
   modalScrim: 'rgba(255, 255, 255, 0.6)',
   boxShadowFocus: porshe.acidGreen,
   dark000: 'rgba(255, 255, 255, 0)',
