@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "declarationDir": "./types",
     "lib": [
       "es6",
       "dom"
-    ]
+    ],
+    "outDir": "dist"
   },
   "extends": "tsconfig/react-library.json",
   "include": [

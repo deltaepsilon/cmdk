@@ -74,7 +74,7 @@ function ColorsBlock({ colors, title }: { colors: string[][]; title: string }) {
 }
 
 function getFlatColors(colors: { [key: string]: string }) {
-  const colorsText = [...new Set(Object.values(colors))].map((hex) => {
+  const colorsText = Object.values(colors).map((hex) => {
     const isShort = hex.length === 4;
 
     return isShort ? `${hex}${hex.slice(1)}` : hex;

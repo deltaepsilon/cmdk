@@ -8,3 +8,4 @@ alias ll="ls -al"
 
 # Symlinks
 ln -s /cmdk/bin/dev.sh /usr/bin/dev
+ln -s /cmdk/bin/build.sh /usr/bin/build

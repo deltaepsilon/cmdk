@@ -1,8 +1,8 @@
 {
   "name": "@quiver/cmdk",
   "version": "0.0.0",
-  "main": "index.tsx",
-  "types": "index.tsx",
+  "main": "dist/index.js",
+  "types": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "build": "esbuild index.tsx --bundle --outfile=dist/index.js --inject:./react-shim.js",

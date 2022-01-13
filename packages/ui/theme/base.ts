@@ -47,11 +47,6 @@ const radii = {
   full: '9999px',
 };
 
-const shadows = {
-  active: '0px 0.25rem 0.5rem rgba(0, 0, 0, 0.25)',
-  hover: '0px 0.5rem 1rem rgba(0, 0, 0, 0.25)',
-};
-
 const sizes = {
   16: '1rem',
   30: '1.875rem',
@@ -160,7 +155,6 @@ const base = {
   fontWeights,
   lineHeights,
   radii,
-  shadows,
   sizes,
   space,
   styles,

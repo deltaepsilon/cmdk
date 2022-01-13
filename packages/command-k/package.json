@@ -2,8 +2,11 @@
   "name": "command-k",
   "version": "0.0.0",
   "main": "./index.tsx",
-  "types": "./index.d.ts",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
+  "scripts": {
+    "build": "rm -rf ./dist && tsc"
+  },
   "dependencies": {
     "ui": "*"
   },

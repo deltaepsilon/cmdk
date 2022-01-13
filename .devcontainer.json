@@ -13,7 +13,9 @@
   "service": "workspace",
   "settings": {
     "editor.wordWrapColumn": 110,
-    "editor.rulers": [110],
+    "editor.rulers": [
+      110
+    ],
     "eslint.workingDirectories": [
       "site/components",
       "site/pages",
@@ -21,8 +23,11 @@
     ],
     "prettier.configPath": "/cmdk/.prettierrc",
     "search.exclude": {
-      "**/*.log": true
+      "**/*.log": true,
+      "**/dist/**": true,
+      "**/.next/**": true
     },
+    "files.exclude": {},
     "terminal.integrated.cwd": "/cmdk",
     "workbench.colorCustomizations": {
       "activityBar.background": "#00b5c8",

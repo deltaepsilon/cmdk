@@ -1,10 +1,17 @@
+import { Theme } from 'theme-ui';
+
 export const transition = // eslint-disable-next-line no-multi-str
   'color .15s ease-in-out, \
 background-color .15s ease-in-out, \
 border-color .15s ease-in-out, \
 box-shadow .15s ease-in-out';
 
-export const focus = (theme) => `0 0 0 0.25rem ${theme.colors.focus}`;
+const shadows = {
+  active: '0px 0.25rem 0.5rem rgba(0, 0, 0, 0.25)',
+  hover: '0px 0.5rem 1rem rgba(0, 0, 0, 0.25)',
+};
+
+export const focus = (theme: Theme) => `0 0 0 0.25rem ${theme.colors?.focus}`;
 
 export const shadowStates = {
   '&:focus': {
@@ -31,26 +38,26 @@ export const shadowStates = {
       },
     },
     '&:hover:focus': {
-      boxShadow: (theme) => `${focus(theme)}, ${theme.shadows.hover}`,
+      boxShadow: (theme: Theme) => `${focus(theme)}, ${shadows.hover}`,
     },
     '&:hover:focus:not(:focus-visible)': {
       boxShadow: 'none',
     },
     '&:hover:focus-visible': {
-      boxShadow: (theme) => `${focus(theme)}, ${theme.shadows.hover}`,
+      boxShadow: (theme: Theme) => `${focus(theme)}, ${shadows.hover}`,
     },
     // ACTIVE
     '&:active': {
       boxShadow: 'active',
     },
     '&:active:focus': {
-      boxShadow: (theme) => `${focus(theme)}, ${theme.shadows.active}`,
+      boxShadow: (theme: Theme) => `${focus(theme)}, ${shadows.active}`,
     },
     '&:active:focus:not(:focus-visible)': {
       boxShadow: 'none',
     },
     '&:active:focus-visible': {
-      boxShadow: (theme) => `${focus(theme)}, ${theme.shadows.active}`,
+      boxShadow: (theme: Theme) => `${focus(theme)}, ${shadows.active}`,
     },
   },
 };
