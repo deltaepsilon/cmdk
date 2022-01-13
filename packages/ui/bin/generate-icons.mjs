@@ -20,13 +20,15 @@ const componentsFilepath = path.resolve(iconsFilepath, './components');
     svgContents.map((svgContent, i) =>
       svgr.transform(
         svgContent,
-        { icon: true },
+        { icon: true, typescript: true },
         {
           componentName: getComponentName(svgFiles[i]),
         },
       ),
     ),
   );
+
+  // (props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>)
 
   await writeJsFiles({ jsContents, svgFiles });
 

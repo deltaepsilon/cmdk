@@ -1,1 +1,1 @@
-export { default as CommandK } from './command-k';
+export * from './components';

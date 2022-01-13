@@ -52,7 +52,7 @@ function ThemedCommandK() {
   return (
     <CacheProvider value={cache}>
       <CmdkThemeProvider>
-        <CommandK onRender={onRender} />
+        <CommandK id="external-build" onRender={onRender} />
       </CmdkThemeProvider>
     </CacheProvider>
   );

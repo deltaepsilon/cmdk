@@ -1,4 +1,4 @@
-import { ThemeUIStyleObject } from 'theme-ui';
+import { StylePropertyValue, ThemeUIStyleObject } from 'theme-ui';
 
 const breakpoints = ['40rem', '49rem', '64rem', '80rem'];
 
@@ -99,7 +99,7 @@ const styles = {
     textDecoration: 'none',
     ':hover': {
       textDecoration: 'underline',
-      textDecorationStyle: 'dashed !important',
+      textDecorationStyle: 'dashed !important' as StylePropertyValue<any>,
       textDecorationColor: 'secondary',
     },
   },

@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "esbuild index.tsx --bundle --outfile=dist/index.js --inject:./react-shim.js",
-    "build:watch": "chokidar \"**/*.tsx\" -c \"yarn build\"",
+    "build:watch": "chokidar \"**/*.tsx\" \"../../packages/**/*.tsx\" \"../../packages/**/*.ts\" -c \"yarn build\"",
     "dev": "yarn build:watch"
   },
   "devDependencies": {

@@ -9,6 +9,7 @@ export default function Header() {
         flexDirection: ['row', 'row', 'column'],
         alignItems: 'center',
         padding: [2, 3, 4],
+        paddingRight: '0 !important',
       }}
     >
       <Link
@@ -29,12 +30,18 @@ export default function Header() {
       <List
         sx={{
           gridTemplateColumns: ['repeat(auto-fit, 150px)', 'repeat(auto-fit, 150px)', '1fr', '1fr'],
+          justifyItems: 'flex-start',
           width: '100%',
         }}
       >
         <HeaderListItem>
           <Link href="/colors" variant="pill-tertiary">
             Colors
+          </Link>
+        </HeaderListItem>
+        <HeaderListItem>
+          <Link href="/cmdk-input" variant="pill-tertiary">
+            CMDK Input
           </Link>
         </HeaderListItem>
       </List>
@@ -50,7 +57,7 @@ function HeaderListItem({ children }) {
         alignItems: 'center',
         display: 'flex',
         justifyContent: 'center',
-        'a, button': { paddingLeft: 0 },
+        'a, button': { paddingLeft: 3, marginLeft: 2, whiteSpace: 'nowrap' },
       }}
     >
       {children}

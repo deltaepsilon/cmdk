@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "baseUrl": ".",
     "lib": [
       "es6",
