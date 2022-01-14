@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, FormEvent, MouseEvent, Ref, SyntheticEvent, forwardRef } from 'react';
 import { Button as ThemeUIButton, ThemeUIStyleObject } from 'theme-ui';
 
-import { ButtonVariant } from 'theme';
+import { ButtonVariant } from 'ui';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: (e?: FormEvent<HTMLFormElement> | MouseEvent | SyntheticEvent | undefined) => void;

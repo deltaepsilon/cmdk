@@ -2,7 +2,15 @@ import { ForwardedRef, KeyboardEvent, useCallback, useState } from 'react';
 import { Modal, NOOP } from 'ui';
 
 import CommandKInput from './command-k-input';
-import { CommandKPlugin } from './command-k.d';
+
+export interface CommandKPlugin {
+  id: string;
+  title: string;
+  description: string;
+  url: string;
+  version: string;
+  main: () => void;
+}
 
 interface Props {
   id: string;
@@ -18,6 +26,7 @@ export default function CommandK({
   startOpen = false,
 }: Props) {
   const [isActive, setIsActive] = useState(false);
+  const [canDismiss, setCanDismiss] = useState(true);
   const onRender = useCallback(
     (ref) => {
       const modals = document.querySelectorAll('[data-modal-id^="cmdk"]');
@@ -34,16 +43,18 @@ export default function CommandK({
     },
     [id, parentOnRender],
   );
+  const onInputChanged = useCallback((input) => setCanDismiss(!input), []);
 
   return (
     <Modal
-      modalId={`cmdk-${id}`}
+      dismissOnEscape={canDismiss}
       isActive={isActive}
       keyboardTrigger={keyboardTrigger}
+      modalId={`cmdk-${id}`}
       onRender={onRender}
       startOpen={startOpen}
     >
-      <CommandKInput plugins={plugins} />
+      <CommandKInput id={id} isActive={isActive} onInputChanged={onInputChanged} plugins={plugins} />
     </Modal>
   );
 }

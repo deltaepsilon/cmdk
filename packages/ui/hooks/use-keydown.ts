@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { KeyboardEvent, useEffect } from 'react';
 
 interface UseKeydownArgs {
-  isActive: boolean;
+  isActive?: boolean;
   el?: HTMLElement | HTMLInputElement | null;
-  callback: EventListenerOrEventListenerObject;
+  callback: (e: KeyboardEvent) => void;
 }
 
 export default function useKeydown({ isActive = true, el, callback }: UseKeydownArgs, memoArray = [] as any) {
@@ -11,9 +11,10 @@ export default function useKeydown({ isActive = true, el, callback }: UseKeydown
     if (isActive) {
       const target = el || window.document;
 
-      target.addEventListener('keydown', callback);
+      target.addEventListener('keydown', callback as unknown as EventListenerOrEventListenerObject);
 
-      return () => target.removeEventListener('keydown', callback);
+      return () =>
+        target.removeEventListener('keydown', callback as unknown as EventListenerOrEventListenerObject);
     }
   }, [isActive, callback, el, ...memoArray]); // eslint-disable-line react-hooks/exhaustive-deps
 

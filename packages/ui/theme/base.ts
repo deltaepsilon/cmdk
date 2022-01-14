@@ -42,8 +42,6 @@ const radii = {
   default: '0.25rem',
   md: '0.375rem',
   lg: '0.5rem',
-  xl: '1rem',
-  xxl: '1.25rem',
   full: '9999px',
 };
 
@@ -85,9 +83,6 @@ const styles = {
     fontFamily: 'body',
     lineHeight: 'body',
     fontWeight: 'body',
-    '*:focus': {
-      outlineColor: 'focus',
-    },
   },
   a: {
     color: 'primary',

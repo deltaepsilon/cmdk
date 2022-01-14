@@ -5,6 +5,7 @@ import { ThemeUIStyleObject } from 'theme-ui';
 
 interface Props {
   children: React.ReactNode;
+  dismissOnEscape?: boolean;
   isActive?: boolean;
   keyboardTrigger?: (e: KeyboardEvent) => boolean;
   modalId?: string;
@@ -15,6 +16,7 @@ interface Props {
 
 export default function Modal({
   children,
+  dismissOnEscape = true,
   isActive = true,
   keyboardTrigger = () => false,
   modalId = '',
@@ -24,24 +26,23 @@ export default function Modal({
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const { isOpen, setIsOpen, toggle } = useModalState({ startOpen });
-  const keydownCallback: EventListener = useCallback(
+  const keydownCallback = useCallback(
     (e) => {
-      const keyboardEvent = e as unknown as KeyboardEvent;
       switch (true) {
-        case keyboardEvent.code === 'Escape':
+        case e.code === 'Escape' && dismissOnEscape:
           setIsOpen(false);
           break;
 
-        case keyboardTrigger(keyboardEvent):
-          keyboardEvent.preventDefault();
+        case keyboardTrigger(e):
+          e.preventDefault();
           setIsOpen(true);
           break;
       }
     },
-    [keyboardTrigger, setIsOpen],
+    [dismissOnEscape, keyboardTrigger, setIsOpen],
   );
 
-  useKeydown({ isActive: isActive, callback: keydownCallback }, [setIsOpen]);
+  useKeydown({ isActive: isActive, callback: keydownCallback });
 
   useEffect(() => {
     onRender(ref);
@@ -63,7 +64,7 @@ export default function Modal({
       }}
       onClick={toggle}
     >
-      <Box onClick={stopPropagation}>{children}</Box>
+      {isOpen ? <Box onClick={stopPropagation}>{children}</Box> : null}
     </Flex>
   );
 }

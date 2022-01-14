@@ -1,7 +1,7 @@
 import { CmdkThemeProvider, NOOP, constants } from 'ui';
-import { CommandK, CommandKPlugin } from 'command-k';
+import { CommandK, defaultPlugins } from 'command-k';
 import createCache, { EmotionCache } from '@emotion/cache';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { CacheProvider } from '@emotion/react';
 import ReactDOM from 'react-dom';
@@ -13,7 +13,7 @@ declare global {
 }
 
 const ID = 'cmdk';
-const PLUGINS = [] as CommandKPlugin[];
+const PLUGINS = defaultPlugins;
 
 if (!constants.IS_SERVER) {
   window.__cmdk = {

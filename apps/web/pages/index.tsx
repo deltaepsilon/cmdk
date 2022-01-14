@@ -1,6 +1,4 @@
-import { Box, Flex, Grid, Text } from 'ui';
-
-import { CommandK } from 'command-k';
+import { Box, Grid, Text } from 'ui';
 
 export default function IndexPage() {
   return (

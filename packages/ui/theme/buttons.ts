@@ -1,13 +1,9 @@
 import { ThemeUICSSObject, ThemeUIStyleObject } from 'theme-ui';
 import { focus, shadowStates, transition } from './states';
 
-export const smWidth = '10rem';
-export const mdWidth = '15rem';
-export const lgWidth = '20rem';
-
 const pillStyles: ThemeUICSSObject = {
   appearance: 'none',
-  borderRadius: '1.5rem',
+  borderRadius: 'lg',
   cursor: 'pointer',
   display: 'inline-flex',
   fontFamily: 'body',
@@ -145,7 +141,7 @@ const inlineVariant: ThemeUICSSObject = {
   appearance: 'none',
   backgroundColor: 'transparent',
   border: 'none',
-  borderRadius: '0.125rem',
+  borderRadius: 'sm',
   color: 'inherit',
   cursor: 'pointer',
   display: 'inline-flex',
@@ -172,11 +168,6 @@ const inlineVariant: ThemeUICSSObject = {
   '&:focus-visible:not(.disabled)': {
     boxShadow: focus,
     outline: 'none',
-  },
-  '&:hover:not([disabled]):not(.disabled)': {
-    textDecoration: 'underline',
-    textDecorationStyle: 'dashed',
-    textDecorationColor: 'secondary',
   },
   '&:active:not([disabled]):not(.disabled)': {
     color: 'gray500',

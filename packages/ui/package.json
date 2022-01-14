@@ -2,11 +2,12 @@
   "name": "ui",
   "version": "0.0.0",
   "main": "./index.tsx",
-  "types": "./dist/index.d.ts",
+  "types": "./index.tsx",
   "license": "MIT",
   "scripts": {
-    "dev": "yarn generate:icons",
-    "build": "yarn generate:icons && rm -rf ./dist && tsc",
+    "build": "yarn generate:icons",
+    "build:watch": "chokidar \"./icons/svg/*.svg\" -c \"yarn build\"",
+    "dev": "yarn build:watch",
     "generate:icons": "node ./bin/generate-icons.mjs"
   },
   "devDependencies": {
@@ -14,6 +15,7 @@
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "@types/tinycolor2": "^1.4.3",
+    "chokidar": "^3.5.2",
     "config": "*",
     "tsconfig": "*",
     "typescript": "^4.5.3"

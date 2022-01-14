@@ -1,10 +1,10 @@
 import { Box, Flex, Grid } from 'ui';
-import { CommandK, CommandKPlugin } from 'command-k';
+import { CommandK, defaultPlugins } from 'command-k';
 
 import { Header } from 'components';
 import { ReactNode } from 'react';
 
-const PLUGINS = [] as CommandKPlugin[];
+const PLUGINS = defaultPlugins;
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -18,11 +18,12 @@ export default function Layout({ children }: { children: ReactNode }) {
         columns={['1fr', '1fr', '200px 1fr']}
         sx={{
           maxWidth: (theme) => theme.breakpoints[3],
+          minHeight: '100vh',
           width: '100%',
         }}
       >
         <Header />
-        <Box sx={{ justifySelf: 'center', padding: [2, 3, 4] }}>{children}</Box>
+        <Box sx={{ justifySelf: 'center', padding: [2, 3, 4], width: '100%' }}>{children}</Box>
       </Grid>
 
       <CommandK id="web-layout" plugins={PLUGINS} />
