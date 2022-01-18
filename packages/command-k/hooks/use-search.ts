@@ -1,4 +1,4 @@
-import { CommandKPlugin } from '.';
+import { CommandKPlugin } from 'command-k';
 import Fuse from 'fuse.js';
 import { useMemo } from 'react';
 
@@ -13,9 +13,6 @@ export default function useSearch({ query, plugins }: Args) {
   );
 
   return useMemo(() => {
-    if (!query) {
-      console.log(fuse.getIndex());
-    }
     return query
       ? fuse.search(query)
       : (plugins.map((item, index) => ({

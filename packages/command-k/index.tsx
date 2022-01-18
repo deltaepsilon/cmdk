@@ -1,3 +1,3 @@
 export * from './components';
 export * from './plugins';
-export type { CommandKPlugin } from './components/command-k';
+export type { CommandKPlugin, Mount } from './components/command-k';

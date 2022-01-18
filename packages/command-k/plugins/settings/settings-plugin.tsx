@@ -1,4 +1,5 @@
 import { CommandKPlugin } from 'command-k';
+import { NOOP } from 'ui';
 
 const settingsPlugin: CommandKPlugin = {
   id: 'settings',
@@ -6,11 +7,12 @@ const settingsPlugin: CommandKPlugin = {
   description: 'CMD-K settings',
   url: 'https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/settings',
   version: '0.0.1',
-  main: settingsPluginMain,
+  mount,
+  unmount: NOOP,
 };
 
 export default settingsPlugin;
 
-function settingsPluginMain() {
+function mount() {
   console.log('Hello settings plugin!');
 }

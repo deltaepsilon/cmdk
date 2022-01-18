@@ -1,18 +1,23 @@
-import { CommandKPlugin } from './command-k';
+import { CommandKPlugin } from 'command-k';
 import { useKeydown } from 'ui';
 
 export default function useKeys({
   plugins,
   setIndex,
+  onClose,
 }: {
   plugins: CommandKPlugin[];
   setIndex: React.Dispatch<React.SetStateAction<number>>;
+  onClose: () => void;
 }) {
   useKeydown(
     {
       isActive: true,
       callback: (e) => {
         switch (e.code) {
+          case 'Escape':
+            onClose();
+            break;
           case 'ArrowUp':
             setIndex((i) => Math.max(0, i - 1));
             break;

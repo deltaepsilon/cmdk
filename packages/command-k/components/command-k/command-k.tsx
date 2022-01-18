@@ -3,13 +3,15 @@ import { Modal, NOOP } from 'ui';
 
 import CommandKInput from './command-k-input';
 
+export type Mount = (mountPoint: Document) => void;
 export interface CommandKPlugin {
   id: string;
   title: string;
   description: string;
   url: string;
   version: string;
-  main: () => void;
+  mount: Mount;
+  unmount: () => void;
 }
 
 interface Props {
@@ -43,7 +45,17 @@ export default function CommandK({
     },
     [id, parentOnRender],
   );
-  const onInputChanged = useCallback((input) => setCanDismiss(!input), []);
+  /**
+   * TODO: Combine all of this input/active stuff into a single callback
+   */
+  const onInputChanged = useCallback(
+    (input) => setCanDismiss((canDismiss) => (!canDismiss || !input ? false : true)),
+    [],
+  );
+  const onPluginActive = useCallback(
+    (plugin) => setCanDismiss((canDismiss) => (!canDismiss || !!plugin ? false : true)),
+    [],
+  );
 
   return (
     <Modal
@@ -54,7 +66,12 @@ export default function CommandK({
       onRender={onRender}
       startOpen={startOpen}
     >
-      <CommandKInput id={id} isActive={isActive} onInputChanged={onInputChanged} plugins={plugins} />
+      <CommandKInput
+        id={id}
+        isActive={isActive}
+        onInputChanged={onInputChanged}
+        plugins={plugins}
+      />
     </Modal>
   );
 }

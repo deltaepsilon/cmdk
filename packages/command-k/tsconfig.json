@@ -1,9 +1,18 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "lib": [
       "es6",
       "dom"
-    ]
+    ],
+    "paths": {
+      "components/*": [
+        "./components/*"
+      ],
+      "hooks/*": [
+        "./hooks/*"
+      ],
+    }
   },
   "extends": "tsconfig/react-library.json",
   "include": [

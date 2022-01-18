@@ -1,7 +1,17 @@
 ## To Do
 
-- [ ] Style modal
-- [ ] Handle keystrokes with Fuse.js
+- [ ] Handle plugin selection
+
+### 2022/01/14
+
+- [x] Style modal
+- [x] Handle keystrokes with Fuse.js
+
+### 2022/01/13
+
+- 2 hours
+- [x] Modal structure
+- [x] Scaffold plugins
 
 ### 2022/01/12
 
