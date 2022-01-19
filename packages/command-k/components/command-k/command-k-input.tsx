@@ -7,15 +7,17 @@ import Pane from './pane';
 interface Props {
   id: string;
   isActive: boolean;
-  onInputChanged?: (input: string) => void;
+  onIsActiveChanged?: (isActive: boolean) => void;
   plugins: CommandKPlugin[];
 }
 
-export default function CommandKInput({ id, isActive, onInputChanged = NOOP, plugins }: Props) {
+export default function CommandKInput({ id, isActive, onIsActiveChanged = NOOP, plugins }: Props) {
   const [query, setQuery] = useState('');
+  const [isPaneActive, setIsPaneActive] = useState(false);
   const onChange = useCallback((e) => setQuery(e.target.value), []);
 
   useKeydown({
+    isActive: !isPaneActive,
     callback: (e) => {
       if (e.code === 'Escape') {
         setQuery('');
@@ -24,8 +26,8 @@ export default function CommandKInput({ id, isActive, onInputChanged = NOOP, plu
   });
 
   useEffect(() => {
-    onInputChanged(query);
-  }, [query]);
+    onIsActiveChanged(!!query || !!isPaneActive);
+  }, [isPaneActive, query]);
 
   return isActive ? (
     <Box sx={{ background: 'background', borderRadius: 'sm', position: 'relative', width: 360 }}>
@@ -46,7 +48,7 @@ export default function CommandKInput({ id, isActive, onInputChanged = NOOP, plu
           '&:focus': { boxShadow: 'none' },
         }}
       />
-      <Pane plugins={plugins} query={query} />
+      <Pane onIsActiveChanged={setIsPaneActive} plugins={plugins} query={query} />
     </Box>
   ) : null;
 }

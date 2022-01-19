@@ -28,7 +28,7 @@ export default function CommandK({
   startOpen = false,
 }: Props) {
   const [isActive, setIsActive] = useState(false);
-  const [canDismiss, setCanDismiss] = useState(true);
+  const [isInputActive, setIsInputActive] = useState(true);
   const onRender = useCallback(
     (ref) => {
       const modals = document.querySelectorAll('[data-modal-id^="cmdk"]');
@@ -45,33 +45,17 @@ export default function CommandK({
     },
     [id, parentOnRender],
   );
-  /**
-   * TODO: Combine all of this input/active stuff into a single callback
-   */
-  const onInputChanged = useCallback(
-    (input) => setCanDismiss((canDismiss) => (!canDismiss || !input ? false : true)),
-    [],
-  );
-  const onPluginActive = useCallback(
-    (plugin) => setCanDismiss((canDismiss) => (!canDismiss || !!plugin ? false : true)),
-    [],
-  );
 
   return (
     <Modal
-      dismissOnEscape={canDismiss}
+      dismissOnEscape={!isInputActive}
       isActive={isActive}
       keyboardTrigger={keyboardTrigger}
       modalId={`cmdk-${id}`}
       onRender={onRender}
       startOpen={startOpen}
     >
-      <CommandKInput
-        id={id}
-        isActive={isActive}
-        onInputChanged={onInputChanged}
-        plugins={plugins}
-      />
+      <CommandKInput id={id} isActive={isActive} onIsActiveChanged={setIsInputActive} plugins={plugins} />
     </Modal>
   );
 }

@@ -6,11 +6,12 @@ import { CommandKPlugin } from 'command-k';
 import SearchResult from './search-result';
 
 interface Props {
+  onIsActiveChanged?: (isActive: boolean) => void;
   plugins: CommandKPlugin[];
   query: string;
 }
 
-export default function Pane({ plugins, query }: Props) {
+export default function Pane({ onIsActiveChanged, plugins, query }: Props) {
   const resultsRef = useRef<HTMLDivElement>(null);
   const iframeWrapperRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
@@ -44,6 +45,10 @@ export default function Pane({ plugins, query }: Props) {
 
       return unmount;
     }
+  }, [activePlugin]);
+
+  useEffect(() => {
+    onIsActiveChanged && onIsActiveChanged(!!activePlugin);
   }, [activePlugin]);
 
   useEffect(() => {

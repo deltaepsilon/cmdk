@@ -1,6 +1,13 @@
 ## To Do
 
-- [ ] Handle plugin selection
+- [ ] Mount plugins
+
+## 2022/01/19
+
+- [x] Close plugins
+### 2022/01/18
+- 2 hours
+- [x] Handle plugin selection
 
 ### 2022/01/14
 
