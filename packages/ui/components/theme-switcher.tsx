@@ -7,10 +7,15 @@ interface Props {
   sx?: ThemeUIStyleObject;
 }
 
+export enum ColorMode {
+  light = 'default',
+  dark = 'dark',
+}
+
 export default function ThemeSwitcher({ sx }: Props) {
   const [mode, setMode] = useColorMode();
-  const isLight = mode === 'default';
-  const onClick = useCallback(() => setMode(isLight ? 'dark' : 'default'), [isLight, setMode]);
+  const isLight = mode === ColorMode.light;
+  const onClick = useCallback(() => setMode(isLight ? ColorMode.dark : ColorMode.light), [isLight, setMode]);
 
   return (
     <Button variant="circle-tertiary" onClick={onClick} sx={{ fontSize: 2, width: '4rem', ...sx }}>

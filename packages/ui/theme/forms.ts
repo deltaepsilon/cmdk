@@ -16,7 +16,7 @@ const commonFormElements: ThemeUICSSObject = {
     opacity: 0.5,
   },
   '&:focus': {
-    boxShadow: (theme) => `0px 0px 10px ${theme.colors?.boxShadowFocus}`,
+    // boxShadow: (theme) => `0px 0px 10px ${theme.colors?.boxShadowFocus}`,
     outline: 'none',
   },
 };

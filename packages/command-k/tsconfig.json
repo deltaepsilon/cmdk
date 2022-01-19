@@ -3,7 +3,8 @@
     "baseUrl": "./",
     "lib": [
       "es6",
-      "dom"
+      "dom",
+      "DOM.Iterable"
     ],
     "paths": {
       "components/*": [

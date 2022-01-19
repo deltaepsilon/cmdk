@@ -1,11 +1,12 @@
 export { default as Box } from './box';
 export { default as Button } from './button';
 export { default as Flex } from './flex';
+export { default as Fonts, href as fontsHref } from './fonts';
 export { default as Grid } from './grid';
 export { default as Input } from './input';
 export { default as Label } from './label';
 export { default as Link } from './link';
 export { default as Modal } from './modal';
 export { default as Text } from './text';
-export { default as ThemeSwitcher } from './theme-switcher';
+export { default as ThemeSwitcher, ColorMode } from './theme-switcher';
 export { List, ListItem } from './list';

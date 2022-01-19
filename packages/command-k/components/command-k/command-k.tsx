@@ -1,9 +1,22 @@
-import { ForwardedRef, KeyboardEvent, useCallback, useState } from 'react';
-import { Modal, NOOP } from 'ui';
+import { CmdkThemeProvider, ColorMode, Modal, NOOP } from 'ui';
+import { ForwardedRef, KeyboardEvent, ReactElement, useCallback, useState } from 'react';
 
 import CommandKInput from './command-k-input';
+import { ThemeProviderProps } from '@emotion/react';
 
-export type Mount = (mountPoint: Document) => void;
+export type Mount = (
+  mountPoint: HTMLDivElement,
+  {
+    setColorMode,
+    theme,
+    ThemeProvider,
+  }: {
+    setColorMode: React.Dispatch<React.SetStateAction<string>>;
+    theme: ThemeProviderProps['theme'];
+    ThemeProvider: typeof CmdkThemeProvider;
+  },
+) => void;
+
 export interface CommandKPlugin {
   id: string;
   title: string;

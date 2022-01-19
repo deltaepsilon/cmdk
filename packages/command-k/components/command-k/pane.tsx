@@ -1,9 +1,12 @@
-import { Box, Button, Grid, NOOP, XIcon } from 'ui';
-import { MountLayer, UnmountLayer, useKeys, useLayers, useSearch } from 'command-k/hooks';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Box, Button, CmdkThemeProvider, Fonts, Grid, XIcon, theme } from 'ui';
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import createCache, { EmotionCache } from '@emotion/cache';
+import { useKeys, useLayers, useSearch } from 'command-k/hooks';
 
+import { CacheProvider } from '@emotion/react';
 import { CommandKPlugin } from 'command-k';
 import SearchResult from './search-result';
+import { useColorMode } from 'theme-ui';
 
 interface Props {
   onIsActiveChanged?: (isActive: boolean) => void;
@@ -16,7 +19,8 @@ export default function Pane({ onIsActiveChanged, plugins, query }: Props) {
   const iframeWrapperRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [activePlugin, setActivePlugin] = useState<CommandKPlugin | null>(null);
-  const { mountLayer, getLayer } = useLayers({ iframeWrapper: iframeWrapperRef.current });
+  const { mountLayer, getMountPoint } = useLayers({ iframeWrapper: iframeWrapperRef.current });
+  const [, setColorMode] = useColorMode();
   const getOnClick = useCallback(
     (i) => () => {
       const plugin = plugins[i];
@@ -26,6 +30,10 @@ export default function Pane({ onIsActiveChanged, plugins, query }: Props) {
     },
     [],
   );
+  const selectActive = useCallback(() => {
+    console.log('index', index);
+    setActivePlugin(plugins[index]);
+  }, [index, plugins]);
   const onClose = useCallback(() => {
     setActivePlugin(null);
   }, [setActivePlugin]);
@@ -38,10 +46,13 @@ export default function Pane({ onIsActiveChanged, plugins, query }: Props) {
 
   useEffect(() => {
     if (activePlugin) {
-      const layer = getLayer(activePlugin.id);
       const unmount = mountLayer(activePlugin.id);
+      const mountPoint = getMountPoint(activePlugin.id);
 
-      layer?.contentWindow && activePlugin.mount(layer.contentWindow.document);
+      if (mountPoint) {
+        console.log(activePlugin.id, mountPoint);
+        activePlugin.mount(mountPoint, { setColorMode, theme, ThemeProvider: getThemeProvider(mountPoint) });
+      }
 
       return unmount;
     }
@@ -57,7 +68,7 @@ export default function Pane({ onIsActiveChanged, plugins, query }: Props) {
     childNode && childNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, [index]);
 
-  useKeys({ plugins, setIndex, onClose });
+  useKeys({ isPluginActive: !!activePlugin, plugins, selectActive, setIndex, onClose });
 
   return (
     <Box
@@ -85,9 +96,10 @@ export default function Pane({ onIsActiveChanged, plugins, query }: Props) {
       >
         {layerVisible && (
           <Button
+            autoFocus
             variant="circle-tertiary"
             onClick={onClose}
-            sx={{ backgroundColor: 'background', position: 'absolute', right: 3, top: 3 }}
+            sx={{ backgroundColor: 'background', position: 'absolute', right: 3, top: 3, marginTop: '-2px' }}
           >
             <XIcon />
           </Button>
@@ -105,4 +117,21 @@ export default function Pane({ onIsActiveChanged, plugins, query }: Props) {
       </Grid>
     </Box>
   );
+}
+
+function getThemeProvider(mountPoint: HTMLDivElement) {
+  return ({ children }: { children: ReactNode }) => {
+    const cache = useRef<EmotionCache>(
+      createCache({ container: mountPoint.parentElement as HTMLElement, key: 'command-k' }),
+    );
+
+    return (
+      <>
+        <Fonts />
+        <CacheProvider value={cache.current}>
+          <CmdkThemeProvider theme={theme}>{children}</CmdkThemeProvider>
+        </CacheProvider>
+      </>
+    );
+  };
 }

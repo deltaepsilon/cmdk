@@ -1,10 +1,13 @@
 ## To Do
 
-- [ ] Mount plugins
+- [ ] Mount correctly on `Enter` or `NumpadEnter`
+- [ ] Handle pane focus
 
 ## 2022/01/19
 
+- 2.5 hours
 - [x] Close plugins
+- [x] Mount plugins
 ### 2022/01/18
 - 2 hours
 - [x] Handle plugin selection

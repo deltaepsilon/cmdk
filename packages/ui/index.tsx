@@ -3,6 +3,7 @@ export * from './utils';
 export * from './hooks';
 export * as constants from './constants';
 export * from './icons';
+export { default as theme } from './theme';
 
 import { ThemeProvider } from 'theme-ui';
 import { ThemeProviderProps } from '@emotion/react';

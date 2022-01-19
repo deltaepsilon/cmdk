@@ -1,5 +1,6 @@
+import { CmdkThemeProvider, fontsHref } from 'ui';
+
 import { AppProps } from 'next/app';
-import { CmdkThemeProvider } from 'ui';
 import Head from 'next/head';
 import { Layout } from 'components';
 
@@ -21,7 +22,7 @@ function AppHead() {
     <Head>
       <title>CMD+K</title>
 
-      <link rel="stylesheet" href="https://use.typekit.net/yii7tof.css"></link>
+      <link rel="stylesheet" href={fontsHref}></link>
     </Head>
   );
 }
