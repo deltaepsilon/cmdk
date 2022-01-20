@@ -19,20 +19,24 @@ interface Props {
 export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged, plugins, query }: Props) {
   const resultsRef = useRef<HTMLDivElement>(null);
   const iframeWrapperRef = useRef<HTMLDivElement>(null);
-  const [index, setIndex] = useState(0);
+
+  const [refIndex, setRefIndex] = useState(0);
   const getOnClick = useCallback(
     (i) => () => {
       const plugin = plugins[i];
 
-      setIndex(i);
+      setRefIndex(i);
       setActivePlugin(plugin);
     },
     [],
   );
   const selectActive = useCallback(() => {
-    console.log('selectActive', index);
-    setActivePlugin(plugins[index]);
-  }, [index, plugins]);
+    /**
+     * Note, plugins[refIndex] works because refIndex corresponds to
+     * the index of the plugin in the plugins array.
+     */
+    setActivePlugin(plugins[refIndex]);
+  }, [refIndex, plugins]);
   const onClose = useCallback(() => {
     setActivePlugin(null);
   }, [setActivePlugin]);
@@ -41,14 +45,21 @@ export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged,
 
   useMountActivePlugin({ activePlugin, iframeWrapperRef, onClose });
 
-  useScrollToActivePlugin({ index, resultsRef });
+  useScrollToActivePlugin({ refIndex, resultsRef });
 
-  useKeys({ index, isPluginActive: !!activePlugin, onClose, plugins, selectActive, setIndex, searchResults });
+  useKeys({
+    refIndex,
+    isPluginActive: !!activePlugin,
+    onClose,
+    selectActive,
+    setRefIndex,
+    searchResults,
+  });
 
   useEffect(() => {
     const firstPlugin = searchResults[0];
 
-    firstPlugin && setIndex(firstPlugin.refIndex);
+    firstPlugin && setRefIndex(firstPlugin.refIndex);
   }, [query]);
 
   useEffect(() => {
@@ -93,7 +104,7 @@ export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged,
         {searchResults.map((result, i) => (
           <SearchResult
             key={result.item.id}
-            selected={index === result.refIndex}
+            selected={refIndex === result.refIndex}
             plugin={result.item}
             onClick={getOnClick(result.refIndex)}
           />
@@ -146,7 +157,6 @@ function useMountActivePlugin({
             onClose();
           }
         });
-        layer.contentDocument?.body.addEventListener('focusout', onClose);
       }
 
       return unmount;
@@ -155,13 +165,13 @@ function useMountActivePlugin({
 }
 
 function useScrollToActivePlugin({
-  index,
+  refIndex,
   resultsRef,
 }: {
-  index: number;
+  refIndex: number;
   resultsRef: React.RefObject<HTMLDivElement>;
 }) {
-  const childNode = resultsRef.current?.childNodes[index] as HTMLDivElement | undefined;
+  const childNode = resultsRef.current?.childNodes[refIndex] as HTMLDivElement | undefined;
 
   childNode && childNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }

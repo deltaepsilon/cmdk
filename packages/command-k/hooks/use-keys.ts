@@ -3,21 +3,19 @@ import Fuse from 'fuse.js';
 import { useKeydown } from 'ui';
 
 export default function useKeys({
-  index,
+  refIndex,
   isPluginActive,
   onClose,
-  plugins,
   searchResults,
   selectActive,
-  setIndex,
+  setRefIndex,
 }: {
-  index: number;
+  refIndex: number;
   isPluginActive: boolean;
   onClose: () => void;
-  plugins: CommandKPlugin[];
   searchResults: Fuse.FuseResult<CommandKPlugin>[];
   selectActive: () => void;
-  setIndex: React.Dispatch<React.SetStateAction<number>>;
+  setRefIndex: React.Dispatch<React.SetStateAction<number>>;
 }) {
   useKeydown(
     {
@@ -33,36 +31,34 @@ export default function useKeys({
             break;
           case 'ArrowUp':
             if (!isPluginActive) {
-              const activeIndex = getActiveIndex({ index, searchResults });
+              const activeIndex = getActiveIndex({ refIndex, searchResults });
               const nextRefIndex =
                 searchResults[activeIndex - 1]?.refIndex ?? searchResults[searchResults.length - 1]?.refIndex;
 
-              setIndex(nextRefIndex);
+              setRefIndex(nextRefIndex);
             }
             break;
           case 'ArrowDown':
             if (!isPluginActive) {
-              const activeIndex = getActiveIndex({ index, searchResults });
+              const activeIndex = getActiveIndex({ refIndex, searchResults });
               const nextRefIndex = searchResults[activeIndex + 1]?.refIndex ?? searchResults[0]?.refIndex;
 
-              setIndex(nextRefIndex);
-
-              // setIndex((i) => Math.min(plugins.length - 1, i + 1));
+              setRefIndex(nextRefIndex);
             }
             break;
         }
       },
     },
-    [isPluginActive, onClose, searchResults, selectActive, setIndex],
+    [isPluginActive, onClose, searchResults, selectActive, setRefIndex],
   );
 }
 
 function getActiveIndex({
-  index,
+  refIndex,
   searchResults,
 }: {
-  index: number;
+  refIndex: number;
   searchResults: Fuse.FuseResult<CommandKPlugin>[];
 }) {
-  return searchResults.findIndex(({ refIndex }) => refIndex === index);
+  return searchResults.findIndex((r) => r.refIndex === refIndex);
 }
