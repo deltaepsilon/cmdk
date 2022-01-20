@@ -1,18 +1,23 @@
 import { CommandKPlugin } from 'command-k';
+import Fuse from 'fuse.js';
 import { useKeydown } from 'ui';
 
 export default function useKeys({
+  index,
   isPluginActive,
+  onClose,
   plugins,
+  searchResults,
   selectActive,
   setIndex,
-  onClose,
 }: {
+  index: number;
   isPluginActive: boolean;
+  onClose: () => void;
   plugins: CommandKPlugin[];
+  searchResults: Fuse.FuseResult<CommandKPlugin>[];
   selectActive: () => void;
   setIndex: React.Dispatch<React.SetStateAction<number>>;
-  onClose: () => void;
 }) {
   useKeydown(
     {
@@ -27,14 +32,37 @@ export default function useKeys({
             onClose();
             break;
           case 'ArrowUp':
-            !isPluginActive && setIndex((i) => Math.max(0, i - 1));
+            if (!isPluginActive) {
+              const activeIndex = getActiveIndex({ index, searchResults });
+              const nextRefIndex =
+                searchResults[activeIndex - 1]?.refIndex ?? searchResults[searchResults.length - 1]?.refIndex;
+
+              setIndex(nextRefIndex);
+            }
             break;
           case 'ArrowDown':
-            !isPluginActive && setIndex((i) => Math.min(plugins.length - 1, i + 1));
+            if (!isPluginActive) {
+              const activeIndex = getActiveIndex({ index, searchResults });
+              const nextRefIndex = searchResults[activeIndex + 1]?.refIndex ?? searchResults[0]?.refIndex;
+
+              setIndex(nextRefIndex);
+
+              // setIndex((i) => Math.min(plugins.length - 1, i + 1));
+            }
             break;
         }
       },
     },
-    [isPluginActive, onClose, selectActive, setIndex],
+    [isPluginActive, onClose, searchResults, selectActive, setIndex],
   );
+}
+
+function getActiveIndex({
+  index,
+  searchResults,
+}: {
+  index: number;
+  searchResults: Fuse.FuseResult<CommandKPlugin>[];
+}) {
+  return searchResults.findIndex(({ refIndex }) => refIndex === index);
 }

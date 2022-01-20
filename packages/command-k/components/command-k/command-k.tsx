@@ -1,5 +1,5 @@
-import { CmdkThemeProvider, ColorMode, Modal, NOOP } from 'ui';
-import { ForwardedRef, KeyboardEvent, ReactElement, useCallback, useState } from 'react';
+import { CmdkThemeProvider, Modal, NOOP } from 'ui';
+import { ForwardedRef, KeyboardEvent, useCallback, useState } from 'react';
 
 import CommandKInput from './command-k-input';
 import { ThemeProviderProps } from '@emotion/react';

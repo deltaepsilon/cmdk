@@ -44,8 +44,10 @@ export default function Header() {
             CMDK Input
           </Link>
         </HeaderListItem>
+        <HeaderListItem>
+          <ThemeSwitcher sx={{ alignSelf: ['flex-start', 'flex-start', null], paddingLeft: 0 }} />
+        </HeaderListItem>
       </List>
-      <ThemeSwitcher sx={{ alignSelf: ['flex-start', 'flex-start', null] }} />
     </Flex>
   );
 }

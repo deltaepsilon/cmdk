@@ -44,8 +44,6 @@ export default function useLayers({ iframeWrapper }: { iframeWrapper: HTMLDivEle
 
       iframeWrapper?.appendChild(layer);
 
-      console.log({ iframeWrapper, layer });
-
       return () => iframeWrapper?.removeChild(layer);
     },
     [iframeWrapper],

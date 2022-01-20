@@ -9,18 +9,17 @@ import SearchResult from './search-result';
 import { useColorMode } from 'theme-ui';
 
 interface Props {
+  activePlugin: CommandKPlugin | null;
+  setActivePlugin: React.Dispatch<React.SetStateAction<CommandKPlugin | null>>;
   onIsActiveChanged?: (isActive: boolean) => void;
   plugins: CommandKPlugin[];
   query: string;
 }
 
-export default function Pane({ onIsActiveChanged, plugins, query }: Props) {
+export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged, plugins, query }: Props) {
   const resultsRef = useRef<HTMLDivElement>(null);
   const iframeWrapperRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
-  const [activePlugin, setActivePlugin] = useState<CommandKPlugin | null>(null);
-  const { mountLayer, getMountPoint } = useLayers({ iframeWrapper: iframeWrapperRef.current });
-  const [, setColorMode] = useColorMode();
   const getOnClick = useCallback(
     (i) => () => {
       const plugin = plugins[i];
@@ -31,7 +30,7 @@ export default function Pane({ onIsActiveChanged, plugins, query }: Props) {
     [],
   );
   const selectActive = useCallback(() => {
-    console.log('index', index);
+    console.log('selectActive', index);
     setActivePlugin(plugins[index]);
   }, [index, plugins]);
   const onClose = useCallback(() => {
@@ -40,35 +39,21 @@ export default function Pane({ onIsActiveChanged, plugins, query }: Props) {
   const searchResults = useSearch({ query, plugins });
   const layerVisible = !!activePlugin;
 
+  useMountActivePlugin({ activePlugin, iframeWrapperRef, onClose });
+
+  useScrollToActivePlugin({ index, resultsRef });
+
+  useKeys({ index, isPluginActive: !!activePlugin, onClose, plugins, selectActive, setIndex, searchResults });
+
   useEffect(() => {
-    setIndex(0);
+    const firstPlugin = searchResults[0];
+
+    firstPlugin && setIndex(firstPlugin.refIndex);
   }, [query]);
-
-  useEffect(() => {
-    if (activePlugin) {
-      const unmount = mountLayer(activePlugin.id);
-      const mountPoint = getMountPoint(activePlugin.id);
-
-      if (mountPoint) {
-        console.log(activePlugin.id, mountPoint);
-        activePlugin.mount(mountPoint, { setColorMode, theme, ThemeProvider: getThemeProvider(mountPoint) });
-      }
-
-      return unmount;
-    }
-  }, [activePlugin]);
 
   useEffect(() => {
     onIsActiveChanged && onIsActiveChanged(!!activePlugin);
   }, [activePlugin]);
-
-  useEffect(() => {
-    const childNode = resultsRef.current?.childNodes[index] as HTMLDivElement | undefined;
-
-    childNode && childNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, [index]);
-
-  useKeys({ isPluginActive: !!activePlugin, plugins, selectActive, setIndex, onClose });
 
   return (
     <Box
@@ -96,7 +81,6 @@ export default function Pane({ onIsActiveChanged, plugins, query }: Props) {
       >
         {layerVisible && (
           <Button
-            autoFocus
             variant="circle-tertiary"
             onClick={onClose}
             sx={{ backgroundColor: 'background', position: 'absolute', right: 3, top: 3, marginTop: '-2px' }}
@@ -109,9 +93,9 @@ export default function Pane({ onIsActiveChanged, plugins, query }: Props) {
         {searchResults.map((result, i) => (
           <SearchResult
             key={result.item.id}
-            selected={index === i}
+            selected={index === result.refIndex}
             plugin={result.item}
-            onClick={getOnClick(i)}
+            onClick={getOnClick(result.refIndex)}
           />
         ))}
       </Grid>
@@ -134,4 +118,50 @@ function getThemeProvider(mountPoint: HTMLDivElement) {
       </>
     );
   };
+}
+
+function useMountActivePlugin({
+  activePlugin,
+  iframeWrapperRef,
+  onClose,
+}: {
+  activePlugin: CommandKPlugin | null;
+  iframeWrapperRef: React.RefObject<HTMLDivElement>;
+  onClose: () => void;
+}) {
+  const { mountLayer, getMountPoint, getLayer } = useLayers({ iframeWrapper: iframeWrapperRef.current });
+  const [, setColorMode] = useColorMode();
+
+  useEffect(() => {
+    if (activePlugin) {
+      const layer = getLayer(activePlugin.id);
+      const unmount = mountLayer(activePlugin.id);
+      const mountPoint = getMountPoint(activePlugin.id);
+
+      if (mountPoint) {
+        activePlugin.mount(mountPoint, { setColorMode, theme, ThemeProvider: getThemeProvider(mountPoint) });
+
+        layer.contentDocument?.body.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            onClose();
+          }
+        });
+        layer.contentDocument?.body.addEventListener('focusout', onClose);
+      }
+
+      return unmount;
+    }
+  }, [activePlugin]);
+}
+
+function useScrollToActivePlugin({
+  index,
+  resultsRef,
+}: {
+  index: number;
+  resultsRef: React.RefObject<HTMLDivElement>;
+}) {
+  const childNode = resultsRef.current?.childNodes[index] as HTMLDivElement | undefined;
+
+  childNode && childNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }

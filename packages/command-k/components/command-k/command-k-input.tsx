@@ -13,8 +13,10 @@ interface Props {
 
 export default function CommandKInput({ id, isActive, onIsActiveChanged = NOOP, plugins }: Props) {
   const [query, setQuery] = useState('');
+  const [activePlugin, setActivePlugin] = useState<CommandKPlugin | null>(null);
   const [isPaneActive, setIsPaneActive] = useState(false);
   const onChange = useCallback((e) => setQuery(e.target.value), []);
+  const onClose = useCallback(() => setActivePlugin(null), []);
 
   useKeydown({
     isActive: !isPaneActive,
@@ -36,6 +38,7 @@ export default function CommandKInput({ id, isActive, onIsActiveChanged = NOOP, 
         autoFocus
         value={query}
         onChange={onChange}
+        onFocus={onClose}
         sx={{
           borderWidth: '0px 0px 3px 0px',
           borderColor: 'modalScrim',
@@ -48,7 +51,13 @@ export default function CommandKInput({ id, isActive, onIsActiveChanged = NOOP, 
           '&:focus': { boxShadow: 'none' },
         }}
       />
-      <Pane onIsActiveChanged={setIsPaneActive} plugins={plugins} query={query} />
+      <Pane
+        activePlugin={activePlugin}
+        setActivePlugin={setActivePlugin}
+        onIsActiveChanged={setIsPaneActive}
+        plugins={plugins}
+        query={query}
+      />
     </Box>
   ) : null;
 }

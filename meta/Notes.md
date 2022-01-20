@@ -1,53 +1,59 @@
 ## To Do
 
-- [ ] Mount correctly on `Enter` or `NumpadEnter`
-- [ ] Handle pane focus
+- [ ] Start Mock Overlay plugin 
 
-## 2022/01/19
+## 01/20
+
+- 2 hours
+- [x] Mount correctly on `Enter` or `NumpadEnter`
+- [x] Handle pane focus
+
+## 01/19
 
 - 2.5 hours
 - [x] Close plugins
 - [x] Mount plugins
-### 2022/01/18
+### 01/18
 - 2 hours
 - [x] Handle plugin selection
 
-### 2022/01/14
+### 01/14
 
+- 2 hours
 - [x] Style modal
 - [x] Handle keystrokes with Fuse.js
 
-### 2022/01/13
+### 01/13
 
 - 2 hours
 - [x] Modal structure
 - [x] Scaffold plugins
 
-### 2022/01/12
+### 01/12
 
 - 3 hours
 - [x] Fonts
 - [x] Layout
 - [x] Theme switching
 
-### 2022/01/11
+### 01/11
 
 - 2 hours
 - [x] Theming
 - [x] Pop modal
 - [x] Colors docs
 
-### 2022/01/10
+### 01/10
 
 - 2 hours
 - [x] Create external cmdk build
 
-### 2022/01/07
+### 01/07
 
 - 3 hours
 - [x] Rebuild as a Turborepo
 
-### 2022/01/06
+### 01/06
 
 - 2.5 hours
 - [x] Installed `theme-ui`
@@ -55,7 +61,7 @@
 - [x] Sorted out import aliases
 - [x] `/tools/src/node_modules` used for TS-friendly alias system
 
-### 2022/01/05
+### 01/05
 
 - 2.5 hours
 - [x] Docker config

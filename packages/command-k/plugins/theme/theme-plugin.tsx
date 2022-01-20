@@ -1,5 +1,5 @@
 import { Button, ColorMode, Flex, Grid, MoonIcon, NOOP, SunIcon, Text } from 'ui';
-import { useCallback, useRef } from 'react';
+import { useCallback, useLayoutEffect, useRef } from 'react';
 
 import { CommandKPlugin } from 'command-k';
 import ReactDOM from 'react-dom';
@@ -35,16 +35,15 @@ function ThemePlugin({
   const toggleColorMode = useCallback(() => {
     const updatedColorMode = isLight ? ColorMode.dark : ColorMode.light;
 
-    setTimeout(() => {
-      const buttons = buttonWrapperRef.current?.querySelectorAll('button');
-      const button = buttons ? [...buttons].find((b) => !b.disabled) : null;
-
-      button && button.focus();
-    }, 50);
+    focusOnActiveButton(buttonWrapperRef);
 
     setLocalColorMode(updatedColorMode);
     setParentColorMode(updatedColorMode);
   }, [isLight, setLocalColorMode, setParentColorMode]);
+
+  useLayoutEffect(() => {
+    focusOnActiveButton(buttonWrapperRef);
+  }, []);
 
   return (
     <Flex
@@ -69,4 +68,13 @@ function ThemePlugin({
       </Grid>
     </Flex>
   );
+}
+
+function focusOnActiveButton(buttonWrapperRef: React.RefObject<HTMLDivElement>) {
+  setTimeout(() => {
+    const buttons = buttonWrapperRef.current?.querySelectorAll('button');
+    const button = buttons ? [...buttons].find((b) => !b.disabled) : null;
+
+    button && button.focus();
+  }, 0);
 }

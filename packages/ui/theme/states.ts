@@ -48,7 +48,7 @@ export const shadowStates = {
     },
     // ACTIVE
     '&:active': {
-      boxShadow: 'active',
+      boxShadow: (theme: Theme) => `${focus(theme)}, ${shadows.active}`,
     },
     '&:active:focus': {
       boxShadow: (theme: Theme) => `${focus(theme)}, ${shadows.active}`,
