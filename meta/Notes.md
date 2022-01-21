@@ -1,6 +1,11 @@
 ## To Do
 
-- [ ] Start Mock Overlay plugin 
+- [ ] Handle file selection
+
+## 01/21
+
+- 2 hours
+- [x] Start Mock Overlay plugin
 
 ## 01/20
 
@@ -13,7 +18,9 @@
 - 2.5 hours
 - [x] Close plugins
 - [x] Mount plugins
+
 ### 01/18
+
 - 2 hours
 - [x] Handle plugin selection
 

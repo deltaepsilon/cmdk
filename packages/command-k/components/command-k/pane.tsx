@@ -6,6 +6,7 @@ import { useKeys, useLayers, useSearch } from 'command-k/hooks';
 import { CacheProvider } from '@emotion/react';
 import { CommandKPlugin } from 'command-k';
 import SearchResult from './search-result';
+import { getUseStorage } from 'command-k/utils';
 import { useColorMode } from 'theme-ui';
 
 interface Props {
@@ -150,7 +151,12 @@ function useMountActivePlugin({
       const mountPoint = getMountPoint(activePlugin.id);
 
       if (mountPoint) {
-        activePlugin.mount(mountPoint, { setColorMode, theme, ThemeProvider: getThemeProvider(mountPoint) });
+        activePlugin.mount(mountPoint, {
+          setColorMode,
+          theme,
+          ThemeProvider: getThemeProvider(mountPoint),
+          useStorage: getUseStorage(activePlugin.id),
+        });
 
         layer.contentDocument?.body.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {

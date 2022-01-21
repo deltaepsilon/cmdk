@@ -1,4 +1,4 @@
-import { Button, ColorMode, Flex, Grid, MoonIcon, NOOP, SunIcon, Text } from 'ui';
+import { Button, ColorMode, Flex, Grid, MoonIcon, NOOP, SunIcon, Text, focusOnActiveButton } from 'ui';
 import { useCallback, useLayoutEffect, useRef } from 'react';
 
 import { CommandKPlugin } from 'command-k';
@@ -68,13 +68,4 @@ function ThemePlugin({
       </Grid>
     </Flex>
   );
-}
-
-function focusOnActiveButton(buttonWrapperRef: React.RefObject<HTMLDivElement>) {
-  setTimeout(() => {
-    const buttons = buttonWrapperRef.current?.querySelectorAll('button');
-    const button = buttons ? [...buttons].find((b) => !b.disabled) : null;
-
-    button && button.focus();
-  }, 0);
 }

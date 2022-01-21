@@ -1,9 +1,19 @@
 import { ThemeUIStyleObject } from 'theme-ui';
+import { focus } from './states';
 
 const SHARED = { padding: 30 };
 
 const boxes: ThemeUIStyleObject = {
-  padded: {
+  background: {
+    borderRadius: 'xxl',
+    backgroundColor: 'gray100',
+    ...SHARED,
+  },
+  border: {
+    borderRadius: 'xxl',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'gray300',
     ...SHARED,
   },
   callout: {
@@ -16,21 +26,18 @@ const boxes: ThemeUIStyleObject = {
     fontSize: 0,
     padding: 3,
   },
-  border: {
-    borderRadius: 'xxl',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: 'gray300',
-    ...SHARED,
+  dropping: {
+    border: '2px solid',
+    borderColor: 'secondary',
+    borderRadius: 'lg',
   },
-  background: {
-    borderRadius: 'xxl',
-    backgroundColor: 'gray100',
-    ...SHARED,
+  dropTarget: {
+    border: '2px dashed',
+    borderColor: 'secondary',
+    borderRadius: 'lg',
   },
-  raised: {
-    boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.1)',
-    borderRadius: 'xxl',
+  padded: {
+    ...SHARED,
   },
   pinned: {
     position: 'absolute',
@@ -38,6 +45,10 @@ const boxes: ThemeUIStyleObject = {
     right: 0,
     bottom: 0,
     left: 0,
+  },
+  raised: {
+    boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.1)',
+    borderRadius: 'xxl',
   },
 };
 

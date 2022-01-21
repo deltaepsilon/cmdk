@@ -3,17 +3,15 @@ import { ForwardedRef, KeyboardEvent, useCallback, useState } from 'react';
 
 import CommandKInput from './command-k-input';
 import { ThemeProviderProps } from '@emotion/react';
+import { UseStorage } from 'utils';
 
 export type Mount = (
   mountPoint: HTMLDivElement,
-  {
-    setColorMode,
-    theme,
-    ThemeProvider,
-  }: {
+  context: {
     setColorMode: React.Dispatch<React.SetStateAction<string>>;
     theme: ThemeProviderProps['theme'];
     ThemeProvider: typeof CmdkThemeProvider;
+    useStorage: UseStorage;
   },
 ) => void;
 
