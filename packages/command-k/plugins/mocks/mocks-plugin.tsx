@@ -1,6 +1,6 @@
-import { Box, Flex, Grid, Input, Label, Text, focusOnActiveButton } from 'ui';
-import { Button, ImageIcon, NOOP, UploadIcon, useFlag } from 'ui';
-import { ReactElement, ReactNode, useEffect, useRef } from 'react';
+import { Box, Text } from 'ui';
+import { Button, ImageIcon, NOOP, TrashIcon, UploadIcon, useFlag } from 'ui';
+import { ReactNode, useEffect } from 'react';
 
 import { CommandKPlugin } from 'command-k';
 import FileSelector from './file-selector';
@@ -32,11 +32,14 @@ function MocksPlugin({ useStorage }: { useStorage: UseStorage }) {
   const storage = useStorage();
   const { handles } = useFiles({ storage });
   const { flag: isUploading, setFlag: setIsUploading, toggle: toggleUploading } = useFlag(true);
+  const hasHandles = !!handles.length;
 
   useEffect(() => {
     if (!storage.data.isUnloaded) {
       setIsUploading(!handles.length);
     }
+
+    console.log(storage);
   }, [storage.data.isUnloaded]);
 
   switch (true) {
@@ -46,7 +49,14 @@ function MocksPlugin({ useStorage }: { useStorage: UseStorage }) {
     case isUploading:
       return (
         <Box>
-          <ToggleButton icon={<ImageIcon />} onClick={toggleUploading} />
+          {hasHandles && <ToggleButton icon={<ImageIcon />} onClick={toggleUploading} />}
+
+          <Text
+            variant="headline3"
+            sx={{ position: 'absolute', top: 0, left: 0, right: 0, padding: 2, textAlign: 'center' }}
+          >
+            Upload Mocks
+          </Text>
 
           <FileUpload useStorage={useStorage} onFileSelect={toggleUploading} />
         </Box>
@@ -54,14 +64,22 @@ function MocksPlugin({ useStorage }: { useStorage: UseStorage }) {
 
     default:
       return (
-        <Box sx={{ padding: 2, paddingTop: 5 }}>
+        <Box sx={{ paddingX: 2, marginTop: '3rem' }}>
           <ToggleButton icon={<UploadIcon />} onClick={toggleUploading} />
+
+          <Button
+            variant="circle-tertiary"
+            sx={{ position: 'absolute', top: 11, left: 5, zIndex: 1 }}
+            onClick={storage.clear}
+          >
+            <TrashIcon />
+          </Button>
 
           <Text
             variant="headline3"
-            sx={{ position: 'absolute', top: 0, left: 0, right: 0, padding: 3, textAlign: 'center' }}
+            sx={{ position: 'absolute', top: 0, left: 0, right: 0, padding: 2, textAlign: 'center' }}
           >
-            Upload Mocks
+            Select Overlay
           </Text>
 
           <FileSelector useStorage={useStorage} />
@@ -75,7 +93,7 @@ function ToggleButton({ icon, onClick }: { icon: ReactNode; onClick: () => void 
     <Button
       variant="circle-tertiary"
       onClick={onClick}
-      sx={{ position: 'absolute', top: 2, left: 2, zIndex: 1 }}
+      sx={{ position: 'absolute', top: 11, left: 3, zIndex: 1 }}
     >
       {icon}
     </Button>

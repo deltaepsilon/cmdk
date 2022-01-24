@@ -19,15 +19,18 @@ export interface PluginStorage {
   update: (key: string, data: any) => Promise<void>;
 }
 
-const DEFAULT_DATA = { isUnloaded: true } as PluginData;
+const INITIAL_DATA = { isUnloaded: true } as PluginData;
+const DEFAULT_DATA = { isUnloaded: false } as PluginData;
 
 export default function getUseStorage(pluginId: string) {
   const key = getKey(pluginId);
 
   return function useStorage(): PluginStorage {
-    const [pluginData, setPluginData] = useState<PluginData>(DEFAULT_DATA);
+    const [pluginData, setPluginData] = useState<PluginData>(INITIAL_DATA);
     const get = useCallback(async () => {
       const data = ((await localforage.getItem(key)) as PluginData | undefined) || DEFAULT_DATA;
+
+      console.log('get', data);
 
       setPluginData(data);
 
@@ -41,8 +44,8 @@ export default function getUseStorage(pluginId: string) {
     const clear = useCallback(async () => {
       await localforage.removeItem(key);
 
-      setPluginData(DEFAULT_DATA);
-    }, []);
+      await get();
+    }, [get]);
     const update = useCallback(async (key: string, data: any) => {
       const existing = await get();
       const updated = produce(existing, (draft) => {

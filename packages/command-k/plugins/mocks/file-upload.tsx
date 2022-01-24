@@ -25,10 +25,7 @@ export default function FileUpload({
   }, []);
 
   return (
-    <Flex ref={wrapperRef} sx={{ variant: 'boxes.pinned', flexDirection: 'column' }}>
-      <Text variant="headline3" sx={{ padding: 3, textAlign: 'center' }}>
-        Upload Mocks
-      </Text>
+    <Flex ref={wrapperRef} sx={{ variant: 'boxes.pinned', flexDirection: 'column', marginTop: 5 }}>
       <Flex
         sx={{
           alignItems: 'space-around',

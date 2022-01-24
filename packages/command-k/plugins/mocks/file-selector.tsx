@@ -10,7 +10,12 @@ export default function FileSelector({ useStorage }: { useStorage: UseStorage })
   return (
     <Grid
       columns="1fr 1fr"
-      sx={{ variant: 'styles.hiddenScroll', overflowY: 'auto', maxHeight: 'calc(100% - 5rem)' }}
+      sx={{
+        variant: 'styles.hiddenScroll',
+        overflowY: 'auto',
+        maxHeight: 'calc(100% - 3rem)',
+        paddingBottom: 2,
+      }}
     >
       {handles.map((handle) => {
         const thumbnail = thumbnails[handle.name];

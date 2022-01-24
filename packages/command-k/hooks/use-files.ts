@@ -36,6 +36,7 @@ export default function useFiles({
   options?: OpenFilePickerOptions;
   storage: PluginStorage;
 }) {
+  console.log('storage.data', storage.data);
   const handles = useMemo(() => (storage.data[HANDLES_KEY] || []) as FileSystemFileHandle[], [storage.data]);
   const thumbnails = useMemo(() => (storage.data[THUMBNAILS_KEY] || {}) as Thumbnails, [storage.data]);
   const { flag: isDropping, setFlag: setIsDropping } = useFlag(false);

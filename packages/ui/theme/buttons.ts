@@ -215,8 +215,6 @@ export const variants: { [key: string]: ThemeUIStyleObject } = {
   'pill-tertiary': {
     ...pillStyles,
     ...tertiaryVariant,
-    paddingY: '0.75rem',
-    paddingX: '2.125rem',
   },
   'pill-tertiary-xl': {
     ...pillStyles,
@@ -287,6 +285,8 @@ export const variants: { [key: string]: ThemeUIStyleObject } = {
   'circle-tertiary': {
     ...circleStyles,
     ...tertiaryVariant,
+    padding: 0,
+    borderRadius: 'sm',
   },
   'circle-cta': {
     ...circleStyles,

@@ -1,6 +1,12 @@
 ## To Do
 
-- [ ] Handle file selection
+- [ ] Handle trash icon click
+
+## 01/24
+
+- 3 hours
+- [x] Handle file selection
+- [x] Display files
 
 ## 01/21
 

@@ -95,7 +95,7 @@ export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged,
           <Button
             variant="circle-tertiary"
             onClick={onClose}
-            sx={{ backgroundColor: 'background', position: 'absolute', right: 3, top: 2, marginTop: '2px' }}
+            sx={{ backgroundColor: 'background', position: 'absolute', right: 3, top: 11 }}
           >
             <XIcon />
           </Button>

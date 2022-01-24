@@ -12,6 +12,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = forwardRef(
   ({ sx, type = 'button', variant = 'pill-primary', ...rest }: ButtonProps, ref: Ref<HTMLButtonElement>) => (
     <ThemeUIButton
+      data-variant={variant}
       ref={ref}
       type={type}
       sx={{
