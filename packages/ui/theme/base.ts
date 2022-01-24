@@ -83,6 +83,9 @@ const styles = {
     fontFamily: 'body',
     lineHeight: 'body',
     fontWeight: 'body',
+    '[role="button"]': {
+      cursor: 'pointer',
+    },
   },
   a: {
     color: 'primary',

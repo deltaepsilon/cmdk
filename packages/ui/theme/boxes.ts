@@ -50,6 +50,13 @@ const boxes: ThemeUIStyleObject = {
     boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.1)',
     borderRadius: 'xxl',
   },
+  square: {
+    '&:after': {
+      content: '""',
+      display: 'block',
+      paddingBottom: '100%',
+    },
+  },
 };
 
 export default boxes;

@@ -1,8 +1,10 @@
 import { Box, Flex, Grid, Input, Label, Text, focusOnActiveButton } from 'ui';
-import { Button, NOOP } from 'ui';
-import { useEffect, useRef } from 'react';
+import { Button, ImageIcon, NOOP, UploadIcon, useFlag } from 'ui';
+import { ReactElement, ReactNode, useEffect, useRef } from 'react';
 
 import { CommandKPlugin } from 'command-k';
+import FileSelector from './file-selector';
+import FileUpload from './file-upload';
 import ReactDOM from 'react-dom';
 import { UseStorage } from 'utils';
 import { useFiles } from 'command-k/hooks';
@@ -28,50 +30,54 @@ export default mocksPlugin;
 
 function MocksPlugin({ useStorage }: { useStorage: UseStorage }) {
   const storage = useStorage();
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const { getFileHandles, handles, handleFileDragLeave, handleFileDragOver, handleFileDrop, isDropping } =
-    useFiles({
-      storage,
-    });
+  const { handles } = useFiles({ storage });
+  const { flag: isUploading, setFlag: setIsUploading, toggle: toggleUploading } = useFlag(true);
 
   useEffect(() => {
-    focusOnActiveButton(wrapperRef);
-  }, []);
+    if (!storage.data.isUnloaded) {
+      setIsUploading(!handles.length);
+    }
+  }, [storage.data.isUnloaded]);
 
-  console.log('handles', handles);
+  switch (true) {
+    case !!storage.data.isUnloaded:
+      return null;
 
+    case isUploading:
+      return (
+        <Box>
+          <ToggleButton icon={<ImageIcon />} onClick={toggleUploading} />
+
+          <FileUpload useStorage={useStorage} onFileSelect={toggleUploading} />
+        </Box>
+      );
+
+    default:
+      return (
+        <Box sx={{ padding: 2, paddingTop: 5 }}>
+          <ToggleButton icon={<UploadIcon />} onClick={toggleUploading} />
+
+          <Text
+            variant="headline3"
+            sx={{ position: 'absolute', top: 0, left: 0, right: 0, padding: 3, textAlign: 'center' }}
+          >
+            Upload Mocks
+          </Text>
+
+          <FileSelector useStorage={useStorage} />
+        </Box>
+      );
+  }
+}
+
+function ToggleButton({ icon, onClick }: { icon: ReactNode; onClick: () => void }) {
   return (
-    <Flex ref={wrapperRef} sx={{ variant: 'boxes.pinned', flexDirection: 'column' }}>
-      <Text variant="headline3" sx={{ padding: 3, textAlign: 'center' }}>
-        Upload Mocks
-      </Text>
-      <Flex
-        sx={{
-          alignItems: 'space-around',
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'center',
-          height: '100%',
-        }}
-      >
-        <Flex sx={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-          <Button onClick={getFileHandles}>Select File</Button>
-        </Flex>
-        <Flex
-          onDragOver={handleFileDragOver}
-          onDrop={handleFileDrop}
-          onDragLeave={handleFileDragLeave}
-          sx={{
-            variant: isDropping ? 'boxes.dropping' : 'boxes.dropTarget',
-            alignItems: 'center',
-            flex: 1,
-            justifyContent: 'center',
-            margin: 4,
-          }}
-        >
-          <Text>Drag & Drop</Text>
-        </Flex>
-      </Flex>
-    </Flex>
+    <Button
+      variant="circle-tertiary"
+      onClick={onClick}
+      sx={{ position: 'absolute', top: 2, left: 2, zIndex: 1 }}
+    >
+      {icon}
+    </Button>
   );
 }
