@@ -1,15 +1,18 @@
 import { CmdkThemeProvider, Modal, NOOP } from 'ui';
-import { ForwardedRef, KeyboardEvent, useCallback, useState } from 'react';
+import { ForwardedRef, KeyboardEvent, ReactNode, useCallback, useState } from 'react';
+import StorageProvider, { UseStorage } from 'command-k/providers/storage-provider';
 
 import CommandKInput from './command-k-input';
 import { ThemeProviderProps } from '@emotion/react';
-import { UseStorage } from 'utils';
+
+export type WrappedStorageProvider = ({ children }: { children: ReactNode }) => JSX.Element;
 
 export type Mount = (
   mountPoint: HTMLDivElement,
   context: {
     setColorMode: React.Dispatch<React.SetStateAction<string>>;
     theme: ThemeProviderProps['theme'];
+    StorageProvider: WrappedStorageProvider;
     ThemeProvider: typeof CmdkThemeProvider;
     useStorage: UseStorage;
   },

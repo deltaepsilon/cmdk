@@ -1,8 +1,9 @@
 import { NOOP, useFlag, useValue } from 'ui';
-import { PluginStorage, requestFileHandlePermission } from 'command-k/utils';
 import { useCallback, useMemo } from 'react';
 
 import { FileSystemHandleKind } from 'command-k';
+import { PluginStorage } from 'command-k/providers/storage-provider';
+import { requestFileHandlePermission } from 'command-k/utils';
 
 const HANDLES_KEY = '__FILE_HANDLES__';
 const THUMBNAILS_KEY = '__THUMBNAILS__';
@@ -36,7 +37,6 @@ export default function useFiles({
   options?: OpenFilePickerOptions;
   storage: PluginStorage;
 }) {
-  console.log('storage.data', storage.data);
   const handles = useMemo(() => (storage.data[HANDLES_KEY] || []) as FileSystemFileHandle[], [storage.data]);
   const thumbnails = useMemo(() => (storage.data[THUMBNAILS_KEY] || {}) as Thumbnails, [storage.data]);
   const { flag: isDropping, setFlag: setIsDropping } = useFlag(false);

@@ -1,12 +1,12 @@
 import { Box, Text } from 'ui';
-import { Button, ImageIcon, NOOP, TrashIcon, UploadIcon, useFlag } from 'ui';
+import { Button, FlagProvider, ImageIcon, NOOP, TrashIcon, UploadIcon, useFlag } from 'ui';
 import { ReactNode, useEffect } from 'react';
 
 import { CommandKPlugin } from 'command-k';
 import FileSelector from './file-selector';
 import FileUpload from './file-upload';
 import ReactDOM from 'react-dom';
-import { UseStorage } from 'utils';
+import { UseStorage } from 'command-k/providers/storage-provider';
 import { useFiles } from 'command-k/hooks';
 
 const mocksPlugin: CommandKPlugin = {
@@ -15,11 +15,15 @@ const mocksPlugin: CommandKPlugin = {
   description: 'CMD-K mocks',
   url: 'https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/mocks',
   version: '0.0.1',
-  mount: (mountPoint, { ThemeProvider, useStorage }) => {
+  mount: (mountPoint, { StorageProvider, ThemeProvider, useStorage }) => {
     ReactDOM.render(
-      <ThemeProvider>
-        <MocksPlugin useStorage={useStorage} />
-      </ThemeProvider>,
+      <FlagProvider>
+        <ThemeProvider>
+          <StorageProvider>
+            <MocksPlugin useStorage={useStorage} />
+          </StorageProvider>
+        </ThemeProvider>
+      </FlagProvider>,
       mountPoint,
     );
   },
@@ -31,16 +35,15 @@ export default mocksPlugin;
 function MocksPlugin({ useStorage }: { useStorage: UseStorage }) {
   const storage = useStorage();
   const { handles } = useFiles({ storage });
-  const { flag: isUploading, setFlag: setIsUploading, toggle: toggleUploading } = useFlag(true);
   const hasHandles = !!handles.length;
+  const isUnloaded = storage.data.isUnloaded;
+  const { flag: isUploading, setFlag: setIsUploading, toggle: toggleUploading } = useFlag();
 
   useEffect(() => {
-    if (!storage.data.isUnloaded) {
-      setIsUploading(!handles.length);
+    if (!isUnloaded) {
+      setIsUploading(!hasHandles);
     }
-
-    console.log(storage);
-  }, [storage.data.isUnloaded]);
+  }, [hasHandles, isUnloaded]);
 
   switch (true) {
     case !!storage.data.isUnloaded:
@@ -58,7 +61,7 @@ function MocksPlugin({ useStorage }: { useStorage: UseStorage }) {
             Upload Mocks
           </Text>
 
-          <FileUpload useStorage={useStorage} onFileSelect={toggleUploading} />
+          <FileUpload useStorage={useStorage} onFileSelect={() => setIsUploading(false)} />
         </Box>
       );
 

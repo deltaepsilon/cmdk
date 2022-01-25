@@ -1,13 +1,14 @@
 import { Box, Button, CmdkThemeProvider, Fonts, Grid, XIcon, theme } from 'ui';
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { ReactElement, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import createCache, { EmotionCache } from '@emotion/cache';
 import { useKeys, useLayers, useSearch } from 'command-k/hooks';
 
 import { CacheProvider } from '@emotion/react';
 import { CommandKPlugin } from 'command-k';
 import SearchResult from './search-result';
-import { getUseStorage } from 'command-k/utils';
+import StorageProvider from 'command-k/providers/storage-provider';
 import { useColorMode } from 'theme-ui';
+import { useStorage } from 'command-k/hooks';
 
 interface Props {
   activePlugin: CommandKPlugin | null;
@@ -115,23 +116,6 @@ export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged,
   );
 }
 
-function getThemeProvider(mountPoint: HTMLDivElement) {
-  return ({ children }: { children: ReactNode }) => {
-    const cache = useRef<EmotionCache>(
-      createCache({ container: mountPoint.parentElement as HTMLElement, key: 'command-k' }),
-    );
-
-    return (
-      <>
-        <Fonts />
-        <CacheProvider value={cache.current}>
-          <CmdkThemeProvider theme={theme}>{children}</CmdkThemeProvider>
-        </CacheProvider>
-      </>
-    );
-  };
-}
-
 function useMountActivePlugin({
   activePlugin,
   iframeWrapperRef,
@@ -154,8 +138,9 @@ function useMountActivePlugin({
         activePlugin.mount(mountPoint, {
           setColorMode,
           theme,
+          StorageProvider: getStorageProvider({ pluginId: activePlugin.id }),
           ThemeProvider: getThemeProvider(mountPoint),
-          useStorage: getUseStorage(activePlugin.id),
+          useStorage,
         });
 
         layer.contentDocument?.body.addEventListener('keydown', (e) => {
@@ -168,6 +153,31 @@ function useMountActivePlugin({
       return unmount;
     }
   }, [activePlugin]);
+}
+
+function getThemeProvider(mountPoint: HTMLDivElement) {
+  return ({ children }: { children: ReactNode }) => {
+    const cache = useRef<EmotionCache>(
+      createCache({ container: mountPoint.parentElement as HTMLElement, key: 'command-k' }),
+    );
+
+    return (
+      <>
+        <Fonts />
+        <CacheProvider value={cache.current}>
+          <CmdkThemeProvider theme={theme}>{children}</CmdkThemeProvider>
+        </CacheProvider>
+      </>
+    );
+  };
+}
+
+function getStorageProvider({ pluginId }: { pluginId: string }) {
+  const storageKey = `command-k-${pluginId}`;
+
+  return ({ children }: { children: ReactNode }) => (
+    <StorageProvider storageKey={storageKey}>{children}</StorageProvider>
+  );
 }
 
 function useScrollToActivePlugin({
