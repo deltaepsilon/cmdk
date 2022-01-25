@@ -20,7 +20,8 @@ interface Props {
 
 export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged, plugins, query }: Props) {
   const resultsRef = useRef<HTMLDivElement>(null);
-  const iframeWrapperRef = useRef<HTMLDivElement>(null);
+  const mountPointWrapperRef = useRef<HTMLDivElement>(null);
+  const overlayFrameWrapperRef = useRef<HTMLDivElement>(null);
 
   const [refIndex, setRefIndex] = useState(0);
   const getOnClick = useCallback(
@@ -45,7 +46,7 @@ export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged,
   const searchResults = useSearch({ query, plugins });
   const layerVisible = !!activePlugin;
 
-  useMountActivePlugin({ activePlugin, iframeWrapperRef, onClose });
+  useMountActivePlugin({ activePlugin, mountPointWrapperRef, onClose, overlayFrameWrapperRef });
 
   useScrollToActivePlugin({ refIndex, resultsRef });
 
@@ -80,7 +81,21 @@ export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged,
       }}
     >
       <Box
-        ref={iframeWrapperRef}
+        data-overlay-frame
+        ref={overlayFrameWrapperRef}
+        sx={{
+          position: 'fixed',
+          inset: 0,
+          pointerEvents: 'none',
+          iframe: {
+            border: 'none',
+            height: '100%',
+            width: '100%',
+          },
+        }}
+      />
+      <Box
+        ref={mountPointWrapperRef}
         sx={{
           variant: 'boxes.pinned',
           backgroundColor: 'background',
@@ -118,14 +133,19 @@ export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged,
 
 function useMountActivePlugin({
   activePlugin,
-  iframeWrapperRef,
+  mountPointWrapperRef,
   onClose,
+  overlayFrameWrapperRef,
 }: {
   activePlugin: CommandKPlugin | null;
-  iframeWrapperRef: React.RefObject<HTMLDivElement>;
+  mountPointWrapperRef: React.RefObject<HTMLDivElement>;
   onClose: () => void;
+  overlayFrameWrapperRef: React.RefObject<HTMLDivElement>;
 }) {
-  const { mountLayer, getMountPoint, getLayer } = useLayers({ iframeWrapper: iframeWrapperRef.current });
+  const { getMountPoint, getLayer, getOverlayFrame, mountLayer } = useLayers({
+    mountPointWrapper: mountPointWrapperRef.current,
+    overlayFrameWrapper: overlayFrameWrapperRef.current,
+  });
   const [, setColorMode] = useColorMode();
 
   useEffect(() => {
@@ -133,17 +153,20 @@ function useMountActivePlugin({
       const layer = getLayer(activePlugin.id);
       const unmount = mountLayer(activePlugin.id);
       const mountPoint = getMountPoint(activePlugin.id);
+      const overlayFrame = getOverlayFrame(activePlugin.id);
 
-      if (mountPoint) {
-        activePlugin.mount(mountPoint, {
+      if (mountPoint && overlayFrame) {
+        activePlugin.mount({
+          mountPoint,
+          overlayFrame,
           setColorMode,
-          theme,
           StorageProvider: getStorageProvider({ pluginId: activePlugin.id }),
+          theme,
           ThemeProvider: getThemeProvider(mountPoint),
           useStorage,
         });
 
-        layer.contentDocument?.body.addEventListener('keydown', (e) => {
+        layer.mountPoint.contentDocument?.body.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {
             onClose();
           }

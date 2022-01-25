@@ -1,7 +1,7 @@
 import { Box, Flex, Grid, Image, RefreshCwIcon, Text } from 'ui';
 import { FilesValue, Thumbnail, useFiles } from 'command-k/hooks';
 
-import { UseStorage } from 'utils';
+import { UseStorage } from 'command-k/providers/storage-provider';
 
 export default function FileSelector({ useStorage }: { useStorage: UseStorage }) {
   const storage = useStorage();
@@ -67,6 +67,7 @@ function GridItem({
           </Flex>
         ) : (
           <Flex
+            onClick={console.log}
             sx={{
               variant: 'buttons.pill-secondary',
               overflow: 'hidden',

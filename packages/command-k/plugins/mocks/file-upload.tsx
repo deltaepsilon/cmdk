@@ -2,7 +2,7 @@ import { Flex, Text, focusOnActiveButton } from 'ui';
 import { useEffect, useRef } from 'react';
 
 import { Button } from 'ui';
-import { UseStorage } from 'utils';
+import { UseStorage } from 'command-k/providers/storage-provider';
 import { useFiles } from 'command-k/hooks';
 
 export default function FileUpload({

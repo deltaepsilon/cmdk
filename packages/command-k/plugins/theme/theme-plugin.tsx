@@ -11,7 +11,7 @@ const themePlugin: CommandKPlugin = {
   description: 'Switch between themes',
   url: 'https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/theme-plugin',
   version: '0.0.1',
-  mount: (mountPoint, { setColorMode, ThemeProvider }) => {
+  mount: ({ mountPoint, setColorMode, ThemeProvider }) => {
     ReactDOM.render(
       <ThemeProvider>
         <ThemePlugin setColorMode={setColorMode} />

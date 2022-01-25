@@ -1,6 +1,12 @@
 ## To Do
 
-- [ ] Handle trash icon click
+- [ ] Pass ThemeUI styles into overlayFrame
+
+## 01/25
+
+- 2.5 hours
+- [x] Render overlay frame
+- [x] Handle trash icon click
 
 ## 01/24
 

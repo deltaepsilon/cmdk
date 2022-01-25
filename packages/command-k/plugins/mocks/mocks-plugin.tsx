@@ -1,10 +1,11 @@
 import { Box, Text } from 'ui';
 import { Button, FlagProvider, ImageIcon, NOOP, TrashIcon, UploadIcon, useFlag } from 'ui';
+import { CommandKPlugin, MountContext } from 'command-k';
 import { ReactNode, useEffect } from 'react';
 
-import { CommandKPlugin } from 'command-k';
 import FileSelector from './file-selector';
 import FileUpload from './file-upload';
+import MocksOverlay from './mocks-overlay';
 import ReactDOM from 'react-dom';
 import { UseStorage } from 'command-k/providers/storage-provider';
 import { useFiles } from 'command-k/hooks';
@@ -15,24 +16,32 @@ const mocksPlugin: CommandKPlugin = {
   description: 'CMD-K mocks',
   url: 'https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/mocks',
   version: '0.0.1',
-  mount: (mountPoint, { StorageProvider, ThemeProvider, useStorage }) => {
-    ReactDOM.render(
-      <FlagProvider>
-        <ThemeProvider>
-          <StorageProvider>
-            <MocksPlugin useStorage={useStorage} />
-          </StorageProvider>
-        </ThemeProvider>
-      </FlagProvider>,
-      mountPoint,
-    );
-  },
+  mount: (context) => ReactDOM.render(<MocksPluginConnected {...context} />, context.mountPoint),
   unmount: NOOP,
 };
 
 export default mocksPlugin;
 
-function MocksPlugin({ useStorage }: { useStorage: UseStorage }) {
+interface MocksPluginProps {
+  useStorage: UseStorage;
+}
+
+function MocksPluginConnected({ ThemeProvider, StorageProvider, useStorage, overlayFrame }: MountContext) {
+  return (
+    <FlagProvider>
+      <ThemeProvider>
+        <StorageProvider>
+          <>
+            <MocksOverlay overlayFrame={overlayFrame} ThemeProvider={ThemeProvider} />
+            <MocksPlugin useStorage={useStorage} />
+          </>
+        </StorageProvider>
+      </ThemeProvider>
+    </FlagProvider>
+  );
+}
+
+function MocksPlugin({ useStorage }: MocksPluginProps) {
   const storage = useStorage();
   const { handles } = useFiles({ storage });
   const hasHandles = !!handles.length;

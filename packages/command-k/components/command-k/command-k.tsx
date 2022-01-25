@@ -7,16 +7,17 @@ import { ThemeProviderProps } from '@emotion/react';
 
 export type WrappedStorageProvider = ({ children }: { children: ReactNode }) => JSX.Element;
 
-export type Mount = (
-  mountPoint: HTMLDivElement,
-  context: {
-    setColorMode: React.Dispatch<React.SetStateAction<string>>;
-    theme: ThemeProviderProps['theme'];
-    StorageProvider: WrappedStorageProvider;
-    ThemeProvider: typeof CmdkThemeProvider;
-    useStorage: UseStorage;
-  },
-) => void;
+export type MountContext = {
+  mountPoint: HTMLDivElement;
+  overlayFrame: HTMLDivElement;
+  setColorMode: React.Dispatch<React.SetStateAction<string>>;
+  StorageProvider: WrappedStorageProvider;
+  theme: ThemeProviderProps['theme'];
+  ThemeProvider: typeof CmdkThemeProvider;
+  useStorage: UseStorage;
+};
+
+export type Mount = (context: MountContext) => void;
 
 export interface CommandKPlugin {
   id: string;
@@ -61,16 +62,19 @@ export default function CommandK({
   );
 
   return (
-    <Modal
-      dismissOnEscape={!isInputActive}
-      isActive={isActive}
-      keyboardTrigger={keyboardTrigger}
-      modalId={`cmdk-${id}`}
-      onRender={onRender}
-      startOpen={startOpen}
-    >
-      <CommandKInput id={id} isActive={isActive} onIsActiveChanged={setIsInputActive} plugins={plugins} />
-    </Modal>
+    <>
+      <div data-cmdk />
+      <Modal
+        dismissOnEscape={!isInputActive}
+        isActive={isActive}
+        keyboardTrigger={keyboardTrigger}
+        modalId={`cmdk-${id}`}
+        onRender={onRender}
+        startOpen={startOpen}
+      >
+        <CommandKInput id={id} isActive={isActive} onIsActiveChanged={setIsInputActive} plugins={plugins} />
+      </Modal>
+    </>
   );
 }
 
