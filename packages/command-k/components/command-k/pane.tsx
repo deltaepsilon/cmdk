@@ -14,14 +14,21 @@ interface Props {
   activePlugin: CommandKPlugin | null;
   setActivePlugin: React.Dispatch<React.SetStateAction<CommandKPlugin | null>>;
   onIsActiveChanged?: (isActive: boolean) => void;
+  overlayWrapperRef: React.RefObject<HTMLDivElement>;
   plugins: CommandKPlugin[];
   query: string;
 }
 
-export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged, plugins, query }: Props) {
+export default function Pane({
+  activePlugin,
+  setActivePlugin,
+  onIsActiveChanged,
+  overlayWrapperRef,
+  plugins,
+  query,
+}: Props) {
   const resultsRef = useRef<HTMLDivElement>(null);
   const mountPointWrapperRef = useRef<HTMLDivElement>(null);
-  const overlayFrameWrapperRef = useRef<HTMLDivElement>(null);
 
   const [refIndex, setRefIndex] = useState(0);
   const getOnClick = useCallback(
@@ -46,7 +53,7 @@ export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged,
   const searchResults = useSearch({ query, plugins });
   const layerVisible = !!activePlugin;
 
-  useMountActivePlugin({ activePlugin, mountPointWrapperRef, onClose, overlayFrameWrapperRef });
+  useMountActivePlugin({ activePlugin, mountPointWrapperRef, onClose, overlayWrapperRef });
 
   useScrollToActivePlugin({ refIndex, resultsRef });
 
@@ -80,20 +87,6 @@ export default function Pane({ activePlugin, setActivePlugin, onIsActiveChanged,
         position: 'relative',
       }}
     >
-      <Box
-        data-overlay-frame
-        ref={overlayFrameWrapperRef}
-        sx={{
-          position: 'fixed',
-          inset: 0,
-          pointerEvents: 'none',
-          iframe: {
-            border: 'none',
-            height: '100%',
-            width: '100%',
-          },
-        }}
-      />
       <Box
         ref={mountPointWrapperRef}
         sx={{
@@ -135,16 +128,16 @@ function useMountActivePlugin({
   activePlugin,
   mountPointWrapperRef,
   onClose,
-  overlayFrameWrapperRef,
+  overlayWrapperRef,
 }: {
   activePlugin: CommandKPlugin | null;
   mountPointWrapperRef: React.RefObject<HTMLDivElement>;
   onClose: () => void;
-  overlayFrameWrapperRef: React.RefObject<HTMLDivElement>;
+  overlayWrapperRef: React.RefObject<HTMLDivElement>;
 }) {
-  const { getMountPoint, getLayer, getOverlayFrame, mountLayer } = useLayers({
+  const { getMountPoint, getLayer, getOverlayContainer, getUnmountOverlay, mountLayer } = useLayers({
     mountPointWrapper: mountPointWrapperRef.current,
-    overlayFrameWrapper: overlayFrameWrapperRef.current,
+    overlayWrapper: overlayWrapperRef.current,
   });
   const [, setColorMode] = useColorMode();
 
@@ -153,16 +146,17 @@ function useMountActivePlugin({
       const layer = getLayer(activePlugin.id);
       const unmount = mountLayer(activePlugin.id);
       const mountPoint = getMountPoint(activePlugin.id);
-      const overlayFrame = getOverlayFrame(activePlugin.id);
+      const overlayContainer = getOverlayContainer(activePlugin.id);
+      const unmountOverlay = getUnmountOverlay(layer);
 
-      if (mountPoint && overlayFrame) {
+      if (mountPoint && overlayContainer) {
         activePlugin.mount({
           mountPoint,
-          overlayFrame,
+          overlayContainer,
           setColorMode,
           StorageProvider: getStorageProvider({ pluginId: activePlugin.id }),
-          theme,
-          ThemeProvider: getThemeProvider(mountPoint),
+          ThemeProvider: getThemeProvider(mountPoint, 'command-k-pane'),
+          unmountOverlay,
           useStorage,
         });
 
@@ -178,10 +172,10 @@ function useMountActivePlugin({
   }, [activePlugin]);
 }
 
-function getThemeProvider(mountPoint: HTMLDivElement) {
+function getThemeProvider(mountPoint: HTMLDivElement, key: string) {
   return ({ children }: { children: ReactNode }) => {
     const cache = useRef<EmotionCache>(
-      createCache({ container: mountPoint.parentElement as HTMLElement, key: 'command-k' }),
+      createCache({ container: mountPoint.parentElement as HTMLElement, key }),
     );
 
     return (

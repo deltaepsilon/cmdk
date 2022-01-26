@@ -8,32 +8,34 @@ export type UnmountLayer = () => void;
 interface Layer {
   pluginId: string;
   mountPoint: HTMLIFrameElement;
-  overlayFrame: HTMLIFrameElement;
+  overlayContainer: HTMLDivElement;
 }
 
 const MOUNT_POINT_ID = 'cmdk-mount-point';
 
 export default function useLayers({
   mountPointWrapper,
-  overlayFrameWrapper,
+  overlayWrapper,
 }: {
   mountPointWrapper: HTMLDivElement | null;
-  overlayFrameWrapper: HTMLDivElement | null;
+  overlayWrapper: HTMLDivElement | null;
 }) {
-  const iframesMapRef = useRef<{ [key: string]: Layer }>({});
+  const layersMapRef = useRef<{ [key: string]: Layer }>({});
   const getLayer = useCallback((pluginId) => {
-    let layer: Layer | undefined = iframesMapRef.current[pluginId];
+    let layer: Layer | undefined = layersMapRef.current[pluginId];
 
     if (!layer) {
       layer = {
         pluginId,
         mountPoint: document.createElement('iframe'),
-        overlayFrame: document.createElement('iframe'),
+        overlayContainer: document.createElement('div'),
       };
+
+      layer.overlayContainer.id = getOverlayId(pluginId);
 
       layer.mountPoint.onload = () => layer?.mountPoint.contentWindow?.focus();
 
-      iframesMapRef.current[pluginId] = layer;
+      layersMapRef.current[pluginId] = layer;
     }
 
     return layer;
@@ -54,41 +56,37 @@ export default function useLayers({
 
     return (iframeDocument?.getElementById(MOUNT_POINT_ID) as HTMLDivElement) || null;
   }, []);
-  const getOverlayFrame = useCallback((pluginId): HTMLDivElement | null => {
+  const getOverlayContainer = useCallback((pluginId): HTMLDivElement | null => {
     const layer = getLayer(pluginId);
-    const iframeDocument = layer.overlayFrame.contentWindow?.document;
-    const overlayFrameId = getOverlayFrameId(pluginId);
 
-    if (iframeDocument) {
-      const overlayFrame = iframeDocument.createElement('div');
-
-      overlayFrame.setAttribute('id', overlayFrameId);
-
-      iframeDocument.body.appendChild(overlayFrame);
-    } else {
-      console.error('iframe must be mounted prior to getting the overlay frame');
-    }
-
-    return (iframeDocument?.getElementById(overlayFrameId) as HTMLDivElement) || null;
+    return layer.overlayContainer;
   }, []);
+  const getUnmountOverlay = useCallback(
+    (layer: Layer) => () => {
+      layer.overlayContainer.childNodes.forEach((child) => {
+        layer.overlayContainer.removeChild(child);
+      });
+      overlayWrapper?.removeChild(layer.overlayContainer);
+    },
+    [],
+  );
   const mountLayer: MountLayer = useCallback(
     (pluginId: string) => {
       const layer = getLayer(pluginId);
 
       mountPointWrapper?.appendChild(layer.mountPoint);
-      overlayFrameWrapper?.appendChild(layer.overlayFrame);
+      overlayWrapper?.appendChild(layer.overlayContainer);
 
       return () => {
         mountPointWrapper?.removeChild(layer.mountPoint);
-        overlayFrameWrapper?.removeChild(layer.overlayFrame);
       };
     },
     [mountPointWrapper],
   );
 
-  return useValue({ getLayer, getMountPoint, getOverlayFrame, mountLayer });
+  return useValue({ getLayer, getMountPoint, getOverlayContainer, getUnmountOverlay, mountLayer });
 }
 
-function getOverlayFrameId(pluginId: string) {
-  return `cmdk-overlay-frame-${pluginId}`;
+function getOverlayId(pluginId: string) {
+  return `cmdk-overlay-${pluginId}`;
 }

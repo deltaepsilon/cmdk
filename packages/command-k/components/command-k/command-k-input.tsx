@@ -1,5 +1,5 @@
 import { Box, Input, NOOP, useKeydown } from 'ui';
-import { useCallback, useEffect, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
 
 import { CommandKPlugin } from './command-k';
 import Pane from './pane';
@@ -8,10 +8,16 @@ interface Props {
   id: string;
   isActive: boolean;
   onIsActiveChanged?: (isActive: boolean) => void;
+  overlayWrapperRef: React.RefObject<HTMLDivElement>;
   plugins: CommandKPlugin[];
 }
 
-export default function CommandKInput({ id, isActive, onIsActiveChanged = NOOP, plugins }: Props) {
+export default function CommandKInput({
+  isActive,
+  onIsActiveChanged = NOOP,
+  overlayWrapperRef,
+  plugins,
+}: Props) {
   const [query, setQuery] = useState('');
   const [activePlugin, setActivePlugin] = useState<CommandKPlugin | null>(null);
   const [isPaneActive, setIsPaneActive] = useState(false);
@@ -55,6 +61,7 @@ export default function CommandKInput({ id, isActive, onIsActiveChanged = NOOP, 
         activePlugin={activePlugin}
         setActivePlugin={setActivePlugin}
         onIsActiveChanged={setIsPaneActive}
+        overlayWrapperRef={overlayWrapperRef}
         plugins={plugins}
         query={query}
       />

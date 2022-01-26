@@ -1,5 +1,5 @@
 import { Box, Text } from 'ui';
-import { Button, FlagProvider, ImageIcon, NOOP, TrashIcon, UploadIcon, useFlag } from 'ui';
+import { Button, ImageIcon, NOOP, TrashIcon, UploadIcon, useFlag } from 'ui';
 import { CommandKPlugin, MountContext } from 'command-k';
 import { ReactNode, useEffect } from 'react';
 
@@ -26,18 +26,21 @@ interface MocksPluginProps {
   useStorage: UseStorage;
 }
 
-function MocksPluginConnected({ ThemeProvider, StorageProvider, useStorage, overlayFrame }: MountContext) {
+function MocksPluginConnected({
+  ThemeProvider,
+  StorageProvider,
+  useStorage,
+  overlayContainer,
+}: MountContext) {
   return (
-    <FlagProvider>
-      <ThemeProvider>
-        <StorageProvider>
-          <>
-            <MocksOverlay overlayFrame={overlayFrame} ThemeProvider={ThemeProvider} />
-            <MocksPlugin useStorage={useStorage} />
-          </>
-        </StorageProvider>
-      </ThemeProvider>
-    </FlagProvider>
+    <StorageProvider>
+      <>
+        <MocksOverlay overlayContainer={overlayContainer} useStorage={useStorage} />
+        <ThemeProvider>
+          <MocksPlugin useStorage={useStorage} />
+        </ThemeProvider>
+      </>
+    </StorageProvider>
   );
 }
 

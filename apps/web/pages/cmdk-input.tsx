@@ -1,9 +1,12 @@
 import { Box, Flex } from 'ui';
-import { CommandKInput, defaultPlugins } from 'command-k';
+import { CommandKInput, OverlayWrapper, defaultPlugins } from 'command-k';
+
+import { useRef } from 'react';
 
 const PLUGINS = defaultPlugins;
 
 export default function IndexPage() {
+  const overlayWrapperRef = useRef<HTMLDivElement>(null);
   return (
     <Flex
       sx={{
@@ -14,7 +17,13 @@ export default function IndexPage() {
       }}
     >
       <Box>
-        <CommandKInput id="cmdk-input-page" isActive plugins={PLUGINS} />
+        <OverlayWrapper ref={overlayWrapperRef} />
+        <CommandKInput
+          id="cmdk-input-page"
+          isActive
+          plugins={PLUGINS}
+          overlayWrapperRef={overlayWrapperRef}
+        />
       </Box>
     </Flex>
   );

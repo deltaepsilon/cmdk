@@ -1,6 +1,14 @@
 ## To Do
 
-- [ ] Pass ThemeUI styles into overlayFrame
+- [ ] Register selected mock
+- [ ] Change mock
+- [ ] Remove active mock
+- [ ] Adjust mock opacity, scale and position
+
+## 01/26
+
+- [x] Move overlay outside of iframe
+- [x] Render a single overlay and manage portal
 
 ## 01/25
 

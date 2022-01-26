@@ -1,19 +1,19 @@
-import { CmdkThemeProvider, Modal, NOOP } from 'ui';
-import { ForwardedRef, KeyboardEvent, ReactNode, useCallback, useState } from 'react';
-import StorageProvider, { UseStorage } from 'command-k/providers/storage-provider';
+import { Box, CmdkThemeProvider, Modal, NOOP } from 'ui';
+import { ForwardedRef, KeyboardEvent, ReactNode, useCallback, useRef, useState } from 'react';
 
 import CommandKInput from './command-k-input';
-import { ThemeProviderProps } from '@emotion/react';
+import OverlayWrapper from './overlay-wrapper';
+import { UseStorage } from 'command-k/providers/storage-provider';
 
 export type WrappedStorageProvider = ({ children }: { children: ReactNode }) => JSX.Element;
 
 export type MountContext = {
   mountPoint: HTMLDivElement;
-  overlayFrame: HTMLDivElement;
+  overlayContainer: HTMLDivElement;
   setColorMode: React.Dispatch<React.SetStateAction<string>>;
   StorageProvider: WrappedStorageProvider;
-  theme: ThemeProviderProps['theme'];
   ThemeProvider: typeof CmdkThemeProvider;
+  unmountOverlay: () => void;
   useStorage: UseStorage;
 };
 
@@ -42,6 +42,7 @@ export default function CommandK({
   plugins = [],
   startOpen = false,
 }: Props) {
+  const overlayWrapperRef = useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = useState(false);
   const [isInputActive, setIsInputActive] = useState(true);
   const onRender = useCallback(
@@ -63,7 +64,7 @@ export default function CommandK({
 
   return (
     <>
-      <div data-cmdk />
+      <OverlayWrapper ref={overlayWrapperRef} />
       <Modal
         dismissOnEscape={!isInputActive}
         isActive={isActive}
@@ -72,7 +73,13 @@ export default function CommandK({
         onRender={onRender}
         startOpen={startOpen}
       >
-        <CommandKInput id={id} isActive={isActive} onIsActiveChanged={setIsInputActive} plugins={plugins} />
+        <CommandKInput
+          id={id}
+          isActive={isActive}
+          onIsActiveChanged={setIsInputActive}
+          overlayWrapperRef={overlayWrapperRef}
+          plugins={plugins}
+        />
       </Modal>
     </>
   );
