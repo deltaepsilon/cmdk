@@ -6,9 +6,11 @@ import { ReactNode, useEffect } from 'react';
 import FileSelector from './file-selector';
 import FileUpload from './file-upload';
 import MocksOverlay from './mocks-overlay';
+import { OverlaySettings } from './overlay-settings';
 import ReactDOM from 'react-dom';
 import { UseStorage } from 'command-k/providers/storage-provider';
 import { useFiles } from 'command-k/hooks';
+import { useSelectedImage } from './use-selected-image';
 
 const mocksPlugin: CommandKPlugin = {
   id: 'mock-overlay',
@@ -50,6 +52,7 @@ function MocksPlugin({ useStorage }: MocksPluginProps) {
   const hasHandles = !!handles.length;
   const isUnloaded = storage.data.isUnloaded;
   const { flag: isUploading, setFlag: setIsUploading, toggle: toggleUploading } = useFlag();
+  const { image, clear: clearImage } = useSelectedImage({ useStorage });
 
   useEffect(() => {
     if (!isUnloaded) {
@@ -61,25 +64,37 @@ function MocksPlugin({ useStorage }: MocksPluginProps) {
     case !!storage.data.isUnloaded:
       return null;
 
+    case !!image:
+      return (
+        <PaneWrapper>
+          <Button
+            variant="circle-tertiary"
+            sx={{ position: 'absolute', top: 11, left: 3, zIndex: 1 }}
+            onClick={clearImage}
+          >
+            <TrashIcon />
+          </Button>
+
+          <PaneHeadline>Settings</PaneHeadline>
+
+          <OverlaySettings useStorage={useStorage} />
+        </PaneWrapper>
+      );
+
     case isUploading:
       return (
-        <Box>
+        <PaneWrapper>
           {hasHandles && <ToggleButton icon={<ImageIcon />} onClick={toggleUploading} />}
 
-          <Text
-            variant="headline3"
-            sx={{ position: 'absolute', top: 0, left: 0, right: 0, padding: 2, textAlign: 'center' }}
-          >
-            Upload Mocks
-          </Text>
+          <PaneHeadline>Upload</PaneHeadline>
 
           <FileUpload useStorage={useStorage} onFileSelect={() => setIsUploading(false)} />
-        </Box>
+        </PaneWrapper>
       );
 
     default:
       return (
-        <Box sx={{ paddingX: 2, marginTop: '3rem' }}>
+        <PaneWrapper>
           <ToggleButton icon={<UploadIcon />} onClick={toggleUploading} />
 
           <Button
@@ -90,17 +105,28 @@ function MocksPlugin({ useStorage }: MocksPluginProps) {
             <TrashIcon />
           </Button>
 
-          <Text
-            variant="headline3"
-            sx={{ position: 'absolute', top: 0, left: 0, right: 0, padding: 2, textAlign: 'center' }}
-          >
-            Select Overlay
-          </Text>
+          <PaneHeadline>Select Overlay</PaneHeadline>
 
           <FileSelector useStorage={useStorage} />
-        </Box>
+        </PaneWrapper>
       );
   }
+}
+
+function PaneWrapper({ children }: { children: ReactNode }) {
+  return (
+    <Box
+      sx={{
+        variant: 'styles.hiddenScroll',
+        marginTop: '3rem',
+        maxHeight: 'calc(100% - 3rem)',
+        overflowY: 'auto',
+        paddingX: 2,
+      }}
+    >
+      {children}
+    </Box>
+  );
 }
 
 function ToggleButton({ icon, onClick }: { icon: ReactNode; onClick: () => void }) {
@@ -112,5 +138,16 @@ function ToggleButton({ icon, onClick }: { icon: ReactNode; onClick: () => void 
     >
       {icon}
     </Button>
+  );
+}
+
+function PaneHeadline({ children }: { children: ReactNode }) {
+  return (
+    <Text
+      variant="headline3"
+      sx={{ position: 'absolute', top: 0, left: 0, right: 0, padding: 2, textAlign: 'center' }}
+    >
+      {children}
+    </Text>
   );
 }

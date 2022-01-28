@@ -80,7 +80,6 @@ export default function Pane({
     <Box
       sx={{
         variant: 'styles.hiddenScroll',
-        backgroundColor: 'modalScrim',
         height: 300,
         maxHeight: 'calc(100vh - 10rem)',
         overflow: 'auto',

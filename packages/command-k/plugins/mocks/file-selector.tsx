@@ -1,22 +1,16 @@
 import { Box, Flex, Grid, Image, RefreshCwIcon, Text } from 'ui';
 import { FilesValue, Thumbnail, useFiles } from 'command-k/hooks';
 
+import { SELECTED_HANDLE_KEY } from './use-selected-image';
 import { UseStorage } from 'command-k/providers/storage-provider';
+import { useCallback } from 'react';
 
 export default function FileSelector({ useStorage }: { useStorage: UseStorage }) {
   const storage = useStorage();
   const { handles, refreshThumbnails, thumbnails } = useFiles({ storage });
 
   return (
-    <Grid
-      columns="1fr 1fr"
-      sx={{
-        variant: 'styles.hiddenScroll',
-        overflowY: 'auto',
-        maxHeight: 'calc(100% - 3rem)',
-        paddingBottom: 2,
-      }}
-    >
+    <Grid columns="1fr 1fr" sx={{ paddingBottom: 2 }}>
       {handles.map((handle) => {
         const thumbnail = thumbnails[handle.name];
 
@@ -26,6 +20,7 @@ export default function FileSelector({ useStorage }: { useStorage: UseStorage })
             handle={handle}
             refreshThumbnails={refreshThumbnails}
             thumbnail={thumbnail}
+            useStorage={useStorage}
           />
         );
       })}
@@ -37,11 +32,16 @@ function GridItem({
   handle,
   refreshThumbnails,
   thumbnail,
+  useStorage,
 }: {
   handle: FileSystemFileHandle;
   refreshThumbnails: FilesValue['refreshThumbnails'];
   thumbnail: Thumbnail;
+  useStorage: UseStorage;
 }) {
+  const storage = useStorage();
+  const onClick = useCallback(() => storage.update(SELECTED_HANDLE_KEY, handle.name), [handle, useStorage]);
+
   return (
     <Box sx={{ variant: 'boxes.square', position: 'relative' }}>
       <Flex
@@ -67,7 +67,7 @@ function GridItem({
           </Flex>
         ) : (
           <Flex
-            onClick={console.log}
+            onClick={onClick}
             sx={{
               variant: 'buttons.pill-secondary',
               overflow: 'hidden',

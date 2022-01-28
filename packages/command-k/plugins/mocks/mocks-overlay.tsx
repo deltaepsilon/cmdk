@@ -1,8 +1,8 @@
-import { Box, Text } from 'ui';
+import { Box, Image, Text } from 'ui';
 
 import { MountContext } from 'command-k';
 import ReactDOM from 'react-dom';
-import { useFiles } from 'command-k/hooks';
+import { useSelectedImage } from './use-selected-image';
 
 export default function MocksOverlayPortal({
   overlayContainer,
@@ -19,13 +19,11 @@ export default function MocksOverlayPortal({
 }
 
 function MocksOverlay({ useStorage }: { useStorage: MountContext['useStorage'] }) {
-  const storage = useStorage();
-  const { handles } = useFiles({ storage });
-  console.log('handles', handles);
+  const { image } = useSelectedImage({ useStorage });
 
   return (
-    <Box id={new Date().toString()} sx={{ background: 'gold', pointerEvents: 'auto', opacity: 0.5 }}>
-      <Text>Mock overlay test</Text>
+    <Box id={new Date().toString()} sx={{ background: 'blue', pointerEvents: 'none', opacity: 0.5 }}>
+      <Image src={image?.base64} sx={{ pointerEvents: 'auto' }} />
     </Box>
   );
 }

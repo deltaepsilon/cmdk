@@ -38,14 +38,15 @@ export default function CommandKInput({
   }, [isPaneActive, query]);
 
   return isActive ? (
-    <Box sx={{ background: 'background', borderRadius: 'sm', position: 'relative', width: 360 }}>
-      <Box sx={{ position: 'absolute', top: 3, left: 2 }}>&gt;</Box>
+    <Box sx={{ borderRadius: 'sm', position: 'relative', width: 360 }}>
+      <Box sx={{ position: 'absolute', top: 3, left: 2, zIndex: 1 }}>&gt;</Box>
       <Input
         autoFocus
         value={query}
         onChange={onChange}
         onFocus={onClose}
         sx={{
+          background: 'background',
           borderWidth: '0px 0px 3px 0px',
           borderColor: 'modalScrim',
           borderRadius: 'none',

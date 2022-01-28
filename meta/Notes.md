@@ -1,9 +1,13 @@
 ## To Do
 
-- [ ] Register selected mock
-- [ ] Change mock
-- [ ] Remove active mock
 - [ ] Adjust mock opacity, scale and position
+
+## 01/28
+
+- 1 hour
+- [x] Register selected mock
+- [x] Change mock
+- [x] Remove active mock
 
 ## 01/26
 
