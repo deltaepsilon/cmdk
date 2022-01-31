@@ -8,8 +8,8 @@ const commonFormElements: ThemeUICSSObject = {
   fontFamily: 'body',
   fontSize: 1,
   lineHeight: '1.5',
-  paddingX: '2rem',
-  paddingY: '0.625rem',
+  paddingX: 2,
+  paddingY: 1,
   width: '100%',
   '&:disabled': {
     cursor: 'not-allowed',

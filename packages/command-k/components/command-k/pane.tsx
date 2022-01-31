@@ -5,6 +5,7 @@ import { useKeys, useLayers, useSearch } from 'command-k/hooks';
 
 import { CacheProvider } from '@emotion/react';
 import { CommandKPlugin } from 'command-k';
+import { MountContext } from './command-k';
 import SearchResult from './search-result';
 import StorageProvider from 'command-k/providers/storage-provider';
 import { useColorMode } from 'theme-ui';
@@ -143,21 +144,24 @@ function useMountActivePlugin({
   useEffect(() => {
     if (activePlugin) {
       const layer = getLayer(activePlugin.id);
-      const unmount = mountLayer(activePlugin.id);
+      const unmountLayer = mountLayer(activePlugin.id);
       const mountPoint = getMountPoint(activePlugin.id);
       const overlayContainer = getOverlayContainer(activePlugin.id);
       const unmountOverlay = getUnmountOverlay(layer);
+      let context: MountContext;
 
       if (mountPoint && overlayContainer) {
-        activePlugin.mount({
+        context = {
           mountPoint,
           overlayContainer,
           setColorMode,
           StorageProvider: getStorageProvider({ pluginId: activePlugin.id }),
-          ThemeProvider: getThemeProvider(mountPoint, 'command-k-pane'),
+          PaneThemeProvider: getThemeProvider(mountPoint, 'command-k-pane'),
+          OverlayThemeProvider: CmdkThemeProvider,
           unmountOverlay,
           useStorage,
-        });
+        };
+        activePlugin.mount(context);
 
         layer.mountPoint.contentDocument?.body.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {
@@ -166,7 +170,10 @@ function useMountActivePlugin({
         });
       }
 
-      return unmount;
+      return () => {
+        activePlugin.unmount(context);
+        unmountLayer();
+      };
     }
   }, [activePlugin]);
 }

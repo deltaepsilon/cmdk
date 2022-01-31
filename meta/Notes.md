@@ -1,6 +1,12 @@
 ## To Do
 
-- [ ] Adjust mock opacity, scale and position
+- [ ] Repair "Close" button's affect on unmount
+
+## 01/31
+
+- 3 hours
+- [x] Sort out unmounting lifecycle
+- [x] Adjust mock opacity, scale and position
 
 ## 01/28
 

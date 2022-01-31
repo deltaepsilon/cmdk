@@ -60,13 +60,17 @@ const secondaryVariant = {
 };
 
 const tertiaryVariant = {
-  backgroundColor: 'transparent',
-  border: 'none',
+  backgroundColor: 'background',
+  borderRadius: 'sm',
   color: 'primary',
+  height: 'fit-content',
+  width: 'fit-content',
   fontWeight: 'medium',
-  '&:disabled, &.disabled': {
+  padding: 0,
+  '&:disabled, &.disabled, &[data-state="inactive"]': {
     cursor: 'not-allowed',
     opacity: 0.5,
+    textDecoration: 'none !important',
   },
   '&:focus': {
     outline: 'none',
@@ -78,17 +82,16 @@ const tertiaryVariant = {
     boxShadow: 'none',
     outline: 'none',
   },
-  '&:focus-visible:not(.disabled)': {
+  '&:focus-visible:not(.disabled), &[data-state="focus"]': {
     boxShadow: focus,
     outline: 'none',
-  },
-  '&:hover:not([disabled]):not(.disabled)': {
     textDecoration: 'underline',
-    textDecorationStyle: 'dashed',
-    textDecorationColor: 'secondary',
   },
-  '&:active:not([disabled]):not(.disabled)': {
-    color: 'gray500',
+  '&:hover:not([disabled]):not(.disabled), &[data-state="hover"]': {
+    textDecoration: 'underline',
+  },
+  '&:active:not([disabled]):not(.disabled), &[data-state="active"]': {
+    textDecoration: 'underline',
   },
 };
 
@@ -285,8 +288,8 @@ export const variants: { [key: string]: ThemeUIStyleObject } = {
   'circle-tertiary': {
     ...circleStyles,
     ...tertiaryVariant,
-    padding: 0,
-    borderRadius: 'sm',
+    border: 'none',
+    background: 'none',
   },
   'circle-cta': {
     ...circleStyles,

@@ -20,6 +20,7 @@ const mocksPlugin: CommandKPlugin = {
   version: '0.0.1',
   mount: (context) => ReactDOM.render(<MocksPluginConnected {...context} />, context.mountPoint),
   unmount: NOOP,
+  // unmount: (context) => ReactDOM.unmountComponentAtNode(context.mountPoint),
 };
 
 export default mocksPlugin;
@@ -29,18 +30,26 @@ interface MocksPluginProps {
 }
 
 function MocksPluginConnected({
-  ThemeProvider,
+  PaneThemeProvider,
+  OverlayThemeProvider,
   StorageProvider,
+  unmountOverlay,
   useStorage,
   overlayContainer,
 }: MountContext) {
   return (
     <StorageProvider>
       <>
-        <MocksOverlay overlayContainer={overlayContainer} useStorage={useStorage} />
-        <ThemeProvider>
+        <OverlayThemeProvider>
+          <MocksOverlay
+            overlayContainer={overlayContainer}
+            unmountOverlay={unmountOverlay}
+            useStorage={useStorage}
+          />
+        </OverlayThemeProvider>
+        <PaneThemeProvider>
           <MocksPlugin useStorage={useStorage} />
-        </ThemeProvider>
+        </PaneThemeProvider>
       </>
     </StorageProvider>
   );

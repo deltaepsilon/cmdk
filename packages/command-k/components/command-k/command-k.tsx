@@ -12,12 +12,14 @@ export type MountContext = {
   overlayContainer: HTMLDivElement;
   setColorMode: React.Dispatch<React.SetStateAction<string>>;
   StorageProvider: WrappedStorageProvider;
-  ThemeProvider: typeof CmdkThemeProvider;
+  PaneThemeProvider: typeof CmdkThemeProvider;
+  OverlayThemeProvider: typeof CmdkThemeProvider;
   unmountOverlay: () => void;
   useStorage: UseStorage;
 };
 
 export type Mount = (context: MountContext) => void;
+export type Unmount = (context: MountContext) => void;
 
 export interface CommandKPlugin {
   id: string;
@@ -26,7 +28,7 @@ export interface CommandKPlugin {
   url: string;
   version: string;
   mount: Mount;
-  unmount: () => void;
+  unmount: Unmount;
 }
 
 interface Props {
