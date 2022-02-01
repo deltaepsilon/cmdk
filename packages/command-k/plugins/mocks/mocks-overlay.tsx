@@ -62,6 +62,7 @@ function ImageWrapper({ useStorage }: { useStorage: MountContext['useStorage'] }
           position: 'absolute',
           top: `${settings.y}px`,
           left: `${settings.x}px`,
+          maxWidth: 'initial',
         }}
       />
     </Box>

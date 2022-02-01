@@ -17,6 +17,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Grid
         columns={['1fr', '1fr', '200px 1fr']}
         sx={{
+          gridTemplateRows: 'min-content',
           maxWidth: (theme) => theme.breakpoints[3],
           minHeight: '100vh',
           width: '100%',

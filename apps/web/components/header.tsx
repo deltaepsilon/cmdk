@@ -1,4 +1,4 @@
-import { Flex, List, ListItem, ThemeSwitcher } from 'ui';
+import { Box, Flex, List, ListItem, ThemeSwitcher } from 'ui';
 
 import { Link } from 'components';
 
@@ -8,6 +8,7 @@ export default function Header() {
       sx={{
         flexDirection: ['row', 'row', 'column'],
         alignItems: 'center',
+        justifyContent: ['space-between', 'space-between', null],
         padding: [2, 3, 4],
         paddingRight: '0 !important',
       }}
@@ -16,22 +17,28 @@ export default function Header() {
         href="/"
         sx={{
           alignSelf: 'flex-start',
+          flex: [1, 3, 0],
           fontFamily: 'feature',
           fontSize: 3,
           marginLeft: [0, 0, 3],
-          padding: 2,
+          padding: [0, 2],
           paddingTop: 0,
           paddingLeft: [0, 0, 2],
           whiteSpace: 'nowrap',
+          width: [100, 100, 0],
         }}
       >
         CMD+K
       </Link>
+
       <List
         sx={{
-          gridTemplateColumns: ['repeat(auto-fit, 150px)', 'repeat(auto-fit, 150px)', '1fr', '1fr'],
-          justifyItems: 'flex-start',
-          width: '100%',
+          alignContent: 'flex-start',
+          flex: [2, 2, 1],
+          gridTemplateColumns: ['4rem 5rem 4rem', '4rem 5rem 4rem', '1fr', '1fr'],
+          gridTemplateRows: 'min-content',
+          justifyItems: ['flex-start', 'flex-end', 'flex-start'],
+          width: [null, null, '100%'],
         }}
       >
         <HeaderListItem>
@@ -45,7 +52,14 @@ export default function Header() {
           </Link>
         </HeaderListItem>
         <HeaderListItem>
-          <ThemeSwitcher sx={{ alignSelf: ['flex-start', 'flex-start', null], paddingLeft: 0 }} />
+          <ThemeSwitcher
+            sx={{
+              alignSelf: ['flex-start', 'flex-start', null],
+              paddingLeft: 0,
+              position: 'relative',
+              top: '2px',
+            }}
+          />
         </HeaderListItem>
       </List>
     </Flex>
@@ -59,7 +73,7 @@ function HeaderListItem({ children }) {
         alignItems: 'center',
         display: 'flex',
         justifyContent: 'center',
-        'a, button': { paddingLeft: 3, marginLeft: 2, whiteSpace: 'nowrap' },
+        'a, button': { paddingLeft: [0, 0, 3], marginLeft: [0, 0, 2], whiteSpace: 'nowrap' },
       }}
     >
       {children}
