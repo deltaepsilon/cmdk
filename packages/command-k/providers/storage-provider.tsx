@@ -70,8 +70,6 @@ export default function StorageProvider({
   );
   const value = useValue({ data: pluginData, clear, get, set, update });
 
-  console.log({ pluginData });
-
   useEffect(() => {
     get();
   }, []);

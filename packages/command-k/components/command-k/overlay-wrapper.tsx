@@ -6,7 +6,8 @@ export default forwardRef((props, ref: React.Ref<HTMLDivElement>) => (
     data-overlays-wrapper
     ref={ref}
     sx={{
-      variant: 'boxes.pinned',
+      position: 'fixed',
+      inset: 0,
       pointerEvents: 'none',
     }}
     {...props}

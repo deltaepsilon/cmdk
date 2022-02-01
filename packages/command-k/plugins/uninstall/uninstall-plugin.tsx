@@ -14,5 +14,5 @@ const uninstallPlugin: CommandKPlugin = {
 export default uninstallPlugin;
 
 function mount() {
-  console.log('Hello uninstall plugin!');
+  console.info('Hello uninstall plugin!');
 }

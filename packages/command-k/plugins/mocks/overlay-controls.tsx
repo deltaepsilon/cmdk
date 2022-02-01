@@ -15,10 +15,10 @@ export default function OverlayControls({
   sx?: ThemeUIStyleObject;
 }) {
   const { clear, settings, updateOpacity, updateScale, updateX, updateY } = useSettings({ useStorage });
-  const onOpacityChange = useCallback((e) => updateOpacity(e.target.value), [updateOpacity]);
-  const onScaleChange = useCallback((e) => updateScale(e.target.value), [updateScale]);
-  const onXChange = useCallback((e) => updateX(e.target.value), [updateX]);
-  const onYChange = useCallback((e) => updateY(e.target.value), [updateY]);
+  const onOpacityChange = useCallback((e) => updateOpacity(+e.target.value), [updateOpacity]);
+  const onScaleChange = useCallback((e) => updateScale(+e.target.value), [updateScale]);
+  const onXChange = useCallback((e) => updateX(+e.target.value), [updateX]);
+  const onYChange = useCallback((e) => updateY(+e.target.value), [updateY]);
 
   return (
     <Grid columns="1fr 1fr" sx={{ '& label': { justifyContent: 'flex-end', paddingRight: 2 }, ...sx }}>

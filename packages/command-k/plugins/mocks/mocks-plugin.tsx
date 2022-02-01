@@ -29,30 +29,31 @@ interface MocksPluginProps {
   useStorage: UseStorage;
 }
 
-function MocksPluginConnected({
-  PaneThemeProvider,
-  OverlayThemeProvider,
-  StorageProvider,
-  unmountOverlay,
-  useStorage,
-  overlayContainer,
-}: MountContext) {
+function MocksPluginConnected(context: MountContext) {
+  const { StorageProvider, PaneThemeProvider } = context;
+
   return (
     <StorageProvider>
       <>
-        <OverlayThemeProvider>
-          <MocksOverlay
-            overlayContainer={overlayContainer}
-            unmountOverlay={unmountOverlay}
-            useStorage={useStorage}
-          />
-        </OverlayThemeProvider>
+        <OverlayWrapper {...context} />
+
         <PaneThemeProvider>
-          <MocksPlugin useStorage={useStorage} />
+          <MocksPlugin useStorage={context.useStorage} />
         </PaneThemeProvider>
       </>
     </StorageProvider>
   );
+}
+
+function OverlayWrapper(context: MountContext) {
+  const { OverlayThemeProvider, useStorage } = context;
+  const { image } = useSelectedImage({ useStorage });
+
+  return image?.base64 ? (
+    <OverlayThemeProvider>
+      <MocksOverlay {...context} />
+    </OverlayThemeProvider>
+  ) : null;
 }
 
 function MocksPlugin({ useStorage }: MocksPluginProps) {

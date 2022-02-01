@@ -14,5 +14,5 @@ const installPlugin: CommandKPlugin = {
 export default installPlugin;
 
 function mount() {
-  console.log('Hello install plugin!');
+  console.info('Hello install plugin!');
 }

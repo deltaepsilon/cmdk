@@ -14,5 +14,5 @@ const settingsPlugin: CommandKPlugin = {
 export default settingsPlugin;
 
 function mount() {
-  console.log('Hello settings plugin!');
+  console.info('Hello settings plugin!');
 }

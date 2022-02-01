@@ -8,13 +8,15 @@ import { requestFileHandlePermission } from 'command-k/utils';
 const HANDLES_KEY = '__FILE_HANDLES__';
 const THUMBNAILS_KEY = '__THUMBNAILS__';
 
-interface Thumbnails {
-  [key: string]: Thumbnail;
-}
-
 export interface Thumbnail {
   base64: string;
   permission: PermissionState;
+  width: number;
+  height: number;
+}
+
+interface Thumbnails {
+  [key: string]: Thumbnail;
 }
 
 export interface FilesValue {
@@ -50,15 +52,13 @@ export default function useFiles({
       while (i--) {
         const handle = localHandles[i];
         const permission = await requestFileHandlePermission(handle);
-        let base64 = '';
 
         if (permission === 'granted') {
           const file = await handle.getFile();
+          const fileDetails = await getFileDetails(file);
 
-          base64 = await extractBase64(file);
+          thumbnails[handle.name] = { ...fileDetails, permission };
         }
-
-        thumbnails[handle.name] = { base64, permission };
       }
 
       await storage.update(THUMBNAILS_KEY, thumbnails);
@@ -132,11 +132,19 @@ export default function useFiles({
   });
 }
 
-async function extractBase64(file: File): Promise<string> {
+async function getFileDetails(file: File): Promise<{ base64: string; width: number; height: number }> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
+    reader.onload = () => {
+      const base64 = reader.result as string;
+      const img = document.createElement('img');
+
+      img.onload = () => resolve({ base64, width: img.width, height: img.height });
+      img.onerror = reject;
+
+      img.src = base64;
+    };
     reader.onerror = reject;
   });
 }
