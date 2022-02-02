@@ -9,8 +9,14 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
+    "export": "turbo run export && yarn export:docs",
+    "export:docs": "cp -r apps/web/dist/* docs && rm -rf docs/external && mkdir docs/external && cp -r apps/external/dist/* docs/external/",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "publish": "yarn docker:build && yarn docker:run",
+    "docker:build": "sh bin/docker/build.sh",
+    "docker:run": "sh bin/docker/run.sh",
+    "docker:interactive": "sh bin/docker/interactive.sh"
   },
   "devDependencies": {
     "prettier": "^2.5.1",
@@ -25,6 +31,11 @@
         "outputs": [
           "dist/**",
           ".next/**"
+        ]
+      },
+      "export": {
+        "dependsOn": [
+          "build"
         ]
       },
       "lint": {

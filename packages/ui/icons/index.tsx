@@ -1,4 +1,6 @@
 
+export { default as ChevronsDownIcon } from './components/chevrons-down';
+export { default as ChevronsUpIcon } from './components/chevrons-up';
 export { default as FeatherIcon } from './components/feather';
 export { default as ImageIcon } from './components/image';
 export { default as MenuIcon } from './components/menu';

@@ -15,6 +15,7 @@ services:
       - './bin:/cmdk/bin'
       - './meta:/cmdk/meta'
       - './apps:/cmdk/apps'
+      - './docs:/cmdk/docs'
       - './packages:/cmdk/packages'
       - './node_modules:/cmdk/node_modules'
       - './package.json:/cmdk/package.json'

@@ -1,6 +1,13 @@
 ## To Do
 
-- [ ] Repair "Close" button's affect on unmount
+- [ ] Restore a local build
+- [ ] Deploy to GitHub pages
+
+## 02/01
+
+- 3.5 hours
+- [x] Restyled controls
+- [x] Repair "Close" button's affect on unmount
 
 ## 01/31
 

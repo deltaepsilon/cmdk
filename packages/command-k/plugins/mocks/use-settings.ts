@@ -22,7 +22,7 @@ interface UseSettings {
 }
 
 const DEFAULT_SETTINGS: Settings = {
-  opacity: 0.5,
+  opacity: 0.25,
   scale: 1,
   x: 0,
   y: 0,

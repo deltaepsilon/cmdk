@@ -1,4 +1,4 @@
-import { ThemeUICSSObject, ThemeUIStyleObject } from 'theme-ui';
+import { StylePropertyValue, ThemeUICSSObject, ThemeUIStyleObject } from 'theme-ui';
 import { focus, shadowStates, transition } from './states';
 
 const pillStyles: ThemeUICSSObject = {
@@ -89,6 +89,8 @@ const tertiaryVariant = {
   },
   '&:hover:not([disabled]):not(.disabled), &[data-state="hover"]': {
     textDecoration: 'underline',
+    textDecorationStyle: 'dashed !important' as StylePropertyValue<any>,
+    textDecorationColor: 'secondary',
   },
   '&:active:not([disabled]):not(.disabled), &[data-state="active"]': {
     textDecoration: 'underline',

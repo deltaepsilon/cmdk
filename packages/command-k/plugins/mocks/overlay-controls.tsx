@@ -1,4 +1,4 @@
-import { Box, Button, Grid, InputRow, Label, Text } from 'ui';
+import { Box, Button, Flex, Grid, InputRow, Label, Text } from 'ui';
 
 import { MountContext } from 'command-k';
 import { ThemeUIStyleObject } from 'theme-ui';
@@ -21,7 +21,15 @@ export default function OverlayControls({
   const onYChange = useCallback((e) => updateY(+e.target.value), [updateY]);
 
   return (
-    <Grid columns="1fr 1fr" sx={{ '& label': { justifyContent: 'flex-end', paddingRight: 2 }, ...sx }}>
+    <Flex
+      sx={{
+        flexWrap: 'wrap',
+        '& > div': { width: '50%', padding: 2 },
+        button: { alignSelf: 'center', justifySelf: 'flex-end', marginX: 2 },
+        '& label': { justifyContent: 'flex-end', paddingRight: 2 },
+        ...sx,
+      }}
+    >
       <InputRow
         label="Opacity"
         onChange={onOpacityChange}
@@ -54,22 +62,14 @@ export default function OverlayControls({
         type="number"
         value={settings.y}
       />
-      <Grid
-        data-button-wrapper
-        columns="repeat(auto-fit, minMax(50px, 200px))"
-        sx={{
-          alignItems: 'center',
-          gridColumn: '1/-1',
-          justifyItems: 'center',
-          paddingY: 1,
-        }}
-      >
+
+      <Flex data-reset-button sx={{ flex: 1, justifyContent: 'flex-end', width: '100%' }}>
         <Button variant="pill-tertiary" onClick={clear}>
           Reset
         </Button>
+      </Flex>
 
-        {children}
-      </Grid>
-    </Grid>
+      {children}
+    </Flex>
   );
 }
