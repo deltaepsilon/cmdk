@@ -1,78 +1,36 @@
-# Turborepo starter
+# Why CMD+K?
 
-This is an official Yarn v1 starter turborepo.
+CMD+K (pronounced "command k") is a tooling environment. Front-end web dev has Chrome Dev Tools and a host of Dev Tools plugins, but sometimes you need to build your tooling directly into your app. Browser extensions development can be quite limiting, especially with it's iffy distribution model.
 
-## What's inside?
+CMD+K can be injected directly into your app or dropped in via the Dev Tools console.
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package manager. It includes the following packages/apps:
+It lets you fire off and control plugins that have full access to your app and it's dev environment. CMD+K is not recommended for use in production environments, because it does introduce an attack vector for your site. It's one thing to fall victim to an XSS attack in your dev environment. It's an entirely different thing to introduce XSS vulnerabilities to prod.
 
-### Apps and Packages
+The plugins are easy-ish to develop. Bootstrapping them into the CMD+K pane and building out basic views and controls isn't too bad. The trick is in making fully-featured, sophisticated plugins. CMD+K helps a lot, but you'll need to know JavaScript (and probably React or Vue) quite well.
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+## Environment
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+This repo can be built and run directly on your native OS or wsl2 in Windows;
+however, it's designed to run inside of a VSCode Container.
 
-### Utilities
+To run in a container with `docker-compose` use `docker-compose up -d` to bring up the containers, and `docker-compose down` to take them down. Use VSCode's `Remote-Containers: Reopen in Container` command from the `cmd+shift+P` panel to open VSCode within the running container.
 
-This turborepo has some additional tools already setup for you:
+## Development
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Jest](https://jestjs.io) test runner for all things JavaScript
-- [Prettier](https://prettier.io) for code formatting
+Once the environment is set up, use `yarn && yarn dev` to develop the app.
 
-## Setup
+`yarn build` will build it.
 
-This repository is used in the `npx create-turbo` command, and selected when choosing which package manager you wish to use with your monorepo (Yarn).
+`yarn export` will export it and create the docs folder for GitHub Pages.
 
-### Build
+## Non-Environment Scripts
 
-To build all apps and packages, run the following command:
+Sometimes you just want to build and release with a single command.
 
-```
-cd my-turborepo
-yarn run build
-```
+`yarn docs` will do that. It should be run outside of VSCode's Remote Container environment, because it builds it's own Docker container and runs the build process inside that isolated container. The result is an updated `/docs` folder.
 
-### Develop
+Commit and push that fresh `/docs` folder to deploy to GitHub Pages.
 
-To develop all apps and packages, run the following command:
+## Built using Turborepo
 
-```
-cd my-turborepo
-yarn run dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching (Beta)](https://turborepo.org/docs/features/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching (Beta) you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Pipelines](https://turborepo.org/docs/features/pipelines)
-- [Caching](https://turborepo.org/docs/features/caching)
-- [Remote Caching (Beta)](https://turborepo.org/docs/features/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/features/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
+See [Turborepo starter notes](https://github.com/vercel/turborepo/tree/main/create-turbo/templates/yarn)
