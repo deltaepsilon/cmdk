@@ -28263,7 +28263,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     secondary: porshe.rubystoneRed,
     background: "#fff",
     inputBorder: porshe.gentianBlueMetallic,
-    modalScrim: "rgba(0, 0, 0, 0.4)",
+    modalScrim: "rgba(255, 255, 255, 0.75)",
     boxShadowFocus: porshe.rubystoneRed,
     selected: porshe.pastelBlue,
     hover: "rgba(0, 0, 0, 0.05)",
@@ -28289,7 +28289,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     secondary: porshe.acidGreen,
     background: "#222",
     inputBorder: "#fff",
-    modalScrim: "rgba(255, 255, 255, 0.4)",
+    modalScrim: "rgba(0, 0, 0, 0.75)",
     boxShadowFocus: porshe.acidGreen,
     selected: porshe.gentianBlueMetallic,
     hover: "rgba(255, 255, 255, 0.3)",
@@ -28587,6 +28587,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       isActive: true,
       callback: (e) => {
         var _a, _b, _c, _d, _e, _f;
+        console.log(e.code);
         switch (e.code) {
           case "NumpadEnter":
           case "Enter":
@@ -30430,6 +30431,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   init_react_shim();
   function SearchResult({ plugin, onClick, selected }) {
     return /* @__PURE__ */ React.createElement(button_default, {
+      "data-selected": selected,
       variant: "inline",
       onClick,
       sx: {
@@ -30548,7 +30550,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             setColorMode,
             StorageProvider: getStorageProvider({ pluginId: activePlugin.id }),
             PaneThemeProvider: getThemeProvider(mountPoint, "command-k-pane"),
-            OverlayThemeProvider: CmdkThemeProvider,
+            OverlayThemeProvider: getThemeProvider(overlayContainer, "command-k-overlay"),
             unmountOverlay,
             useStorage
           };
@@ -30653,11 +30655,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     sx: {
       position: "fixed",
       inset: 0,
-      pointerEvents: "none"
+      pointerEvents: "none",
+      transform: "scale(1)"
     }
   }, props2)));
 
   // ../../packages/command-k/components/command-k/command-k.tsx
+  var ROOT_ID = "cmdk-root";
   function CommandK({
     id,
     onRender: parentOnRender = NOOP,
@@ -30669,7 +30673,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const [isInputActive, setIsInputActive] = (0, import_react38.useState)(true);
     const onRender = (0, import_react38.useCallback)((ref) => {
       const modals = document.querySelectorAll('[data-modal-id^="cmdk"]');
-      const isRedundant = modals[0] !== ref.current;
+      const isRedundant = !!modals[0] && modals[0] !== ref.current;
       if (!isRedundant) {
         console.info(`Active modal: ${id}`);
         setIsActive(true);
@@ -30678,7 +30682,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       parentOnRender(ref);
     }, [id, parentOnRender]);
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(overlay_wrapper_default, {
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(box_default, {
+      id: ROOT_ID
+    }, /* @__PURE__ */ React.createElement(overlay_wrapper_default, {
       ref: overlayWrapperRef
     }), /* @__PURE__ */ React.createElement(Modal, {
       dismissOnEscape: !isInputActive,
@@ -30693,7 +30699,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       onIsActiveChanged: setIsInputActive,
       overlayWrapperRef,
       plugins
-    })));
+    }))));
   }
   function keyboardTrigger(e) {
     return e.ctrlKey && e.code === "KeyK";
@@ -31074,8 +31080,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   };
   var mocks_plugin_default = mocksPlugin;
   function MocksPluginConnected(context) {
-    const { StorageProvider: StorageProvider2, PaneThemeProvider } = context;
-    return /* @__PURE__ */ React.createElement(StorageProvider2, null, /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(OverlayWrapper, __spreadValues({}, context)), /* @__PURE__ */ React.createElement(PaneThemeProvider, null, /* @__PURE__ */ React.createElement(MocksPlugin, {
+    const { StorageProvider: StorageProvider2, PaneThemeProvider, OverlayThemeProvider } = context;
+    return /* @__PURE__ */ React.createElement(StorageProvider2, null, /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(OverlayThemeProvider, null, /* @__PURE__ */ React.createElement(OverlayWrapper, __spreadValues({}, context))), /* @__PURE__ */ React.createElement(PaneThemeProvider, null, /* @__PURE__ */ React.createElement(MocksPlugin, {
       useStorage: context.useStorage
     }))));
   }
@@ -31284,12 +31290,24 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function ThemedCommandK() {
     const [cache, setCache] = (0, import_react48.useState)(emotion_cache_browser_esm_default({ container: document.body, key: "command-k" }));
     const onRender = (0, import_react48.useCallback)((ref) => {
-      const container = ref.current;
+      const container = ref.current.parentElement;
+      const key = "command-k";
+      console.log({ container });
       setCache(emotion_cache_browser_esm_default({
         container,
         prepend: true,
-        key: "command-k"
+        key
       }));
+      setTimeout(() => {
+        const styleTags = container.querySelectorAll(`[data-emotion="${key}-global"]`);
+        console.log({ styleTags });
+        styleTags.forEach((styleTag) => {
+          var _a;
+          const text = ((_a = styleTag.textContent) == null ? void 0 : _a.replace(/html/g, `#${ROOT_ID}`)) || "";
+          console.log({ styleTag, text });
+          styleTag.textContent = text;
+        });
+      });
       const oldStyles = document.querySelectorAll('[data-emotion="command-k"]');
       oldStyles.forEach((el) => el.remove());
     }, []);
@@ -31332,6 +31350,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function createShadowRoot() {
     const el = document.createElement("div");
     el.id = ID;
+    el.style.position = "relative";
+    el.style.zIndex = "10000";
     document.body.appendChild(el);
     el.attachShadow({ mode: "open" });
     return el.shadowRoot;
