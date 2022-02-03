@@ -11,6 +11,7 @@ interface Props {
 export default function SearchResult({ plugin, onClick, selected }: Props) {
   return (
     <Button
+      data-selected={selected}
       variant="inline"
       onClick={onClick}
       sx={{

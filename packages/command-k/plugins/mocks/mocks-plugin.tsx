@@ -30,13 +30,14 @@ interface MocksPluginProps {
 }
 
 function MocksPluginConnected(context: MountContext) {
-  const { StorageProvider, PaneThemeProvider } = context;
+  const { StorageProvider, PaneThemeProvider, OverlayThemeProvider } = context;
 
   return (
     <StorageProvider>
       <>
-        <OverlayWrapper {...context} />
-
+        <OverlayThemeProvider>
+          <OverlayWrapper {...context} />
+        </OverlayThemeProvider>
         <PaneThemeProvider>
           <MocksPlugin useStorage={context.useStorage} />
         </PaneThemeProvider>

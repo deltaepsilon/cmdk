@@ -157,7 +157,7 @@ function useMountActivePlugin({
           setColorMode,
           StorageProvider: getStorageProvider({ pluginId: activePlugin.id }),
           PaneThemeProvider: getThemeProvider(mountPoint, 'command-k-pane'),
-          OverlayThemeProvider: CmdkThemeProvider,
+          OverlayThemeProvider: getThemeProvider(overlayContainer, 'command-k-overlay'),
           unmountOverlay,
           useStorage,
         };

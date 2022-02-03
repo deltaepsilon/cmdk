@@ -9,6 +9,7 @@ export default forwardRef((props, ref: React.Ref<HTMLDivElement>) => (
       position: 'fixed',
       inset: 0,
       pointerEvents: 'none',
+      transform: 'scale(1)',
     }}
     {...props}
   />

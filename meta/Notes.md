@@ -1,7 +1,11 @@
 ## To Do
 
-- [ ] Restore a local build
-- [ ] Deploy to GitHub pages
+- [ ] Get copy/paste functionality working
+
+## 02/02
+
+- [x] Restore a local build
+- [x] Deploy to GitHub pages
 
 ## 02/01
 

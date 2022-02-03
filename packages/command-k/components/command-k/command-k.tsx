@@ -5,6 +5,8 @@ import CommandKInput from './command-k-input';
 import OverlayWrapper from './overlay-wrapper';
 import { UseStorage } from 'command-k/providers/storage-provider';
 
+export const ROOT_ID = 'cmdk-root';
+
 export type WrappedStorageProvider = ({ children }: { children: ReactNode }) => JSX.Element;
 
 export type MountContext = {
@@ -50,7 +52,7 @@ export default function CommandK({
   const onRender = useCallback(
     (ref) => {
       const modals = document.querySelectorAll('[data-modal-id^="cmdk"]');
-      const isRedundant = modals[0] !== ref.current;
+      const isRedundant = !!modals[0] && modals[0] !== ref.current;
 
       if (!isRedundant) {
         console.info(`Active modal: ${id}`);
@@ -66,23 +68,25 @@ export default function CommandK({
 
   return (
     <>
-      <OverlayWrapper ref={overlayWrapperRef} />
-      <Modal
-        dismissOnEscape={!isInputActive}
-        isActive={isActive}
-        keyboardTrigger={keyboardTrigger}
-        modalId={`cmdk-${id}`}
-        onRender={onRender}
-        startOpen={startOpen}
-      >
-        <CommandKInput
-          id={id}
+      <Box id={ROOT_ID}>
+        <OverlayWrapper ref={overlayWrapperRef} />
+        <Modal
+          dismissOnEscape={!isInputActive}
           isActive={isActive}
-          onIsActiveChanged={setIsInputActive}
-          overlayWrapperRef={overlayWrapperRef}
-          plugins={plugins}
-        />
-      </Modal>
+          keyboardTrigger={keyboardTrigger}
+          modalId={`cmdk-${id}`}
+          onRender={onRender}
+          startOpen={startOpen}
+        >
+          <CommandKInput
+            id={id}
+            isActive={isActive}
+            onIsActiveChanged={setIsInputActive}
+            overlayWrapperRef={overlayWrapperRef}
+            plugins={plugins}
+          />
+        </Modal>
+      </Box>
     </>
   );
 }

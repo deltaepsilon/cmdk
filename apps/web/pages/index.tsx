@@ -10,7 +10,7 @@ export default function IndexPage() {
         defaultValue={`(() => {
   const script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src = 'https://local.chrisesplin.com/dist/index.js';
+  script.src = 'https://www.cmdk.dev/external/index.js';
   script.onload = () => __cmdk.mount();
   document.head.appendChild(script);
 })();

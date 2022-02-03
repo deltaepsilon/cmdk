@@ -1,5 +1,5 @@
 import { CmdkThemeProvider, NOOP, constants } from 'ui';
-import { CommandK, defaultPlugins } from 'command-k';
+import { CommandK, ROOT_ID, defaultPlugins } from 'command-k';
 import createCache, { EmotionCache } from '@emotion/cache';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -34,16 +34,33 @@ function ThemedCommandK() {
   const [cache, setCache] = useState<EmotionCache>(
     createCache({ container: document.body, key: 'command-k' }),
   );
+  // console.log({ root: document?.getElementById('cmdk')?.shadowRoot?.getElementById('cmdk-root') });
   const onRender = useCallback((ref) => {
-    const container = ref.current as HTMLElement;
+    const container = ref.current.parentElement as HTMLElement;
+    const key = 'command-k';
+
+    console.log({ container });
 
     setCache(
       createCache({
         container,
         prepend: true,
-        key: 'command-k',
+        key,
       }),
     );
+
+    setTimeout(() => {
+      const styleTags = container.querySelectorAll(`[data-emotion="${key}-global"]`);
+
+      console.log({ styleTags });
+
+      styleTags.forEach((styleTag) => {
+        const text = styleTag.textContent?.replace(/html/g, `#${ROOT_ID}`) || '';
+        console.log({ styleTag, text });
+
+        styleTag.textContent = text;
+      });
+    });
 
     const oldStyles = document.querySelectorAll('[data-emotion="command-k"]');
 
@@ -104,6 +121,8 @@ function createShadowRoot() {
   const el = document.createElement('div');
 
   el.id = ID;
+  el.style.position = 'relative';
+  el.style.zIndex = '10000';
   document.body.appendChild(el);
   el.attachShadow({ mode: 'open' });
 

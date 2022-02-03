@@ -1,4 +1,4 @@
-export { default as CommandK } from './command-k';
+export { default as CommandK, ROOT_ID } from './command-k';
 export { default as CommandKInput } from './command-k-input';
 export { default as OverlayWrapper } from './overlay-wrapper';
 
