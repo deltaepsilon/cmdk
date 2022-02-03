@@ -6,5 +6,3 @@ COPY yarn.lock /cmdk/yarn.lock
 WORKDIR /cmdk
 
 RUN yarn
-
-CMD [ "yarn export" ]

@@ -28587,7 +28587,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       isActive: true,
       callback: (e) => {
         var _a, _b, _c, _d, _e, _f;
-        console.log(e.code);
         switch (e.code) {
           case "NumpadEnter":
           case "Enter":
@@ -31292,7 +31291,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const onRender = (0, import_react48.useCallback)((ref) => {
       const container = ref.current.parentElement;
       const key = "command-k";
-      console.log({ container });
       setCache(emotion_cache_browser_esm_default({
         container,
         prepend: true,
@@ -31300,12 +31298,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }));
       setTimeout(() => {
         const styleTags = container.querySelectorAll(`[data-emotion="${key}-global"]`);
-        console.log({ styleTags });
         styleTags.forEach((styleTag) => {
           var _a;
-          const text = ((_a = styleTag.textContent) == null ? void 0 : _a.replace(/html/g, `#${ROOT_ID}`)) || "";
-          console.log({ styleTag, text });
-          styleTag.textContent = text;
+          styleTag.textContent = ((_a = styleTag.textContent) == null ? void 0 : _a.replace(/html/g, `#${ROOT_ID}`)) || "";
         });
       });
       const oldStyles = document.querySelectorAll('[data-emotion="command-k"]');

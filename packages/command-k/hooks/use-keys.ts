@@ -21,7 +21,6 @@ export default function useKeys({
     {
       isActive: true,
       callback: (e) => {
-        console.log(e.code);
         switch (e.code) {
           case 'NumpadEnter':
           case 'Enter':

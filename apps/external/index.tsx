@@ -34,12 +34,10 @@ function ThemedCommandK() {
   const [cache, setCache] = useState<EmotionCache>(
     createCache({ container: document.body, key: 'command-k' }),
   );
-  // console.log({ root: document?.getElementById('cmdk')?.shadowRoot?.getElementById('cmdk-root') });
+
   const onRender = useCallback((ref) => {
     const container = ref.current.parentElement as HTMLElement;
     const key = 'command-k';
-
-    console.log({ container });
 
     setCache(
       createCache({
@@ -52,13 +50,8 @@ function ThemedCommandK() {
     setTimeout(() => {
       const styleTags = container.querySelectorAll(`[data-emotion="${key}-global"]`);
 
-      console.log({ styleTags });
-
       styleTags.forEach((styleTag) => {
-        const text = styleTag.textContent?.replace(/html/g, `#${ROOT_ID}`) || '';
-        console.log({ styleTag, text });
-
-        styleTag.textContent = text;
+        styleTag.textContent = styleTag.textContent?.replace(/html/g, `#${ROOT_ID}`) || '';
       });
     });
 

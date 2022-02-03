@@ -3,4 +3,4 @@ docker run \
 -v `pwd`/docs:/cmdk/docs \
 -v `pwd`/node_modules:/cmdk/node_modules \
 -v `pwd`/packages:/cmdk/packages \
-cmdk-build
+cmdk-build /bin/sh -c "yarn export"
