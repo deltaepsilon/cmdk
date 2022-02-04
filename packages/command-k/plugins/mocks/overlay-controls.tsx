@@ -1,8 +1,8 @@
-import { Box, Button, Flex, Grid, InputRow, Label, Text } from 'ui';
+import { Button, Flex, InputRow, useDebouncedInputState } from 'ui';
 
+import { ChangeEvent } from 'react';
 import { MountContext } from 'command-k';
 import { ThemeUIStyleObject } from 'theme-ui';
-import { useCallback } from 'react';
 import { useSettings } from './use-settings';
 
 export default function OverlayControls({
@@ -15,10 +15,26 @@ export default function OverlayControls({
   sx?: ThemeUIStyleObject;
 }) {
   const { clear, settings, updateOpacity, updateScale, updateX, updateY } = useSettings({ useStorage });
-  const onOpacityChange = useCallback((e) => updateOpacity(+e.target.value), [updateOpacity]);
-  const onScaleChange = useCallback((e) => updateScale(+e.target.value), [updateScale]);
-  const onXChange = useCallback((e) => updateX(+e.target.value), [updateX]);
-  const onYChange = useCallback((e) => updateY(+e.target.value), [updateY]);
+  const [opacity, onOpacityChange] = useDebouncedInputState<number>({
+    callback: updateOpacity,
+    onChange: toNumber,
+    value: settings.opacity,
+  });
+  const [scale, onScaleChange] = useDebouncedInputState<number>({
+    callback: updateScale,
+    onChange: toNumber,
+    value: settings.scale,
+  });
+  const [x, onXChange] = useDebouncedInputState<number>({
+    callback: updateX,
+    onChange: toNumber,
+    value: settings.x,
+  });
+  const [y, onYChange] = useDebouncedInputState<number>({
+    callback: updateY,
+    onChange: toNumber,
+    value: settings.y,
+  });
 
   return (
     <Flex
@@ -36,7 +52,7 @@ export default function OverlayControls({
         placeholder="opacity"
         step={0.01}
         type="number"
-        value={settings.opacity}
+        value={opacity}
       />
       <InputRow
         label="Scale"
@@ -44,24 +60,10 @@ export default function OverlayControls({
         placeholder="scale"
         step={0.01}
         type="number"
-        value={settings.scale}
+        value={scale}
       />
-      <InputRow
-        label="X"
-        onChange={onXChange}
-        placeholder="x offset"
-        step={1}
-        type="number"
-        value={settings.x}
-      />
-      <InputRow
-        label="Y"
-        onChange={onYChange}
-        placeholder="y offset"
-        step={1}
-        type="number"
-        value={settings.y}
-      />
+      <InputRow label="X" onChange={onXChange} placeholder="x offset" step={1} type="number" value={x} />
+      <InputRow label="Y" onChange={onYChange} placeholder="y offset" step={1} type="number" value={y} />
 
       <Flex data-reset-button sx={{ flex: 1, justifyContent: 'flex-end', width: '100%' }}>
         <Button variant="pill-tertiary" onClick={clear}>
@@ -72,4 +74,8 @@ export default function OverlayControls({
       {children}
     </Flex>
   );
+}
+
+function toNumber(e: ChangeEvent<HTMLInputElement>) {
+  return +e.target.value;
 }

@@ -1,5 +1,6 @@
 import { SyntheticEvent } from 'react';
 
+export { default as debounce } from './debounce';
 export { default as focusOnActiveButton } from './focus-on-active-button';
 
 export function NOOP(..._: any) {}

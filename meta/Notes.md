@@ -1,6 +1,12 @@
 ## To Do
 
-- [ ] Get copy/paste functionality working
+## 02/04
+
+- [ ] Mock overlay perf
+## 02/03
+
+- 2 hours
+- [x] Get copy/paste functionality working
 
 ## 02/02
 
