@@ -6,11 +6,11 @@ import { ReactNode, useEffect } from 'react';
 import FileSelector from './file-selector';
 import FileUpload from './file-upload';
 import MocksOverlay from './mocks-overlay';
-import { OverlaySettings } from './overlay-settings';
+import OverlaySettings from './overlay-settings';
 import ReactDOM from 'react-dom';
 import { UseStorage } from 'command-k/providers/storage-provider';
 import { useFiles } from 'command-k/hooks';
-import { useSelectedImage } from './use-selected-image';
+import useSelectedImage from './use-selected-image';
 
 const mocksPlugin: CommandKPlugin = {
   id: 'mock-overlay',
@@ -62,7 +62,7 @@ function MocksPlugin({ useStorage }: MocksPluginProps) {
   const { handles } = useFiles({ storage });
   const hasHandles = !!handles.length;
   const isUnloaded = storage.data.isUnloaded;
-  const { flag: isUploading, setFlag: setIsUploading, toggle: toggleUploading } = useFlag();
+  const [isUploading, setIsUploading, toggleUploading] = useFlag();
   const { image, clear: clearImage } = useSelectedImage({ useStorage });
 
   useEffect(() => {

@@ -1,5 +1,6 @@
-export { default as useDebouncedInputState } from './use-debounced-input-state';
+export { default as useDebouncedInputState, inputToNumber } from './use-debounced-input-state';
 export { default as useDebouncedValue } from './use-debounced-value';
+export { default as useDrag } from './use-drag';
 export { default as useEventBus } from './use-event-bus';
 export { default as useFlag } from './use-flag';
 export { default as useHasSwitched } from './use-has-switched';

@@ -28,7 +28,7 @@ const DEFAULT_SETTINGS: Settings = {
   y: 0,
 };
 
-export function useSettings({ useStorage }: { useStorage: MountContext['useStorage'] }): UseSettings {
+export default function useSettings({ useStorage }: { useStorage: MountContext['useStorage'] }): UseSettings {
   const storage = useStorage();
   const settings = storage.data[SETTINGS_KEY] || DEFAULT_SETTINGS;
   const clear = useCallback(() => storage.update(SETTINGS_KEY, null), []);

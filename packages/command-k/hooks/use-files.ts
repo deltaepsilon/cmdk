@@ -41,7 +41,7 @@ export default function useFiles({
 }) {
   const handles = useMemo(() => (storage.data[HANDLES_KEY] || []) as FileSystemFileHandle[], [storage.data]);
   const thumbnails = useMemo(() => (storage.data[THUMBNAILS_KEY] || {}) as Thumbnails, [storage.data]);
-  const { flag: isDropping, setFlag: setIsDropping } = useFlag(false);
+  const [isDropping, setIsDropping] = useFlag(false);
 
   const refreshThumbnails = useCallback(
     async (overrideHandles?: FileSystemFileHandle[]) => {

@@ -6,7 +6,7 @@ interface Props extends InputProps {
 
 export default function InputRow({ label, sx = {}, ...props }: Props) {
   return (
-    <Flex sx={{ alignItems: 'center', ...sx }}>
+    <Flex data-input-row sx={{ alignItems: 'center', ...sx }}>
       <Label>{label}</Label>
       <Input {...props} />
     </Flex>

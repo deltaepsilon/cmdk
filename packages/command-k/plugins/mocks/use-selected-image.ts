@@ -6,7 +6,7 @@ import { useValue } from 'ui';
 
 export const SELECTED_HANDLE_KEY = 'selected-handle';
 
-export function useSelectedImage({ useStorage }: { useStorage: MountContext['useStorage'] }): {
+export default function useSelectedImage({ useStorage }: { useStorage: MountContext['useStorage'] }): {
   clear: () => void;
   image: Thumbnail | undefined;
 } {

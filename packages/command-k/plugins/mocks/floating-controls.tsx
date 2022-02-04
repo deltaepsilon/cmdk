@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 
 import { MountContext } from 'command-k';
 import OverlayControls from './overlay-controls';
-import { useSelectedImage } from './use-selected-image';
+import useSelectedImage from './use-selected-image';
 
 enum Position {
   top = 'top',
@@ -41,8 +41,9 @@ export default function FloatingControls({
         useStorage={useStorage}
         sx={{
           gridTemplateColumns: '1fr 1fr 1fr 1fr',
-          '& > div': { width: '9rem' },
-          '[data-reset-button]': { justifyContent: 'flex-start', paddingLeft: 3 },
+          '& > [data-input-row]': { width: '9rem' },
+          '& button': { marginTop: 0 },
+          '[data-reset-button]': { justifyContent: 'flex-start', paddingLeft: 0 },
         }}
       >
         <Button variant="pill-tertiary" onClick={togglePosition}>
