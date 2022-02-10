@@ -1,8 +1,17 @@
 ## To Do
 
+- [ ] Finalize drag
+
+## 02/10
+
+- 1 hour
+- [x] Stub in drag
+
 ## 02/04
 
-- [ ] Mock overlay perf
+- 2 hours
+- [x] Mock overlay perf
+
 ## 02/03
 
 - 2 hours

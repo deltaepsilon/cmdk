@@ -2,7 +2,9 @@ import { ChangeEvent, ChangeEventHandler, useCallback, useEffect, useMemo, useSt
 
 import { debounce } from 'ui';
 
-type UpdateState<S> = (setState: (state: S) => S) => void;
+type SetState<S> = (setState: (state: S) => S) => void;
+type StateValue<S> = (value: S) => void;
+type UpdateState<S> = SetState<S> | StateValue<S>;
 type InputChangeEventHandler = ChangeEventHandler<HTMLInputElement>;
 type InputChangeEvent = ChangeEvent<HTMLInputElement>;
 
@@ -29,11 +31,19 @@ export default function useDebouncedInputState<T>({
     [debouncedCallback, onChange, value],
   );
   const updateState: UpdateState<T> = useCallback(
-    (getState) => {
-      const v = getState(value);
+    (getStateOrValue: SetState<T> | StateValue<T>) => {
+      if (typeof getStateOrValue === 'function') {
+        const getState = getStateOrValue as (state: T) => T;
+        const v = getState(value);
 
-      setValue(v);
-      debouncedCallback(v);
+        setValue(v);
+        debouncedCallback(v);
+      } else {
+        const v = getStateOrValue as T;
+
+        setValue(v);
+        debouncedCallback(v);
+      }
     },
     [value],
   );
