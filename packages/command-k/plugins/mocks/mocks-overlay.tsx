@@ -1,5 +1,5 @@
 import { Box, Image, inputToNumber, useDebouncedInputState, useDrag } from 'ui';
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import FloatingControls from './floating-controls';
 import { MountContext } from 'command-k';
@@ -41,30 +41,22 @@ function ImageWrapper({ useStorage }: { useStorage: MountContext['useStorage'] }
   const draggableRef = useRef<HTMLImageElement>(null);
   const { image } = useSelectedImage({ useStorage });
   const { controls } = useControls({ useStorage });
-  const { settings, updateX, updateY } = useSettings({ useStorage });
-  const [x, , updateXState] = useDebouncedInputState<number>({
-    callback: updateX,
-    onChange: inputToNumber,
-    value: settings.x,
-  });
-  const [y, , updateYState] = useDebouncedInputState<number>({
-    callback: updateY,
-    onChange: inputToNumber,
-    value: settings.y,
+  const { settings, updateXY } = useSettings({ useStorage });
+  const [{ x, y }, , updateXYState] = useDebouncedInputState<{ x: number; y: number }>({
+    callback: updateXY,
+    onChange: () => ({ x: 0, y: 0 }),
+    value: settings,
   });
   const onDrag = useCallback(
-    ({ changeX, changeY, x, y }) => {
-      updateXState(x - changeX);
-      updateXState(y - changeY);
-      console.log({ changeX, changeY, x, y });
+    ({ changeX, changeY, startX, startY }) => {
+      updateXYState(() => ({ x: startX + changeX, y: startY + changeY }));
     },
-    [updateXState, updateYState],
+    [updateXYState],
   );
   const { width, height } = useMemo(
     () => ({ width: (image?.width || 0) * settings.scale, height: (image?.height || 0) * settings.scale }),
     [image, settings],
   );
-
   const { isDragging, onMouseDown, onMouseUp, onMouseMove, onMouseOut } = useDrag({
     ref: draggableRef,
     onDrag,

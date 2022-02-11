@@ -42,7 +42,6 @@ export default function useDrag({ onDrag, ref, x, y }: Args) {
     (e) => {
       if (isDragging) {
         const { clientX, clientY, x, y } = dragStartCoordinates;
-        console.log({ dragStartCoordinates });
         const changeX = e.clientX - clientX;
         const changeY = e.clientY - clientY;
 

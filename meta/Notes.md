@@ -1,6 +1,11 @@
 ## To Do
 
-- [ ] Finalize drag
+- [ ] Repair arrow-move-after-drag bug
+
+## 02/11
+
+- 1 hour
+- [x] Finalize drag
 
 ## 02/10
 

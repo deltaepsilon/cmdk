@@ -4,15 +4,17 @@ import {
   Flex,
   Grid,
   InputRow,
-  inputToNumber,
   MoveIcon,
+  inputToNumber,
   useDebouncedInputState,
+  useDebouncedValue,
   useKeydown,
 } from 'ui';
 
 import { ChangeEvent } from 'react';
 import { MountContext } from 'command-k';
 import { ThemeUIStyleObject } from 'theme-ui';
+import { useCallback } from 'react';
 import useControls from './use-controls';
 import useSettings from './use-settings';
 
@@ -59,6 +61,30 @@ export default function OverlayControls({
     onChange: inputToNumber,
     value: settings.y,
   });
+  const handleArrowKeys = useCallback(
+    (e) => {
+      if (e.ctrlKey) {
+        switch (e.code) {
+          case 'ArrowUp':
+            updateYState((y) => y + 1);
+            break;
+          case 'ArrowDown':
+            updateYState((y) => y - 1);
+            break;
+          case 'ArrowRight':
+            updateXState((x) => x + 1);
+            break;
+          case 'ArrowLeft':
+            updateXState((x) => x - 1);
+            break;
+
+          default:
+            break;
+        }
+      }
+    },
+    [updateXState, updateYState],
+  );
 
   useKeydown(
     {
@@ -68,33 +94,10 @@ export default function OverlayControls({
     [clearControls],
   );
 
-  useKeydown(
-    {
-      isActive: isCommandActive,
-      callback: (e) => {
-        if (e.ctrlKey) {
-          switch (e.code) {
-            case 'ArrowUp':
-              updateYState((y) => y + 1);
-              break;
-            case 'ArrowDown':
-              updateYState((y) => y - 1);
-              break;
-            case 'ArrowRight':
-              updateXState((x) => x + 1);
-              break;
-            case 'ArrowLeft':
-              updateXState((x) => x - 1);
-              break;
-
-            default:
-              break;
-          }
-        }
-      },
-    },
-    [updateXState, updateYState],
-  );
+  useKeydown({
+    isActive: isCommandActive,
+    callback: handleArrowKeys,
+  });
 
   return (
     <Flex

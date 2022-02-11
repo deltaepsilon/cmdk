@@ -5,11 +5,14 @@ import { useValue } from 'ui';
 
 export const SETTINGS_KEY = 'settings';
 
-export interface Settings {
-  opacity: number;
-  scale: number;
+interface XY {
   x: number;
   y: number;
+}
+
+export interface Settings extends XY {
+  opacity: number;
+  scale: number;
 }
 
 interface UseSettings {
@@ -19,6 +22,7 @@ interface UseSettings {
   updateScale: (scale: number) => void;
   updateX: (x: number) => void;
   updateY: (x: number) => void;
+  updateXY: (xy: XY) => void;
 }
 
 const DEFAULT_SETTINGS: Settings = {
@@ -69,6 +73,18 @@ export default function useSettings({ useStorage }: { useStorage: MountContext['
     },
     [settings, storage],
   );
+  const updateXY = useCallback(
+    ({ x, y }: XY) => {
+      storage.update(
+        SETTINGS_KEY,
+        produce(settings, (draft: Settings) => {
+          draft.x = x;
+          draft.y = y;
+        }),
+      );
+    },
+    [settings, storage],
+  );
   const updateY = useCallback(
     (y: number) => {
       storage.update(
@@ -81,5 +97,5 @@ export default function useSettings({ useStorage }: { useStorage: MountContext['
     [settings, storage],
   );
 
-  return useValue({ clear, settings, updateOpacity, updateScale, updateX, updateY });
+  return useValue({ clear, settings, updateOpacity, updateScale, updateX, updateY, updateXY });
 }
