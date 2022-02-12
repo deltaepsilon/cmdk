@@ -563,7 +563,7 @@
             }
             return element;
           };
-          function createElement16(type, config10, children) {
+          function createElement19(type, config10, children) {
             var propName;
             var props2 = {};
             var key = null;
@@ -1109,7 +1109,7 @@
             }
             return dispatcher.useContext(Context, unstable_observedBits);
           }
-          function useState13(initialState) {
+          function useState18(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1117,11 +1117,11 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useReducer(reducer, initialArg, init);
           }
-          function useRef12(initialValue) {
+          function useRef13(initialValue) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect14(create, deps) {
+          function useEffect18(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1129,11 +1129,11 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useLayoutEffect(create, deps);
           }
-          function useCallback22(callback, deps) {
+          function useCallback28(callback, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useCallback(callback, deps);
           }
-          function useMemo7(create, deps) {
+          function useMemo8(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useMemo(create, deps);
           }
@@ -1611,7 +1611,7 @@
                 error("React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
               }
             }
-            var element = createElement16.apply(this, arguments);
+            var element = createElement19.apply(this, arguments);
             if (element == null) {
               return element;
             }
@@ -1688,16 +1688,16 @@
           exports.isValidElement = isValidElement;
           exports.lazy = lazy;
           exports.memo = memo;
-          exports.useCallback = useCallback22;
+          exports.useCallback = useCallback28;
           exports.useContext = useContext7;
           exports.useDebugValue = useDebugValue;
-          exports.useEffect = useEffect14;
+          exports.useEffect = useEffect18;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useLayoutEffect = useLayoutEffect4;
-          exports.useMemo = useMemo7;
+          exports.useMemo = useMemo8;
           exports.useReducer = useReducer;
-          exports.useRef = useRef12;
-          exports.useState = useState13;
+          exports.useRef = useRef13;
+          exports.useState = useState18;
           exports.version = ReactVersion;
         })();
       }
@@ -5018,11 +5018,11 @@
       if (true) {
         (function() {
           "use strict";
-          var React18 = require_react();
+          var React21 = require_react();
           var _assign = require_object_assign();
           var Scheduler = require_scheduler();
           var tracing = require_tracing();
-          var ReactSharedInternals = React18.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React21.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function warn(format2) {
             {
               for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -5054,7 +5054,7 @@
               Function.prototype.apply.call(console[level], console, argsWithFormat);
             }
           }
-          if (!React18) {
+          if (!React21) {
             {
               throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
             }
@@ -6270,7 +6270,7 @@
           var didWarnInvalidChild = false;
           function flattenChildren(children) {
             var content = "";
-            React18.Children.forEach(children, function(child) {
+            React21.Children.forEach(children, function(child) {
               if (child == null) {
                 return;
               }
@@ -6281,7 +6281,7 @@
           function validateProps(element, props2) {
             {
               if (typeof props2.children === "object" && props2.children !== null) {
-                React18.Children.forEach(props2.children, function(child) {
+                React21.Children.forEach(props2.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -9448,7 +9448,7 @@
             defaultPrevented: 0,
             isTrusted: 0
           };
-          var SyntheticEvent3 = createSyntheticEvent(EventInterface);
+          var SyntheticEvent4 = createSyntheticEvent(EventInterface);
           var UIEventInterface = _assign({}, EventInterface, {
             view: 0,
             detail: 0
@@ -9909,7 +9909,7 @@
             enqueueStateRestore(target);
             var listeners = accumulateTwoPhaseListeners(inst, "onChange");
             if (listeners.length > 0) {
-              var event = new SyntheticEvent3("onChange", "change", null, nativeEvent, target);
+              var event = new SyntheticEvent4("onChange", "change", null, nativeEvent, target);
               dispatchQueue.push({
                 event,
                 listeners
@@ -10413,7 +10413,7 @@
               lastSelection = currentSelection;
               var listeners = accumulateTwoPhaseListeners(activeElementInst$1, "onSelect");
               if (listeners.length > 0) {
-                var event = new SyntheticEvent3("onSelect", "select", null, nativeEvent, nativeEventTarget);
+                var event = new SyntheticEvent4("onSelect", "select", null, nativeEvent, nativeEventTarget);
                 dispatchQueue.push({
                   event,
                   listeners
@@ -10460,7 +10460,7 @@
             if (reactName === void 0) {
               return;
             }
-            var SyntheticEventCtor = SyntheticEvent3;
+            var SyntheticEventCtor = SyntheticEvent4;
             var reactEventType = domEventName;
             switch (domEventName) {
               case "keypress":
@@ -11035,7 +11035,7 @@
               }
             }
           }
-          function createElement16(type, props2, rootContainerElement, parentNamespace) {
+          function createElement19(type, props2, rootContainerElement, parentNamespace) {
             var isCustomComponentTag;
             var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
             var domElement;
@@ -11912,7 +11912,7 @@
               }
               parentNamespace = hostContextDev.namespace;
             }
-            var domElement = createElement16(type, props2, rootContainerInstance, parentNamespace);
+            var domElement = createElement19(type, props2, rootContainerInstance, parentNamespace);
             precacheFiberNode(internalInstanceHandle, domElement);
             updateFiberProps(domElement, props2);
             return domElement;
@@ -13474,7 +13474,7 @@
           }
           var fakeInternalInstance = {};
           var isArray2 = Array.isArray;
-          var emptyRefsObject = new React18.Component().refs;
+          var emptyRefsObject = new React21.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -27283,12 +27283,38 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function InputRow(_a) {
     var _b = _a, { label, sx: sx2 = {} } = _b, props2 = __objRest(_b, ["label", "sx"]);
     return /* @__PURE__ */ React.createElement(Flex, {
+      "data-input-row": true,
       sx: __spreadValues({ alignItems: "center" }, sx2)
     }, /* @__PURE__ */ React.createElement(Label, null, label), /* @__PURE__ */ React.createElement(Input, __spreadValues({}, props2)));
   }
 
   // ../../packages/ui/utils/index.ts
   init_react_shim();
+
+  // ../../packages/ui/utils/debounce.ts
+  init_react_shim();
+  function debounce(func, { millis = 300, leading = false } = {}) {
+    return leading ? leadingDebounce(func, { millis }) : trailingDebounce(func, { millis });
+  }
+  function leadingDebounce(func, { millis }) {
+    let blocked = false;
+    return (...args) => {
+      if (!blocked) {
+        blocked = true;
+        func(...args);
+        setTimeout(() => {
+          blocked = false;
+        }, millis);
+      }
+    };
+  }
+  function trailingDebounce(func, { millis }) {
+    let timer;
+    return (...args) => {
+      timer && clearTimeout(timer);
+      timer = setTimeout(() => func(...args), millis);
+    };
+  }
 
   // ../../packages/ui/utils/focus-on-active-button.ts
   init_react_shim();
@@ -27315,16 +27341,47 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   // ../../packages/ui/hooks/index.ts
   init_react_shim();
 
+  // ../../packages/ui/hooks/use-debounced-input-state.ts
+  init_react_shim();
+  var import_react20 = __toESM(require_react());
+  function useDebouncedInputState({
+    callback,
+    onChange,
+    millis = 300,
+    value: incomingValue
+  }) {
+    const [value, setValue] = (0, import_react20.useState)(incomingValue);
+    const debouncedIncomingValue = useDebouncedValue(incomingValue, { millis });
+    const debouncedCallback = (0, import_react20.useMemo)(() => debounce(callback, { millis }), [callback, millis]);
+    const changeEventHandler = (0, import_react20.useCallback)((e) => {
+      const v2 = onChange(e);
+      setValue(v2);
+      debouncedCallback(v2);
+    }, [debouncedCallback, onChange, value]);
+    const updateState = (0, import_react20.useCallback)((getState) => {
+      const v2 = getState(value);
+      setValue(v2);
+      debouncedCallback(v2);
+    }, [value]);
+    (0, import_react20.useEffect)(() => {
+      setValue(debouncedIncomingValue);
+    }, [debouncedIncomingValue]);
+    return [value, changeEventHandler, updateState];
+  }
+  function inputToNumber(e) {
+    return +e.target.value;
+  }
+
   // ../../packages/ui/hooks/use-debounced-value.ts
   init_react_shim();
-  var import_react21 = __toESM(require_react());
+  var import_react22 = __toESM(require_react());
 
   // ../../packages/ui/hooks/use-safe-effect.ts
   init_react_shim();
-  var import_react20 = __toESM(require_react());
+  var import_react21 = __toESM(require_react());
   function useSafeEffect(callback, memoArray) {
-    const isMountedRef = (0, import_react20.useRef)(true);
-    (0, import_react20.useEffect)(() => {
+    const isMountedRef = (0, import_react21.useRef)(true);
+    (0, import_react21.useEffect)(() => {
       const unmount2 = callback(isMountedRef);
       isMountedRef.current = true;
       return () => {
@@ -27339,8 +27396,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return leading ? useLeadingDebounce(value, { millis }) : useTrailingDebounce(value, { initializeValue, millis });
   }
   function useLeadingDebounce(value, { millis }) {
-    const blockedRef = (0, import_react21.useRef)();
-    const [debouncedValue, setDebouncedValue] = (0, import_react21.useState)(value);
+    const blockedRef = (0, import_react22.useRef)();
+    const [debouncedValue, setDebouncedValue] = (0, import_react22.useState)(value);
     useSafeEffect((isMountedRef) => {
       if (isMountedRef.current && !blockedRef.current) {
         blockedRef.current = true;
@@ -27353,8 +27410,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return debouncedValue;
   }
   function useTrailingDebounce(value, { initializeValue, millis }) {
-    const timerRef = (0, import_react21.useRef)();
-    const [debouncedValue, setDebouncedValue] = (0, import_react21.useState)(initializeValue ? value : void 0);
+    const timerRef = (0, import_react22.useRef)();
+    const [debouncedValue, setDebouncedValue] = (0, import_react22.useState)(initializeValue ? value : void 0);
     useSafeEffect((isMountedRef) => {
       timerRef.current && clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => isMountedRef.current && setDebouncedValue(value), millis);
@@ -27362,32 +27419,65 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return debouncedValue;
   }
 
-  // ../../packages/ui/hooks/use-event-bus.ts
+  // ../../packages/ui/hooks/use-drag.ts
   init_react_shim();
   var import_react23 = __toESM(require_react());
+  var DEFAULT_DRAG_START_COORDINATES = {
+    x: 0,
+    y: 0,
+    clientX: 0,
+    clientY: 0
+  };
+  function useDrag({ onDrag, ref, x: x2, y: y2 }) {
+    const [dragStartCoordinates, setDragStartCoordinates] = (0, import_react23.useState)(DEFAULT_DRAG_START_COORDINATES);
+    const [isDragging, setIsDragging] = (0, import_react23.useState)(false);
+    const onMouseDown = (0, import_react23.useCallback)((e) => {
+      const { clientX, clientY } = e;
+      setDragStartCoordinates({ clientX, clientY, x: x2, y: y2 });
+      setIsDragging(true);
+    }, [x2, y2]);
+    const onMouseUp = (0, import_react23.useCallback)(() => setIsDragging(false), []);
+    const onMouseOut = (0, import_react23.useCallback)(() => setIsDragging(false), []);
+    const onMouseMove = (0, import_react23.useCallback)((e) => {
+      if (isDragging) {
+        const { clientX, clientY, x: x3, y: y3 } = dragStartCoordinates;
+        const changeX = e.clientX - clientX;
+        const changeY = e.clientY - clientY;
+        onDrag({ changeX, changeY, startX: x3, startY: y3 });
+      }
+    }, [dragStartCoordinates, isDragging, onDrag]);
+    (0, import_react23.useEffect)(() => {
+      !isDragging && setDragStartCoordinates(DEFAULT_DRAG_START_COORDINATES);
+    }, [isDragging, setDragStartCoordinates]);
+    return useValue({ isDragging, onMouseDown, onMouseUp, onMouseMove, onMouseOut });
+  }
+
+  // ../../packages/ui/hooks/use-event-bus.ts
+  init_react_shim();
+  var import_react25 = __toESM(require_react());
 
   // ../../packages/ui/hooks/use-value.ts
   init_react_shim();
-  var import_react22 = __toESM(require_react());
+  var import_react24 = __toESM(require_react());
   function useValue(map) {
-    return (0, import_react22.useMemo)(() => map, Object.values(map));
+    return (0, import_react24.useMemo)(() => map, Object.values(map));
   }
 
   // ../../packages/ui/hooks/use-event-bus.ts
   function useEventBus() {
-    const listeners = (0, import_react23.useRef)([]);
-    const dispatch = (0, import_react23.useCallback)((event, data = {}) => {
+    const listeners = (0, import_react25.useRef)([]);
+    const dispatch = (0, import_react25.useCallback)((event, data = {}) => {
       document.dispatchEvent(new CustomEvent(event, { detail: data }));
     }, []);
-    const remove = (0, import_react23.useCallback)((event, callback) => {
+    const remove = (0, import_react25.useCallback)((event, callback) => {
       document.removeEventListener(event, callback);
     }, []);
-    const on2 = (0, import_react23.useCallback)((event, callback) => {
+    const on2 = (0, import_react25.useCallback)((event, callback) => {
       listeners.current.push({ event, callback });
       document.addEventListener(event, callback);
       return () => remove(event, callback);
     }, [remove]);
-    (0, import_react23.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       return () => {
         listeners.current.forEach(({ event, callback }) => remove(event, callback));
         listeners.current = [];
@@ -27398,48 +27488,85 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-flag.ts
   init_react_shim();
-  var import_react24 = __toESM(require_react());
+  var import_react26 = __toESM(require_react());
   function useFlag(initialValue = false) {
-    const [flag, setFlag] = (0, import_react24.useState)(initialValue);
-    const toggle = (0, import_react24.useCallback)(() => setFlag((f2) => !f2), []);
-    return { flag, setFlag, toggle };
+    const [flag, setFlag] = (0, import_react26.useState)(initialValue);
+    const toggle = (0, import_react26.useCallback)(() => setFlag((f2) => !f2), []);
+    return [flag, setFlag, toggle];
   }
 
   // ../../packages/ui/hooks/use-has-switched.ts
   init_react_shim();
-  var import_react25 = __toESM(require_react());
+  var import_react27 = __toESM(require_react());
+
+  // ../../packages/ui/hooks/use-is-key-active.ts
+  init_react_shim();
+  var import_react30 = __toESM(require_react());
 
   // ../../packages/ui/hooks/use-keydown.ts
   init_react_shim();
-  var import_react26 = __toESM(require_react());
-  function useKeydown({ isActive = true, el, callback }, memoArray = []) {
-    (0, import_react26.useEffect)(() => {
+  var import_react28 = __toESM(require_react());
+  function useKeydown({ enableRepeat = false, isActive = true, el, callback }, memoArray = []) {
+    const localCallback = (0, import_react28.useCallback)((e) => (enableRepeat || !e.repeat) && callback(e), [callback]);
+    (0, import_react28.useEffect)(() => {
       if (isActive) {
         const target = el || window.document;
-        target.addEventListener("keydown", callback);
-        return () => target.removeEventListener("keydown", callback);
+        target.addEventListener("keydown", localCallback);
+        return () => target.removeEventListener("keydown", localCallback);
+      }
+    }, [isActive, localCallback, el, ...memoArray]);
+    return null;
+  }
+
+  // ../../packages/ui/hooks/use-keyup.ts
+  init_react_shim();
+  var import_react29 = __toESM(require_react());
+  function useKeyup({ isActive = true, el, callback }, memoArray = []) {
+    (0, import_react29.useEffect)(() => {
+      if (isActive) {
+        const target = el || window.document;
+        target.addEventListener("keyup", callback);
+        return () => target.removeEventListener("keyup", callback);
       }
     }, [isActive, callback, el, ...memoArray]);
     return null;
   }
 
+  // ../../packages/ui/hooks/use-is-key-active.ts
+  function useIsKeyActive({ isActive = true, keys }) {
+    const [isKeyActive, setIsKeyActive] = (0, import_react30.useState)(false);
+    const onKeydown = (0, import_react30.useCallback)((e) => {
+      if (keys.has(e.code)) {
+        setIsKeyActive(true);
+      }
+    }, []);
+    const onKeyup = (0, import_react30.useCallback)((e) => {
+      if (keys.has(e.code)) {
+        setIsKeyActive(false);
+      }
+    }, []);
+    useKeydown({ isActive, callback: onKeydown });
+    useKeyup({ isActive, callback: onKeyup });
+    return isKeyActive;
+  }
+
   // ../../packages/ui/hooks/use-modal-state.ts
   init_react_shim();
-  var import_react27 = __toESM(require_react());
+  var import_react31 = __toESM(require_react());
   function useModalState({ debounceOptions = { millis: 0 }, dismissOnEscape = false, startOpen = false } = {
     startOpen: false,
     dismissOnEscape: false
   }) {
-    const [rawIsOpen, setIsOpen] = (0, import_react27.useState)(startOpen);
-    const [scrollPosition, setScrollPosition] = (0, import_react27.useState)(null);
+    const [rawIsOpen, setIsOpen] = (0, import_react31.useState)(startOpen);
+    const [scrollPosition, setScrollPosition] = (0, import_react31.useState)(null);
     const isOpen = useDebouncedValue(rawIsOpen, debounceOptions);
-    const onOpen = (0, import_react27.useCallback)(() => {
+    const onOpen = (0, import_react31.useCallback)(() => {
       if (!constants_exports.IS_SERVER) {
         setScrollPosition(window.pageYOffset);
       }
       setIsOpen(true);
     }, [setIsOpen]);
-    const onDismiss = (0, import_react27.useCallback)((e) => {
+    const onDismiss = (0, import_react31.useCallback)((e) => {
       stopClick(e);
       setIsOpen(false);
       if (!constants_exports.IS_SERVER && scrollPosition !== null) {
@@ -27449,11 +27576,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }, 200);
       }
     }, [scrollPosition, setIsOpen]);
-    const toggle = (0, import_react27.useCallback)((e) => {
+    const toggle = (0, import_react31.useCallback)((e) => {
       stopClick(e);
       rawIsOpen ? onDismiss() : onOpen();
     }, [onDismiss, onOpen, rawIsOpen]);
-    const onKeydown = (0, import_react27.useCallback)((e) => {
+    const onKeydown = (0, import_react31.useCallback)((e) => {
       switch (e.key) {
         case "Escape":
           return onDismiss();
@@ -27461,6 +27588,26 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     }, [onDismiss]);
     useKeydown({ isActive: isOpen && dismissOnEscape, callback: onKeydown });
     return useValue({ isOpen, setIsOpen, onDismiss, onOpen, toggle });
+  }
+
+  // ../../packages/ui/hooks/use-scroll.ts
+  init_react_shim();
+  var import_react32 = __toESM(require_react());
+  var DEFAULT_SCROLL = { scrollLeft: 0, scrollTop: 0 };
+  function useScroll({ isActive = true }, memoArray = []) {
+    const [scroll, setScroll] = (0, import_react32.useState)(DEFAULT_SCROLL);
+    const callback = (0, import_react32.useCallback)(() => {
+      const { scrollLeft, scrollTop } = document.scrollingElement || DEFAULT_SCROLL;
+      setScroll({ scrollLeft, scrollTop });
+    }, []);
+    (0, import_react32.useEffect)(() => {
+      if (isActive) {
+        const target = window.document;
+        target.addEventListener("scroll", callback);
+        return () => target.removeEventListener("scroll", callback);
+      }
+    }, [isActive, callback, ...memoArray]);
+    return isActive ? scroll : DEFAULT_SCROLL;
   }
 
   // ../../packages/ui/constants.ts
@@ -27520,14 +27667,33 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }));
   var chevrons_up_default = ChevronsUpIcon;
 
-  // ../../packages/ui/icons/components/feather.tsx
+  // ../../packages/ui/icons/components/command.tsx
   init_react_shim();
   var React9 = __toESM(require_react());
+  var CommandIcon = (props2) => /* @__PURE__ */ React9.createElement("svg", __spreadValues({
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "feather feather-command"
+  }, props2), /* @__PURE__ */ React9.createElement("path", {
+    d: "M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"
+  }));
+  var command_default = CommandIcon;
+
+  // ../../packages/ui/icons/components/feather.tsx
+  init_react_shim();
+  var React10 = __toESM(require_react());
 
   // ../../packages/ui/icons/components/image.tsx
   init_react_shim();
-  var React10 = __toESM(require_react());
-  var ImageIcon = (props2) => /* @__PURE__ */ React10.createElement("svg", __spreadValues({
+  var React11 = __toESM(require_react());
+  var ImageIcon = (props2) => /* @__PURE__ */ React11.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27538,30 +27704,56 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-image"
-  }, props2), /* @__PURE__ */ React10.createElement("rect", {
+  }, props2), /* @__PURE__ */ React11.createElement("rect", {
     x: 3,
     y: 3,
     width: 18,
     height: 18,
     rx: 2,
     ry: 2
-  }), /* @__PURE__ */ React10.createElement("circle", {
+  }), /* @__PURE__ */ React11.createElement("circle", {
     cx: 8.5,
     cy: 8.5,
     r: 1.5
-  }), /* @__PURE__ */ React10.createElement("polyline", {
+  }), /* @__PURE__ */ React11.createElement("polyline", {
     points: "21 15 16 10 5 21"
   }));
   var image_default2 = ImageIcon;
 
+  // ../../packages/ui/icons/components/lock.tsx
+  init_react_shim();
+  var React12 = __toESM(require_react());
+  var LockIcon = (props2) => /* @__PURE__ */ React12.createElement("svg", __spreadValues({
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "feather feather-lock"
+  }, props2), /* @__PURE__ */ React12.createElement("rect", {
+    x: 3,
+    y: 11,
+    width: 18,
+    height: 11,
+    rx: 2,
+    ry: 2
+  }), /* @__PURE__ */ React12.createElement("path", {
+    d: "M7 11V7a5 5 0 0 1 10 0v4"
+  }));
+  var lock_default = LockIcon;
+
   // ../../packages/ui/icons/components/menu.tsx
   init_react_shim();
-  var React11 = __toESM(require_react());
+  var React13 = __toESM(require_react());
 
   // ../../packages/ui/icons/components/moon.tsx
   init_react_shim();
-  var React12 = __toESM(require_react());
-  var MoonIcon = (props2) => /* @__PURE__ */ React12.createElement("svg", __spreadValues({
+  var React14 = __toESM(require_react());
+  var MoonIcon = (props2) => /* @__PURE__ */ React14.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27572,15 +27764,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-moon"
-  }, props2), /* @__PURE__ */ React12.createElement("path", {
+  }, props2), /* @__PURE__ */ React14.createElement("path", {
     d: "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
   }));
   var moon_default = MoonIcon;
 
+  // ../../packages/ui/icons/components/move.tsx
+  init_react_shim();
+  var React15 = __toESM(require_react());
+
   // ../../packages/ui/icons/components/refresh-cw.tsx
   init_react_shim();
-  var React13 = __toESM(require_react());
-  var RefreshCwIcon = (props2) => /* @__PURE__ */ React13.createElement("svg", __spreadValues({
+  var React16 = __toESM(require_react());
+  var RefreshCwIcon = (props2) => /* @__PURE__ */ React16.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27591,19 +27787,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-refresh-cw"
-  }, props2), /* @__PURE__ */ React13.createElement("polyline", {
+  }, props2), /* @__PURE__ */ React16.createElement("polyline", {
     points: "23 4 23 10 17 10"
-  }), /* @__PURE__ */ React13.createElement("polyline", {
+  }), /* @__PURE__ */ React16.createElement("polyline", {
     points: "1 20 1 14 7 14"
-  }), /* @__PURE__ */ React13.createElement("path", {
+  }), /* @__PURE__ */ React16.createElement("path", {
     d: "M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"
   }));
   var refresh_cw_default = RefreshCwIcon;
 
   // ../../packages/ui/icons/components/sun.tsx
   init_react_shim();
-  var React14 = __toESM(require_react());
-  var SunIcon = (props2) => /* @__PURE__ */ React14.createElement("svg", __spreadValues({
+  var React17 = __toESM(require_react());
+  var SunIcon = (props2) => /* @__PURE__ */ React17.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27614,46 +27810,46 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-sun"
-  }, props2), /* @__PURE__ */ React14.createElement("circle", {
+  }, props2), /* @__PURE__ */ React17.createElement("circle", {
     cx: 12,
     cy: 12,
     r: 5
-  }), /* @__PURE__ */ React14.createElement("line", {
+  }), /* @__PURE__ */ React17.createElement("line", {
     x1: 12,
     y1: 1,
     x2: 12,
     y2: 3
-  }), /* @__PURE__ */ React14.createElement("line", {
+  }), /* @__PURE__ */ React17.createElement("line", {
     x1: 12,
     y1: 21,
     x2: 12,
     y2: 23
-  }), /* @__PURE__ */ React14.createElement("line", {
+  }), /* @__PURE__ */ React17.createElement("line", {
     x1: 4.22,
     y1: 4.22,
     x2: 5.64,
     y2: 5.64
-  }), /* @__PURE__ */ React14.createElement("line", {
+  }), /* @__PURE__ */ React17.createElement("line", {
     x1: 18.36,
     y1: 18.36,
     x2: 19.78,
     y2: 19.78
-  }), /* @__PURE__ */ React14.createElement("line", {
+  }), /* @__PURE__ */ React17.createElement("line", {
     x1: 1,
     y1: 12,
     x2: 3,
     y2: 12
-  }), /* @__PURE__ */ React14.createElement("line", {
+  }), /* @__PURE__ */ React17.createElement("line", {
     x1: 21,
     y1: 12,
     x2: 23,
     y2: 12
-  }), /* @__PURE__ */ React14.createElement("line", {
+  }), /* @__PURE__ */ React17.createElement("line", {
     x1: 4.22,
     y1: 19.78,
     x2: 5.64,
     y2: 18.36
-  }), /* @__PURE__ */ React14.createElement("line", {
+  }), /* @__PURE__ */ React17.createElement("line", {
     x1: 18.36,
     y1: 5.64,
     x2: 19.78,
@@ -27663,8 +27859,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/icons/components/trash.tsx
   init_react_shim();
-  var React15 = __toESM(require_react());
-  var TrashIcon = (props2) => /* @__PURE__ */ React15.createElement("svg", __spreadValues({
+  var React18 = __toESM(require_react());
+  var TrashIcon = (props2) => /* @__PURE__ */ React18.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27675,17 +27871,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-trash"
-  }, props2), /* @__PURE__ */ React15.createElement("polyline", {
+  }, props2), /* @__PURE__ */ React18.createElement("polyline", {
     points: "3 6 5 6 21 6"
-  }), /* @__PURE__ */ React15.createElement("path", {
+  }), /* @__PURE__ */ React18.createElement("path", {
     d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
   }));
   var trash_default = TrashIcon;
 
   // ../../packages/ui/icons/components/upload.tsx
   init_react_shim();
-  var React16 = __toESM(require_react());
-  var UploadIcon = (props2) => /* @__PURE__ */ React16.createElement("svg", __spreadValues({
+  var React19 = __toESM(require_react());
+  var UploadIcon = (props2) => /* @__PURE__ */ React19.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27696,11 +27892,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-upload"
-  }, props2), /* @__PURE__ */ React16.createElement("path", {
+  }, props2), /* @__PURE__ */ React19.createElement("path", {
     d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
-  }), /* @__PURE__ */ React16.createElement("polyline", {
+  }), /* @__PURE__ */ React19.createElement("polyline", {
     points: "17 8 12 3 7 8"
-  }), /* @__PURE__ */ React16.createElement("line", {
+  }), /* @__PURE__ */ React19.createElement("line", {
     x1: 12,
     y1: 3,
     x2: 12,
@@ -27710,8 +27906,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/icons/components/x.tsx
   init_react_shim();
-  var React17 = __toESM(require_react());
-  var XIcon = (props2) => /* @__PURE__ */ React17.createElement("svg", __spreadValues({
+  var React20 = __toESM(require_react());
+  var XIcon = (props2) => /* @__PURE__ */ React20.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27722,12 +27918,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-x"
-  }, props2), /* @__PURE__ */ React17.createElement("line", {
+  }, props2), /* @__PURE__ */ React20.createElement("line", {
     x1: 18,
     y1: 6,
     x2: 6,
     y2: 18
-  }), /* @__PURE__ */ React17.createElement("line", {
+  }), /* @__PURE__ */ React20.createElement("line", {
     x1: 6,
     y1: 6,
     x2: 18,
@@ -27740,8 +27936,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/providers/flag-provider.tsx
   init_react_shim();
-  var import_react28 = __toESM(require_react());
-  var FlagContext = (0, import_react28.createContext)({
+  var import_react33 = __toESM(require_react());
+  var FlagContext = (0, import_react33.createContext)({
     flag: false,
     setFlag: NOOP,
     toggle: NOOP
@@ -28460,22 +28656,22 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/components/command-k/command-k.tsx
   init_react_shim();
-  var import_react38 = __toESM(require_react());
+  var import_react43 = __toESM(require_react());
 
   // ../../packages/command-k/components/command-k/command-k-input.tsx
   init_react_shim();
-  var import_react36 = __toESM(require_react());
+  var import_react41 = __toESM(require_react());
 
   // ../../packages/command-k/components/command-k/pane.tsx
   init_react_shim();
-  var import_react34 = __toESM(require_react());
+  var import_react39 = __toESM(require_react());
 
   // ../../packages/command-k/hooks/index.ts
   init_react_shim();
 
   // ../../packages/command-k/hooks/use-files.ts
   init_react_shim();
-  var import_react29 = __toESM(require_react());
+  var import_react34 = __toESM(require_react());
 
   // ../../packages/command-k/utils/index.ts
   init_react_shim();
@@ -28496,10 +28692,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     options = { multiple: false },
     storage: storage2
   }) {
-    const handles = (0, import_react29.useMemo)(() => storage2.data[HANDLES_KEY] || [], [storage2.data]);
-    const thumbnails = (0, import_react29.useMemo)(() => storage2.data[THUMBNAILS_KEY] || {}, [storage2.data]);
-    const { flag: isDropping, setFlag: setIsDropping } = useFlag(false);
-    const refreshThumbnails = (0, import_react29.useCallback)((overrideHandles) => __async(this, null, function* () {
+    const handles = (0, import_react34.useMemo)(() => storage2.data[HANDLES_KEY] || [], [storage2.data]);
+    const thumbnails = (0, import_react34.useMemo)(() => storage2.data[THUMBNAILS_KEY] || {}, [storage2.data]);
+    const [isDropping, setIsDropping] = useFlag(false);
+    const refreshThumbnails = (0, import_react34.useCallback)((overrideHandles) => __async(this, null, function* () {
       const localHandles = overrideHandles || handles;
       const thumbnails2 = {};
       let i2 = localHandles.length;
@@ -28514,7 +28710,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       yield storage2.update(THUMBNAILS_KEY, thumbnails2);
     }), [handles]);
-    const getFileHandles = (0, import_react29.useCallback)(() => __async(this, null, function* () {
+    const getFileHandles = (0, import_react34.useCallback)(() => __async(this, null, function* () {
       if (window.isSecureContext) {
         const items = yield window.showOpenFilePicker(options);
         const handles2 = items.filter((item) => item.kind === "file" /* file */);
@@ -28525,7 +28721,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         throw Error("Insecure context. Must use HTTPS or localhost");
       }
     }), [refreshThumbnails]);
-    const handleFileDrop = (0, import_react29.useCallback)((e) => __async(this, null, function* () {
+    const handleFileDrop = (0, import_react34.useCallback)((e) => __async(this, null, function* () {
       e.preventDefault();
       setIsDropping(false);
       const items = [...e.dataTransfer.items];
@@ -28537,11 +28733,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       yield refreshThumbnails(handles2);
       onFileSelect(handles2);
     }), [refreshThumbnails]);
-    const handleFileDragOver = (0, import_react29.useCallback)((e) => {
+    const handleFileDragOver = (0, import_react34.useCallback)((e) => {
       e.preventDefault();
       setIsDropping(true);
     }, [setIsDropping]);
-    const handleFileDragLeave = (0, import_react29.useCallback)((e) => {
+    const handleFileDragLeave = (0, import_react34.useCallback)((e) => {
       e.preventDefault();
       setIsDropping(false);
     }, [setIsDropping]);
@@ -28622,14 +28818,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/hooks/use-layers.ts
   init_react_shim();
-  var import_react30 = __toESM(require_react());
+  var import_react35 = __toESM(require_react());
   var MOUNT_POINT_ID = "cmdk-mount-point";
   function useLayers({
     mountPointWrapper,
     overlayWrapper
   }) {
-    const layersMapRef = (0, import_react30.useRef)({});
-    const getLayer = (0, import_react30.useCallback)((pluginId) => {
+    const layersMapRef = (0, import_react35.useRef)({});
+    const getLayer = (0, import_react35.useCallback)((pluginId) => {
       let layer = layersMapRef.current[pluginId];
       if (!layer) {
         layer = {
@@ -28646,7 +28842,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       return layer;
     }, []);
-    const getMountPoint = (0, import_react30.useCallback)((pluginId) => {
+    const getMountPoint = (0, import_react35.useCallback)((pluginId) => {
       var _a;
       const layer = getLayer(pluginId);
       const iframeDocument = (_a = layer.mountPoint.contentWindow) == null ? void 0 : _a.document;
@@ -28659,17 +28855,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       return (iframeDocument == null ? void 0 : iframeDocument.getElementById(MOUNT_POINT_ID)) || null;
     }, []);
-    const getOverlayContainer = (0, import_react30.useCallback)((pluginId) => {
+    const getOverlayContainer = (0, import_react35.useCallback)((pluginId) => {
       const layer = getLayer(pluginId);
       return layer.overlayContainer;
     }, []);
-    const getUnmountOverlay = (0, import_react30.useCallback)((layer) => () => {
+    const getUnmountOverlay = (0, import_react35.useCallback)((layer) => () => {
       layer.overlayContainer.childNodes.forEach((child) => {
         layer.overlayContainer.removeChild(child);
       });
       overlayWrapper == null ? void 0 : overlayWrapper.removeChild(layer.overlayContainer);
     }, []);
-    const mountLayer = (0, import_react30.useCallback)((pluginId) => {
+    const mountLayer = (0, import_react35.useCallback)((pluginId) => {
       const layer = getLayer(pluginId);
       mountPointWrapper == null ? void 0 : mountPointWrapper.appendChild(layer.mountPoint);
       overlayWrapper == null ? void 0 : overlayWrapper.appendChild(layer.overlayContainer);
@@ -29958,10 +30154,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }
 
   // ../../packages/command-k/hooks/use-search.ts
-  var import_react31 = __toESM(require_react());
+  var import_react36 = __toESM(require_react());
   function useSearch({ query, plugins }) {
-    const fuse = (0, import_react31.useMemo)(() => new Fuse(plugins, { keys: ["id", "title", "description"], shouldSort: true }), [plugins]);
-    return (0, import_react31.useMemo)(() => {
+    const fuse = (0, import_react36.useMemo)(() => new Fuse(plugins, { keys: ["id", "title", "description"], shouldSort: true }), [plugins]);
+    return (0, import_react36.useMemo)(() => {
       return query ? fuse.search(query) : plugins.map((item, index2) => ({
         item,
         refIndex: index2,
@@ -29976,7 +30172,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/providers/storage-provider.tsx
   init_react_shim();
-  var import_react32 = __toESM(require_react());
+  var import_react37 = __toESM(require_react());
   var import_localforage = __toESM(require_localforage());
 
   // ../../node_modules/immer/dist/immer.esm.js
@@ -30366,7 +30562,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   // ../../packages/command-k/providers/storage-provider.tsx
   var INITIAL_DATA = { isUnloaded: true };
   var DEFAULT_DATA = { isUnloaded: false };
-  var StorageContext = (0, import_react32.createContext)({
+  var StorageContext = (0, import_react37.createContext)({
     data: INITIAL_DATA,
     clear: async () => {
     },
@@ -30381,20 +30577,20 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     storageKey
   }) {
     const { dispatch, on: on2 } = useEventBus();
-    const [pluginData, setPluginData] = (0, import_react32.useState)(INITIAL_DATA);
-    const get7 = (0, import_react32.useCallback)(async () => {
+    const [pluginData, setPluginData] = (0, import_react37.useState)(INITIAL_DATA);
+    const get7 = (0, import_react37.useCallback)(async () => {
       const data = await import_localforage.default.getItem(storageKey) || DEFAULT_DATA;
       setPluginData(data);
       return data;
     }, []);
-    const set = (0, import_react32.useCallback)(async (data) => {
+    const set = (0, import_react37.useCallback)(async (data) => {
       dispatch(getStorageUpdateEventName(storageKey), data);
     }, [storageKey]);
-    const clear = (0, import_react32.useCallback)(async () => {
+    const clear = (0, import_react37.useCallback)(async () => {
       await import_localforage.default.removeItem(storageKey);
       await get7();
     }, [get7]);
-    const update = (0, import_react32.useCallback)(async (key, data) => {
+    const update = (0, import_react37.useCallback)(async (key, data) => {
       const existing = await get7();
       const updated = immer_esm_default(existing, (draft) => {
         draft[key] = data;
@@ -30402,10 +30598,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       set(updated);
     }, [set]);
     const value = useValue({ data: pluginData, clear, get: get7, set, update });
-    (0, import_react32.useEffect)(() => {
+    (0, import_react37.useEffect)(() => {
       get7();
     }, []);
-    (0, import_react32.useEffect)(() => {
+    (0, import_react37.useEffect)(() => {
       on2(getStorageUpdateEventName(storageKey), async (e) => {
         const data = e.detail;
         await import_localforage.default.setItem(storageKey, data);
@@ -30421,9 +30617,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }
 
   // ../../packages/command-k/hooks/use-storage.ts
-  var import_react33 = __toESM(require_react());
+  var import_react38 = __toESM(require_react());
   function useStorage() {
-    return (0, import_react33.useContext)(StorageContext);
+    return (0, import_react38.useContext)(StorageContext);
   }
 
   // ../../packages/command-k/components/command-k/search-result.tsx
@@ -30454,18 +30650,18 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     plugins,
     query
   }) {
-    const resultsRef = (0, import_react34.useRef)(null);
-    const mountPointWrapperRef = (0, import_react34.useRef)(null);
-    const [refIndex, setRefIndex] = (0, import_react34.useState)(0);
-    const getOnClick = (0, import_react34.useCallback)((i2) => () => {
+    const resultsRef = (0, import_react39.useRef)(null);
+    const mountPointWrapperRef = (0, import_react39.useRef)(null);
+    const [refIndex, setRefIndex] = (0, import_react39.useState)(0);
+    const getOnClick = (0, import_react39.useCallback)((i2) => () => {
       const plugin = plugins[i2];
       setRefIndex(i2);
       setActivePlugin(plugin);
     }, []);
-    const selectActive = (0, import_react34.useCallback)(() => {
+    const selectActive = (0, import_react39.useCallback)(() => {
       setActivePlugin(plugins[refIndex]);
     }, [refIndex, plugins]);
-    const onClose = (0, import_react34.useCallback)(() => {
+    const onClose = (0, import_react39.useCallback)(() => {
       setActivePlugin(null);
     }, [setActivePlugin]);
     const searchResults = useSearch({ query, plugins });
@@ -30480,11 +30676,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       setRefIndex,
       searchResults
     });
-    (0, import_react34.useEffect)(() => {
+    (0, import_react39.useEffect)(() => {
       const firstPlugin = searchResults[0];
       firstPlugin && setRefIndex(firstPlugin.refIndex);
     }, [query]);
-    (0, import_react34.useEffect)(() => {
+    (0, import_react39.useEffect)(() => {
       onIsActiveChanged && onIsActiveChanged(!!activePlugin);
     }, [activePlugin]);
     return /* @__PURE__ */ React.createElement(box_default, {
@@ -30533,7 +30729,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       overlayWrapper: overlayWrapperRef.current
     });
     const [, setColorMode] = useColorMode();
-    (0, import_react34.useEffect)(() => {
+    (0, import_react39.useEffect)(() => {
       var _a;
       if (activePlugin) {
         const layer = getLayer(activePlugin.id);
@@ -30569,7 +30765,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }
   function getThemeProvider(mountPoint, key) {
     return ({ children }) => {
-      const cache = (0, import_react34.useRef)(emotion_cache_browser_esm_default({ container: mountPoint.parentElement, key }));
+      const cache = (0, import_react39.useRef)(emotion_cache_browser_esm_default({ container: mountPoint.parentElement, key }));
       return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Fonts, null), /* @__PURE__ */ React.createElement(CacheProvider, {
         value: cache.current
       }, /* @__PURE__ */ React.createElement(CmdkThemeProvider, {
@@ -30599,11 +30795,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     overlayWrapperRef,
     plugins
   }) {
-    const [query, setQuery] = (0, import_react36.useState)("");
-    const [activePlugin, setActivePlugin] = (0, import_react36.useState)(null);
-    const [isPaneActive, setIsPaneActive] = (0, import_react36.useState)(false);
-    const onChange = (0, import_react36.useCallback)((e) => setQuery(e.target.value), []);
-    const onClose = (0, import_react36.useCallback)(() => setActivePlugin(null), []);
+    const [query, setQuery] = (0, import_react41.useState)("");
+    const [activePlugin, setActivePlugin] = (0, import_react41.useState)(null);
+    const [isPaneActive, setIsPaneActive] = (0, import_react41.useState)(false);
+    const onChange = (0, import_react41.useCallback)((e) => setQuery(e.target.value), []);
+    const onClose = (0, import_react41.useCallback)(() => setActivePlugin(null), []);
     useKeydown({
       isActive: !isPaneActive,
       callback: (e) => {
@@ -30612,7 +30808,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
       }
     });
-    (0, import_react36.useEffect)(() => {
+    (0, import_react41.useEffect)(() => {
       onIsActiveChanged(!!query || !!isPaneActive);
     }, [isPaneActive, query]);
     return isActive ? /* @__PURE__ */ React.createElement(box_default, {
@@ -30647,8 +30843,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/components/command-k/overlay-wrapper.tsx
   init_react_shim();
-  var import_react37 = __toESM(require_react());
-  var overlay_wrapper_default = (0, import_react37.forwardRef)((props2, ref) => /* @__PURE__ */ React.createElement(box_default, __spreadValues({
+  var import_react42 = __toESM(require_react());
+  var overlay_wrapper_default = (0, import_react42.forwardRef)((props2, ref) => /* @__PURE__ */ React.createElement(box_default, __spreadValues({
     "data-overlays-wrapper": true,
     ref,
     sx: {
@@ -30667,10 +30863,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     plugins = [],
     startOpen = false
   }) {
-    const overlayWrapperRef = (0, import_react38.useRef)(null);
-    const [isActive, setIsActive] = (0, import_react38.useState)(false);
-    const [isInputActive, setIsInputActive] = (0, import_react38.useState)(true);
-    const onRender = (0, import_react38.useCallback)((ref) => {
+    const overlayWrapperRef = (0, import_react43.useRef)(null);
+    const [isActive, setIsActive] = (0, import_react43.useState)(false);
+    const [isInputActive, setIsInputActive] = (0, import_react43.useState)(true);
+    const onRender = (0, import_react43.useCallback)((ref) => {
       const modals = document.querySelectorAll('[data-modal-id^="cmdk"]');
       const isRedundant = !!modals[0] && modals[0] !== ref.current;
       if (!isRedundant) {
@@ -30731,26 +30927,26 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/mocks/mocks-plugin.tsx
   init_react_shim();
-  var import_react46 = __toESM(require_react());
+  var import_react52 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/file-selector.tsx
   init_react_shim();
 
   // ../../packages/command-k/plugins/mocks/use-selected-image.ts
   init_react_shim();
-  var import_react39 = __toESM(require_react());
+  var import_react44 = __toESM(require_react());
   var SELECTED_HANDLE_KEY = "selected-handle";
   function useSelectedImage({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
     const { thumbnails } = useFiles({ storage: storage2 });
     const selectedHandleKey = storage2.data[SELECTED_HANDLE_KEY];
-    const image = (0, import_react39.useMemo)(() => thumbnails[selectedHandleKey], [selectedHandleKey, storage2]);
-    const clear = (0, import_react39.useCallback)(() => storage2.update(SELECTED_HANDLE_KEY, null), []);
+    const image = (0, import_react44.useMemo)(() => thumbnails[selectedHandleKey], [selectedHandleKey, storage2]);
+    const clear = (0, import_react44.useCallback)(() => storage2.update(SELECTED_HANDLE_KEY, null), []);
     return useValue({ clear, image });
   }
 
   // ../../packages/command-k/plugins/mocks/file-selector.tsx
-  var import_react40 = __toESM(require_react());
+  var import_react45 = __toESM(require_react());
   function FileSelector({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
     const { handles, refreshThumbnails, thumbnails } = useFiles({ storage: storage2 });
@@ -30775,7 +30971,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     useStorage: useStorage2
   }) {
     const storage2 = useStorage2();
-    const onClick = (0, import_react40.useCallback)(() => storage2.update(SELECTED_HANDLE_KEY, handle.name), [handle, useStorage2]);
+    const onClick = (0, import_react45.useCallback)(() => storage2.update(SELECTED_HANDLE_KEY, handle.name), [handle, useStorage2]);
     return /* @__PURE__ */ React.createElement(box_default, {
       sx: { variant: "boxes.square", position: "relative" }
     }, /* @__PURE__ */ React.createElement(flex_default, {
@@ -30811,19 +31007,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/mocks/file-upload.tsx
   init_react_shim();
-  var import_react41 = __toESM(require_react());
+  var import_react46 = __toESM(require_react());
   function FileUpload({
     onFileSelect,
     useStorage: useStorage2
   }) {
     const storage2 = useStorage2();
-    const wrapperRef = (0, import_react41.useRef)(null);
+    const wrapperRef = (0, import_react46.useRef)(null);
     const { getFileHandles, handleFileDragLeave, handleFileDragOver, handleFileDrop, isDropping } = useFiles({
       onFileSelect,
       options: { multiple: true },
       storage: storage2
     });
-    (0, import_react41.useEffect)(() => {
+    (0, import_react46.useEffect)(() => {
       focusOnActiveButton(wrapperRef);
     }, []);
     return /* @__PURE__ */ React.createElement(flex_default, {
@@ -30857,19 +31053,59 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/mocks/mocks-overlay.tsx
   init_react_shim();
-  var import_react45 = __toESM(require_react());
+  var import_react51 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/floating-controls.tsx
   init_react_shim();
-  var import_react44 = __toESM(require_react());
+  var import_react50 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/overlay-controls.tsx
   init_react_shim();
-  var import_react43 = __toESM(require_react());
+  var import_react49 = __toESM(require_react());
+
+  // ../../packages/command-k/plugins/mocks/use-controls.ts
+  init_react_shim();
+  var import_react47 = __toESM(require_react());
+  var CONTROLS_KEY = "controls";
+  var DEFAULT_CONTROLS = {
+    isCommandActive: false,
+    isScrollPinned: false
+  };
+  function useControls({ useStorage: useStorage2 }) {
+    const storage2 = useStorage2();
+    const controls = storage2.data[CONTROLS_KEY] || DEFAULT_CONTROLS;
+    const clear = (0, import_react47.useCallback)(() => storage2.update(CONTROLS_KEY, null), []);
+    const updateIsCommandActive = (0, import_react47.useCallback)((isCommandActive) => {
+      storage2.update(CONTROLS_KEY, immer_esm_default(controls, (draft) => {
+        draft.isCommandActive = isCommandActive;
+      }));
+    }, [controls, storage2]);
+    const updateIsScrollPinned = (0, import_react47.useCallback)((isScrollPinned) => {
+      storage2.update(CONTROLS_KEY, immer_esm_default(controls, (draft) => {
+        draft.isScrollPinned = isScrollPinned;
+      }));
+    }, [controls, storage2]);
+    const toggleIsCommandActive = (0, import_react47.useCallback)(() => updateIsCommandActive(!controls.isCommandActive), [controls.isCommandActive, updateIsCommandActive]);
+    const toggleIsScrollPinned = (0, import_react47.useCallback)(() => updateIsScrollPinned(!controls.isScrollPinned), [controls.isScrollPinned, updateIsScrollPinned]);
+    const isControlPressed = useIsKeyActive({
+      isActive: controls.isCommandActive,
+      keys: /* @__PURE__ */ new Set(["ControlLeft", "ControlRight"])
+    });
+    const isDraggable = controls.isCommandActive && isControlPressed;
+    return useValue({
+      clear,
+      controls,
+      isDraggable,
+      toggleIsCommandActive,
+      toggleIsScrollPinned,
+      updateIsCommandActive,
+      updateIsScrollPinned
+    });
+  }
 
   // ../../packages/command-k/plugins/mocks/use-settings.ts
   init_react_shim();
-  var import_react42 = __toESM(require_react());
+  var import_react48 = __toESM(require_react());
   var SETTINGS_KEY = "settings";
   var DEFAULT_SETTINGS = {
     opacity: 0.25,
@@ -30880,49 +31116,113 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function useSettings({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
     const settings = storage2.data[SETTINGS_KEY] || DEFAULT_SETTINGS;
-    const clear = (0, import_react42.useCallback)(() => storage2.update(SETTINGS_KEY, null), []);
-    const updateOpacity = (0, import_react42.useCallback)((opacity2) => {
+    const clear = (0, import_react48.useCallback)(() => storage2.update(SETTINGS_KEY, null), []);
+    const updateOpacity = (0, import_react48.useCallback)((opacity2) => {
       const standardizedOpacity = opacity2 > 1 ? opacity2 / 10 : opacity2;
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.opacity = Math.min(Math.max(standardizedOpacity, 0), 1);
       }));
     }, [settings, storage2]);
-    const updateScale = (0, import_react42.useCallback)((scale) => {
+    const updateScale = (0, import_react48.useCallback)((scale) => {
       const standardizedScale = scale > 10 ? scale / 10 : scale;
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.scale = Math.min(Math.max(standardizedScale, 0), 10);
       }));
     }, [settings, storage2]);
-    const updateX = (0, import_react42.useCallback)((x2) => {
+    const updateX = (0, import_react48.useCallback)((x2) => {
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.x = x2;
       }));
     }, [settings, storage2]);
-    const updateY = (0, import_react42.useCallback)((y2) => {
+    const updateXY = (0, import_react48.useCallback)(({ x: x2, y: y2 }) => {
+      storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
+        draft.x = x2;
+        draft.y = y2;
+      }));
+    }, [settings, storage2]);
+    const updateY = (0, import_react48.useCallback)((y2) => {
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.y = y2;
       }));
     }, [settings, storage2]);
-    return useValue({ clear, settings, updateOpacity, updateScale, updateX, updateY });
+    return useValue({ clear, settings, updateOpacity, updateScale, updateX, updateY, updateXY });
   }
 
   // ../../packages/command-k/plugins/mocks/overlay-controls.tsx
+  var INPUT_MILLIS = 250;
   function OverlayControls({
     children = null,
     useStorage: useStorage2,
     sx: sx2 = {}
   }) {
-    const { clear, settings, updateOpacity, updateScale, updateX, updateY } = useSettings({ useStorage: useStorage2 });
-    const onOpacityChange = (0, import_react43.useCallback)((e) => updateOpacity(+e.target.value), [updateOpacity]);
-    const onScaleChange = (0, import_react43.useCallback)((e) => updateScale(+e.target.value), [updateScale]);
-    const onXChange = (0, import_react43.useCallback)((e) => updateX(+e.target.value), [updateX]);
-    const onYChange = (0, import_react43.useCallback)((e) => updateY(+e.target.value), [updateY]);
+    const {
+      clear: clearSettings,
+      settings,
+      updateOpacity,
+      updateScale,
+      updateX,
+      updateY
+    } = useSettings({ useStorage: useStorage2 });
+    const {
+      clear: clearControls,
+      controls: { isCommandActive, isScrollPinned },
+      isDraggable,
+      toggleIsCommandActive,
+      toggleIsScrollPinned
+    } = useControls({ useStorage: useStorage2 });
+    const [opacity2, onOpacityChange] = useDebouncedInputState({
+      callback: updateOpacity,
+      onChange: inputToNumber,
+      value: settings.opacity
+    });
+    const [scale, onScaleChange] = useDebouncedInputState({
+      callback: updateScale,
+      onChange: inputToNumber,
+      value: settings.scale
+    });
+    const [x2, onXChange, updateXState] = useDebouncedInputState({
+      callback: updateX,
+      onChange: inputToNumber,
+      millis: INPUT_MILLIS,
+      value: settings.x
+    });
+    const [y2, onYChange, updateYState] = useDebouncedInputState({
+      callback: updateY,
+      onChange: inputToNumber,
+      millis: INPUT_MILLIS,
+      value: settings.y
+    });
+    const handleArrowKeys = (0, import_react49.useCallback)((e) => {
+      if (e.ctrlKey) {
+        switch (e.code) {
+          case "ControlLeft":
+          case "ControlRight":
+            return;
+          case "Escape":
+            return clearControls();
+          case "ArrowUp":
+            return updateYState((y3) => y3 + 1);
+          case "ArrowDown":
+            return updateYState((y3) => y3 - 1);
+          case "ArrowRight":
+            return updateXState((x3) => x3 + 1);
+          case "ArrowLeft":
+            return updateXState((x3) => x3 - 1);
+        }
+      }
+    }, [clearControls, updateXState, updateYState]);
+    useKeydown({
+      enableRepeat: true,
+      isActive: isCommandActive,
+      callback: handleArrowKeys
+    });
     return /* @__PURE__ */ React.createElement(flex_default, {
       sx: __spreadValues({
         flexWrap: "wrap",
-        "& > div": { width: "50%", padding: 2 },
+        "& > [data-input-row]": { width: "50%", padding: 2 },
         button: { alignSelf: "center", justifySelf: "flex-end", marginX: 2 },
-        "& label": { justifyContent: "flex-end", paddingRight: 2 }
+        "& label": { justifyContent: "flex-end", paddingRight: 2 },
+        "& button": { marginTop: 3 }
       }, sx2)
     }, /* @__PURE__ */ React.createElement(InputRow, {
       label: "Opacity",
@@ -30930,34 +31230,45 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       placeholder: "opacity",
       step: 0.01,
       type: "number",
-      value: settings.opacity
+      value: opacity2
     }), /* @__PURE__ */ React.createElement(InputRow, {
       label: "Scale",
       onChange: onScaleChange,
       placeholder: "scale",
       step: 0.01,
       type: "number",
-      value: settings.scale
+      value: scale
     }), /* @__PURE__ */ React.createElement(InputRow, {
       label: "X",
       onChange: onXChange,
       placeholder: "x offset",
       step: 1,
       type: "number",
-      value: settings.x
+      value: x2
     }), /* @__PURE__ */ React.createElement(InputRow, {
       label: "Y",
       onChange: onYChange,
       placeholder: "y offset",
       step: 1,
       type: "number",
-      value: settings.y
-    }), /* @__PURE__ */ React.createElement(flex_default, {
+      value: y2
+    }), /* @__PURE__ */ React.createElement(grid_default, {
+      columns: "2rem 2rem",
+      sx: { paddingX: 3 }
+    }, /* @__PURE__ */ React.createElement(button_default, {
+      variant: "circle-tertiary",
+      sx: { color: isDraggable ? "focus" : isCommandActive ? "secondary" : "primary" },
+      onClick: toggleIsCommandActive
+    }, /* @__PURE__ */ React.createElement(command_default, null)), /* @__PURE__ */ React.createElement(button_default, {
+      variant: "circle-tertiary",
+      sx: { color: isScrollPinned ? "secondary" : "primary" },
+      onClick: toggleIsScrollPinned
+    }, /* @__PURE__ */ React.createElement(lock_default, null))), /* @__PURE__ */ React.createElement(flex_default, {
       "data-reset-button": true,
       sx: { flex: 1, justifyContent: "flex-end", width: "100%" }
     }, /* @__PURE__ */ React.createElement(button_default, {
       variant: "pill-tertiary",
-      onClick: clear
+      onClick: clearSettings
     }, "Reset")), children);
   }
 
@@ -30985,8 +31296,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       useStorage: useStorage2,
       sx: {
         gridTemplateColumns: "1fr 1fr 1fr 1fr",
-        "& > div": { width: "9rem" },
-        "[data-reset-button]": { justifyContent: "flex-start", paddingLeft: 3 }
+        "& > [data-input-row]": { width: "9rem" },
+        "& button": { marginTop: 0 },
+        "[data-reset-button]": { justifyContent: "flex-start", paddingLeft: 0 }
       }
     }, /* @__PURE__ */ React.createElement(button_default, {
       variant: "pill-tertiary",
@@ -31003,7 +31315,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const { data, update } = useStorage2();
     const position3 = data[CONTROLS_POSITION_KEY] || "bottom" /* bottom */;
     const isTop = position3 === "top" /* top */;
-    const togglePosition = (0, import_react44.useCallback)(() => update(CONTROLS_POSITION_KEY, isTop ? "bottom" /* bottom */ : "top" /* top */), [update, isTop]);
+    const togglePosition = (0, import_react50.useCallback)(() => update(CONTROLS_POSITION_KEY, isTop ? "bottom" /* bottom */ : "top" /* top */), [update, isTop]);
     return useValue({ isTop, togglePosition });
   }
 
@@ -31012,7 +31324,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function MocksOverlayPortal(context) {
     const { overlayContainer, unmountOverlay, useStorage: useStorage2 } = context;
     const { clear } = useSelectedImage({ useStorage: useStorage2 });
-    const unmount2 = (0, import_react45.useCallback)(() => __async(this, null, function* () {
+    const unmount2 = (0, import_react51.useCallback)(() => __async(this, null, function* () {
       yield clear();
       setTimeout(unmountOverlay, 1e3);
     }), [clear]);
@@ -31034,24 +31346,53 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     })) : null;
   }
   function ImageWrapper({ useStorage: useStorage2 }) {
+    const draggableRef = (0, import_react51.useRef)(null);
     const { image } = useSelectedImage({ useStorage: useStorage2 });
-    const { settings } = useSettings({ useStorage: useStorage2 });
-    const { width: width2, height: height2 } = (0, import_react45.useMemo)(() => ({ width: ((image == null ? void 0 : image.width) || 0) * settings.scale, height: ((image == null ? void 0 : image.height) || 0) * settings.scale }), [image, settings]);
+    const {
+      controls: { isScrollPinned },
+      isDraggable
+    } = useControls({ useStorage: useStorage2 });
+    const { settings, updateXY } = useSettings({ useStorage: useStorage2 });
+    const [{ x: x2, y: y2 }, , updateXYState] = useDebouncedInputState({
+      callback: updateXY,
+      onChange: () => ({ x: 0, y: 0 }),
+      value: settings
+    });
+    const onDrag = (0, import_react51.useCallback)(({ changeX, changeY, startX, startY }) => {
+      updateXYState(() => ({ x: startX + changeX, y: startY + changeY }));
+    }, [updateXYState]);
+    const { width: width2, height: height2 } = (0, import_react51.useMemo)(() => ({ width: ((image == null ? void 0 : image.width) || 0) * settings.scale, height: ((image == null ? void 0 : image.height) || 0) * settings.scale }), [image, settings]);
+    const { isDragging, onMouseDown, onMouseUp, onMouseMove, onMouseOut } = useDrag({
+      ref: draggableRef,
+      onDrag,
+      x: x2,
+      y: y2
+    });
+    const { scrollTop, scrollLeft } = useScroll({ isActive: isScrollPinned });
+    const adjustedX = x2 - scrollLeft;
+    const adjustedY = y2 - scrollTop;
     return /* @__PURE__ */ React.createElement(box_default, {
       sx: {
         position: "fixed",
         inset: 0,
-        pointerEvents: "none",
         opacity: settings.opacity
       }
     }, /* @__PURE__ */ React.createElement(image_default, {
+      ref: draggableRef,
+      onMouseDown,
+      onMouseUp,
+      onMouseMove,
+      onMouseOut,
+      draggable: false,
       src: image == null ? void 0 : image.base64,
       width: `${width2}px`,
       height: `${height2}px`,
       sx: {
         position: "absolute",
-        top: `${settings.y}px`,
-        left: `${settings.x}px`,
+        cursor: isDragging ? "grabbing" : isDraggable ? "grab" : "default",
+        pointerEvents: isDragging || isDraggable ? "auto" : "none",
+        top: `${adjustedY}px`,
+        left: `${adjustedX}px`,
         maxWidth: "initial"
       }
     }));
@@ -31094,9 +31435,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const { handles } = useFiles({ storage: storage2 });
     const hasHandles = !!handles.length;
     const isUnloaded = storage2.data.isUnloaded;
-    const { flag: isUploading, setFlag: setIsUploading, toggle: toggleUploading } = useFlag();
+    const [isUploading, setIsUploading, toggleUploading] = useFlag();
     const { image, clear: clearImage } = useSelectedImage({ useStorage: useStorage2 });
-    (0, import_react46.useEffect)(() => {
+    (0, import_react52.useEffect)(() => {
       if (!isUnloaded) {
         setIsUploading(!hasHandles);
       }
@@ -31182,7 +31523,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/theme/theme-plugin.tsx
   init_react_shim();
-  var import_react47 = __toESM(require_react());
+  var import_react53 = __toESM(require_react());
   var import_react_dom3 = __toESM(require_react_dom());
   var themePlugin = {
     id: "theme",
@@ -31201,16 +31542,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function ThemePlugin({
     setColorMode: setParentColorMode
   }) {
-    const buttonWrapperRef = (0, import_react47.useRef)(null);
+    const buttonWrapperRef = (0, import_react53.useRef)(null);
     const [colorMode, setLocalColorMode] = useColorMode();
     const isLight = colorMode === "default" /* light */;
-    const toggleColorMode = (0, import_react47.useCallback)(() => {
+    const toggleColorMode = (0, import_react53.useCallback)(() => {
       const updatedColorMode = isLight ? "dark" /* dark */ : "default" /* light */;
       focusOnActiveButton(buttonWrapperRef);
       setLocalColorMode(updatedColorMode);
       setParentColorMode(updatedColorMode);
     }, [isLight, setLocalColorMode, setParentColorMode]);
-    (0, import_react47.useLayoutEffect)(() => {
+    (0, import_react53.useLayoutEffect)(() => {
       focusOnActiveButton(buttonWrapperRef);
     }, []);
     return /* @__PURE__ */ React.createElement(flex_default, {
@@ -31270,7 +31611,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   init_react_shim();
 
   // index.tsx
-  var import_react48 = __toESM(require_react());
+  var import_react54 = __toESM(require_react());
   var import_react_dom4 = __toESM(require_react_dom());
   var ID = "cmdk";
   var PLUGINS = defaultPlugins;
@@ -31281,14 +31622,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     };
   }
   function useScriptCmdk(isActive = !constants_exports.IS_SERVER) {
-    (0, import_react48.useEffect)(() => {
+    (0, import_react54.useEffect)(() => {
       const unmount2 = mount4(isActive);
       return unmount2;
     }, []);
   }
   function ThemedCommandK() {
-    const [cache, setCache] = (0, import_react48.useState)(emotion_cache_browser_esm_default({ container: document.body, key: "command-k" }));
-    const onRender = (0, import_react48.useCallback)((ref) => {
+    const [cache, setCache] = (0, import_react54.useState)(emotion_cache_browser_esm_default({ container: document.body, key: "command-k" }));
+    const onRender = (0, import_react54.useCallback)((ref) => {
       const container = ref.current.parentElement;
       const key = "command-k";
       setCache(emotion_cache_browser_esm_default({
