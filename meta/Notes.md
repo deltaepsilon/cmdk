@@ -1,10 +1,14 @@
 ## To Do
 
-- [ ] Consolidate controls into a single CMD-based toggle
-- [ ] Optionally pin image to scroll
+
+- [ ] `OverlayControls` tooltips
+- [ ]  Start gridlines plugin
 
 ## 2/12
 
+- 1.5 hours
+- [x] Consolidate controls into a single CMD-based toggle
+- [x] Optionally pin image to scroll
 - [x] Repair arrow-move-after-drag bug
 
 ## 2/11
