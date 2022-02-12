@@ -19,7 +19,7 @@ export default function useDebouncedInputState<T>({
 }): [T, InputChangeEventHandler, UpdateState<T>] {
   const [value, setValue] = useState<T>(incomingValue);
   const debouncedIncomingValue = useDebouncedValue(incomingValue, { millis });
-  const debouncedCallback = useMemo(() => debounce(callback, { millis }), []);
+  const debouncedCallback = useMemo(() => debounce(callback, { millis }), [callback, millis]);
   const changeEventHandler: InputChangeEventHandler = useCallback(
     (e: InputChangeEvent) => {
       const v = onChange(e);
