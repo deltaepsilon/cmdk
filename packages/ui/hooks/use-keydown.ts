@@ -1,22 +1,28 @@
-import { KeyboardEvent, useEffect } from 'react';
+import { KeyboardEvent, useCallback, useEffect } from 'react';
 
 interface UseKeydownArgs {
+  enableRepeat?: boolean;
   isActive?: boolean;
   el?: HTMLElement | HTMLInputElement | null;
   callback: (e: KeyboardEvent) => void;
 }
 
-export default function useKeydown({ isActive = true, el, callback }: UseKeydownArgs, memoArray = [] as any) {
+export default function useKeydown(
+  { enableRepeat = false, isActive = true, el, callback }: UseKeydownArgs,
+  memoArray = [] as any,
+) {
+  const localCallback = useCallback((e) => (enableRepeat || !e.repeat) && callback(e), [callback]);
+
   useEffect(() => {
     if (isActive) {
       const target = el || window.document;
 
-      target.addEventListener('keydown', callback as unknown as EventListenerOrEventListenerObject);
+      target.addEventListener('keydown', localCallback as unknown as EventListenerOrEventListenerObject);
 
       return () =>
-        target.removeEventListener('keydown', callback as unknown as EventListenerOrEventListenerObject);
+        target.removeEventListener('keydown', localCallback as unknown as EventListenerOrEventListenerObject);
     }
-  }, [isActive, callback, el, ...memoArray]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isActive, localCallback, el, ...memoArray]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return null;
 }

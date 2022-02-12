@@ -1,5 +1,5 @@
-import { Box, Image, inputToNumber, useDebouncedInputState, useDrag } from 'ui';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { Box, Image, useDebouncedInputState, useDrag, useScroll } from 'ui';
+import { useCallback, useMemo, useRef } from 'react';
 
 import FloatingControls from './floating-controls';
 import { MountContext } from 'command-k';
@@ -40,7 +40,10 @@ function MocksOverlay({
 function ImageWrapper({ useStorage }: { useStorage: MountContext['useStorage'] }) {
   const draggableRef = useRef<HTMLImageElement>(null);
   const { image } = useSelectedImage({ useStorage });
-  const { controls } = useControls({ useStorage });
+  const {
+    controls: { isScrollPinned },
+    isDraggable,
+  } = useControls({ useStorage });
   const { settings, updateXY } = useSettings({ useStorage });
   const [{ x, y }, , updateXYState] = useDebouncedInputState<{ x: number; y: number }>({
     callback: updateXY,
@@ -63,6 +66,9 @@ function ImageWrapper({ useStorage }: { useStorage: MountContext['useStorage'] }
     x,
     y,
   });
+  const { scrollTop, scrollLeft } = useScroll({ isActive: isScrollPinned });
+  const adjustedX = x - scrollLeft;
+  const adjustedY = y - scrollTop;
 
   return (
     <Box
@@ -84,10 +90,10 @@ function ImageWrapper({ useStorage }: { useStorage: MountContext['useStorage'] }
         height={`${height}px`}
         sx={{
           position: 'absolute',
-          cursor: isDragging ? 'grabbing' : controls.isDragActive ? 'grab' : 'default',
-          pointerEvents: controls.isDragActive ? 'auto' : 'none',
-          top: `${y}px`,
-          left: `${x}px`,
+          cursor: isDragging ? 'grabbing' : isDraggable ? 'grab' : 'default',
+          pointerEvents: isDragging || isDraggable ? 'auto' : 'none',
+          top: `${adjustedY}px`,
+          left: `${adjustedX}px`,
           maxWidth: 'initial',
         }}
       />

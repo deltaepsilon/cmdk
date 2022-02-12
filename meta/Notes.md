@@ -1,127 +1,132 @@
 ## To Do
 
-- [ ] Repair arrow-move-after-drag bug
+- [ ] Consolidate controls into a single CMD-based toggle
+- [ ] Optionally pin image to scroll
 
-## 02/11
+## 2/12
+
+- [x] Repair arrow-move-after-drag bug
+
+## 2/11
 
 - 1 hour
 - [x] Finalize drag
 
-## 02/10
+## 2/10
 
 - 1 hour
 - [x] Stub in drag
 
-## 02/04
+## 2/04
 
 - 2 hours
 - [x] Mock overlay perf
 
-## 02/03
+## 2/03
 
 - 2 hours
 - [x] Get copy/paste functionality working
 
-## 02/02
+## 2/02
 
 - [x] Restore a local build
 - [x] Deploy to GitHub pages
 
-## 02/01
+## 2/01
 
 - 3.5 hours
 - [x] Restyled controls
 - [x] Repair "Close" button's affect on unmount
 
-## 01/31
+## 1/31
 
 - 3 hours
 - [x] Sort out unmounting lifecycle
 - [x] Adjust mock opacity, scale and position
 
-## 01/28
+## 1/28
 
 - 1 hour
 - [x] Register selected mock
 - [x] Change mock
 - [x] Remove active mock
 
-## 01/26
+## 1/26
 
 - [x] Move overlay outside of iframe
 - [x] Render a single overlay and manage portal
 
-## 01/25
+## 1/25
 
 - 2.5 hours
 - [x] Render overlay frame
 - [x] Handle trash icon click
 
-## 01/24
+## 1/24
 
 - 3 hours
 - [x] Handle file selection
 - [x] Display files
 
-## 01/21
+## 1/21
 
 - 2 hours
 - [x] Start Mock Overlay plugin
 
-## 01/20
+## 1/20
 
 - 2 hours
 - [x] Mount correctly on `Enter` or `NumpadEnter`
 - [x] Handle pane focus
 
-## 01/19
+## 1/19
 
 - 2.5 hours
 - [x] Close plugins
 - [x] Mount plugins
 
-### 01/18
+### 1/18
 
 - 2 hours
 - [x] Handle plugin selection
 
-### 01/14
+### 1/14
 
 - 2 hours
 - [x] Style modal
 - [x] Handle keystrokes with Fuse.js
 
-### 01/13
+### 1/13
 
 - 2 hours
 - [x] Modal structure
 - [x] Scaffold plugins
 
-### 01/12
+### 1/12
 
 - 3 hours
 - [x] Fonts
 - [x] Layout
 - [x] Theme switching
 
-### 01/11
+### 1/11
 
 - 2 hours
 - [x] Theming
 - [x] Pop modal
 - [x] Colors docs
 
-### 01/10
+### 1/10
 
 - 2 hours
 - [x] Create external cmdk build
 
-### 01/07
+### 1/07
 
 - 3 hours
 - [x] Rebuild as a Turborepo
 
-### 01/06
+### 1/06
 
 - 2.5 hours
 - [x] Installed `theme-ui`
@@ -129,7 +134,7 @@
 - [x] Sorted out import aliases
 - [x] `/tools/src/node_modules` used for TS-friendly alias system
 
-### 01/05
+### 1/05
 
 - 2.5 hours
 - [x] Docker config

@@ -4,6 +4,7 @@ export { default as ChevronsUpIcon } from './components/chevrons-up';
 export { default as CommandIcon } from './components/command';
 export { default as FeatherIcon } from './components/feather';
 export { default as ImageIcon } from './components/image';
+export { default as LockIcon } from './components/lock';
 export { default as MenuIcon } from './components/menu';
 export { default as MoonIcon } from './components/moon';
 export { default as MoveIcon } from './components/move';

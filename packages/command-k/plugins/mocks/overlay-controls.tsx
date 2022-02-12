@@ -4,19 +4,19 @@ import {
   Flex,
   Grid,
   InputRow,
-  MoveIcon,
+  LockIcon,
   inputToNumber,
   useDebouncedInputState,
-  useDebouncedValue,
   useKeydown,
 } from 'ui';
+import { useCallback, useState } from 'react';
 
-import { ChangeEvent } from 'react';
 import { MountContext } from 'command-k';
 import { ThemeUIStyleObject } from 'theme-ui';
-import { useCallback } from 'react';
 import useControls from './use-controls';
 import useSettings from './use-settings';
+
+const INPUT_MILLIS = 250;
 
 export default function OverlayControls({
   children = null,
@@ -37,9 +37,10 @@ export default function OverlayControls({
   } = useSettings({ useStorage });
   const {
     clear: clearControls,
-    controls: { isCommandActive, isDragActive },
+    controls: { isCommandActive, isScrollPinned },
+    isDraggable,
     toggleIsCommandActive,
-    toggleIsDragActive,
+    toggleIsScrollPinned,
   } = useControls({ useStorage });
   const [opacity, onOpacityChange] = useDebouncedInputState<number>({
     callback: updateOpacity,
@@ -54,47 +55,44 @@ export default function OverlayControls({
   const [x, onXChange, updateXState] = useDebouncedInputState<number>({
     callback: updateX,
     onChange: inputToNumber,
+    millis: INPUT_MILLIS,
     value: settings.x,
   });
   const [y, onYChange, updateYState] = useDebouncedInputState<number>({
     callback: updateY,
     onChange: inputToNumber,
+    millis: INPUT_MILLIS,
     value: settings.y,
   });
   const handleArrowKeys = useCallback(
     (e) => {
       if (e.ctrlKey) {
         switch (e.code) {
-          case 'ArrowUp':
-            updateYState((y) => y + 1);
-            break;
-          case 'ArrowDown':
-            updateYState((y) => y - 1);
-            break;
-          case 'ArrowRight':
-            updateXState((x) => x + 1);
-            break;
-          case 'ArrowLeft':
-            updateXState((x) => x - 1);
-            break;
+          case 'ControlLeft':
+          case 'ControlRight':
+            return;
+          case 'Escape':
+            return clearControls();
 
-          default:
-            break;
+          case 'ArrowUp':
+            return updateYState((y) => y + 1);
+
+          case 'ArrowDown':
+            return updateYState((y) => y - 1);
+
+          case 'ArrowRight':
+            return updateXState((x) => x + 1);
+
+          case 'ArrowLeft':
+            return updateXState((x) => x - 1);
         }
       }
     },
-    [updateXState, updateYState],
-  );
-
-  useKeydown(
-    {
-      isActive: isCommandActive || isDragActive,
-      callback: (e) => e.code === 'Escape' && clearControls(),
-    },
-    [clearControls],
+    [clearControls, updateXState, updateYState],
   );
 
   useKeydown({
+    enableRepeat: true,
     isActive: isCommandActive,
     callback: handleArrowKeys,
   });
@@ -132,7 +130,7 @@ export default function OverlayControls({
       <Grid columns="2rem 2rem" sx={{ paddingX: 3 }}>
         <Button
           variant="circle-tertiary"
-          sx={{ color: isCommandActive ? 'secondary' : 'primary' }}
+          sx={{ color: isDraggable ? 'focus' : isCommandActive ? 'secondary' : 'primary' }}
           onClick={toggleIsCommandActive}
         >
           <CommandIcon />
@@ -140,10 +138,10 @@ export default function OverlayControls({
 
         <Button
           variant="circle-tertiary"
-          sx={{ color: isDragActive ? 'secondary' : 'primary' }}
-          onClick={toggleIsDragActive}
+          sx={{ color: isScrollPinned ? 'secondary' : 'primary' }}
+          onClick={toggleIsScrollPinned}
         >
-          <MoveIcon />
+          <LockIcon />
         </Button>
       </Grid>
 

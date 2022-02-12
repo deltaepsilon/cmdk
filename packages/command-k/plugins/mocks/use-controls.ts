@@ -1,27 +1,29 @@
+import { useIsKeyActive, useValue } from 'ui';
+
 import { MountContext } from 'command-k';
 import produce from 'immer';
 import { useCallback } from 'react';
-import { useValue } from 'ui';
 
 export const CONTROLS_KEY = 'controls';
 
 export interface Controls {
   isCommandActive: boolean;
-  isDragActive: boolean;
+  isScrollPinned: boolean;
 }
 
 interface UseControls {
   clear: () => void;
   controls: Controls;
+  isDraggable: boolean;
   toggleIsCommandActive: () => void;
-  toggleIsDragActive: () => void;
+  toggleIsScrollPinned: () => void;
   updateIsCommandActive: (isCommandActive: boolean) => void;
-  updateIsDragActive: (isDragActive: boolean) => void;
+  updateIsScrollPinned: (isScrollPinned: boolean) => void;
 }
 
 const DEFAULT_CONTROLS: Controls = {
   isCommandActive: false,
-  isDragActive: false,
+  isScrollPinned: false,
 };
 
 export default function useControls({ useStorage }: { useStorage: MountContext['useStorage'] }): UseControls {
@@ -39,12 +41,12 @@ export default function useControls({ useStorage }: { useStorage: MountContext['
     },
     [controls, storage],
   );
-  const updateIsDragActive = useCallback(
-    (isDragActive: Controls['isDragActive']) => {
+  const updateIsScrollPinned = useCallback(
+    (isScrollPinned: Controls['isScrollPinned']) => {
       storage.update(
         CONTROLS_KEY,
         produce(controls, (draft: Controls) => {
-          draft.isDragActive = isDragActive;
+          draft.isScrollPinned = isScrollPinned;
         }),
       );
     },
@@ -52,19 +54,25 @@ export default function useControls({ useStorage }: { useStorage: MountContext['
   );
   const toggleIsCommandActive = useCallback(
     () => updateIsCommandActive(!controls.isCommandActive),
-    [controls.isCommandActive],
+    [controls.isCommandActive, updateIsCommandActive],
   );
-  const toggleIsDragActive = useCallback(
-    () => updateIsDragActive(!controls.isDragActive),
-    [controls.isDragActive],
+  const toggleIsScrollPinned = useCallback(
+    () => updateIsScrollPinned(!controls.isScrollPinned),
+    [controls.isScrollPinned, updateIsScrollPinned],
   );
+  const isControlPressed = useIsKeyActive({
+    isActive: controls.isCommandActive,
+    keys: new Set(['ControlLeft', 'ControlRight']),
+  });
+  const isDraggable = controls.isCommandActive && isControlPressed;
 
   return useValue({
     clear,
     controls,
+    isDraggable,
     toggleIsCommandActive,
-    toggleIsDragActive,
+    toggleIsScrollPinned,
     updateIsCommandActive,
-    updateIsDragActive,
+    updateIsScrollPinned,
   });
 }
