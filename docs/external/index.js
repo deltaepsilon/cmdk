@@ -27258,6 +27258,25 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   init_react_shim();
   var text_default = Text;
 
+  // ../../packages/ui/components/tooltip.tsx
+  init_react_shim();
+  function Tooltip({ children, text }) {
+    return /* @__PURE__ */ React.createElement(box_default, {
+      sx: { position: "relative", "&:hover": { "[data-tooltip]": { display: "block" } } }
+    }, children, /* @__PURE__ */ React.createElement(box_default, {
+      "data-tooltip": true,
+      sx: {
+        backgroundColor: "background",
+        bottom: "100%",
+        display: "none",
+        fontSize: 0,
+        padding: 2,
+        position: "absolute",
+        width: "10rem"
+      }
+    }, text));
+  }
+
   // ../../packages/ui/components/theme-switcher.tsx
   init_react_shim();
   var import_react19 = __toESM(require_react());
@@ -30564,13 +30583,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   var DEFAULT_DATA = { isUnloaded: false };
   var StorageContext = (0, import_react37.createContext)({
     data: INITIAL_DATA,
-    clear: async () => {
-    },
-    get: async () => INITIAL_DATA,
-    set: async () => {
-    },
-    update: async () => {
-    }
+    clear: () => __async(void 0, null, function* () {
+    }),
+    get: () => __async(void 0, null, function* () {
+      return INITIAL_DATA;
+    }),
+    set: () => __async(void 0, null, function* () {
+    }),
+    update: () => __async(void 0, null, function* () {
+    })
   });
   function StorageProvider({
     children,
@@ -30578,35 +30599,35 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }) {
     const { dispatch, on: on2 } = useEventBus();
     const [pluginData, setPluginData] = (0, import_react37.useState)(INITIAL_DATA);
-    const get7 = (0, import_react37.useCallback)(async () => {
-      const data = await import_localforage.default.getItem(storageKey) || DEFAULT_DATA;
+    const get7 = (0, import_react37.useCallback)(() => __async(this, null, function* () {
+      const data = (yield import_localforage.default.getItem(storageKey)) || DEFAULT_DATA;
       setPluginData(data);
       return data;
-    }, []);
-    const set = (0, import_react37.useCallback)(async (data) => {
+    }), []);
+    const set = (0, import_react37.useCallback)((data) => __async(this, null, function* () {
       dispatch(getStorageUpdateEventName(storageKey), data);
-    }, [storageKey]);
-    const clear = (0, import_react37.useCallback)(async () => {
-      await import_localforage.default.removeItem(storageKey);
-      await get7();
-    }, [get7]);
-    const update = (0, import_react37.useCallback)(async (key, data) => {
-      const existing = await get7();
+    }), [storageKey]);
+    const clear = (0, import_react37.useCallback)(() => __async(this, null, function* () {
+      yield import_localforage.default.removeItem(storageKey);
+      yield get7();
+    }), [get7]);
+    const update = (0, import_react37.useCallback)((key, data) => __async(this, null, function* () {
+      const existing = yield get7();
       const updated = immer_esm_default(existing, (draft) => {
         draft[key] = data;
       });
       set(updated);
-    }, [set]);
+    }), [set]);
     const value = useValue({ data: pluginData, clear, get: get7, set, update });
     (0, import_react37.useEffect)(() => {
       get7();
     }, []);
     (0, import_react37.useEffect)(() => {
-      on2(getStorageUpdateEventName(storageKey), async (e) => {
+      on2(getStorageUpdateEventName(storageKey), (e) => __async(this, null, function* () {
         const data = e.detail;
-        await import_localforage.default.setItem(storageKey, data);
+        yield import_localforage.default.setItem(storageKey, data);
         setPluginData(data || DEFAULT_DATA);
-      });
+      }));
     }, [set, storageKey]);
     return /* @__PURE__ */ React.createElement(StorageContext.Provider, {
       value
@@ -30908,19 +30929,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/install/install-plugin.tsx
   init_react_shim();
-  var installPlugin = {
-    id: "install",
-    title: "Install plugin",
-    description: "Install a new plugin",
-    url: "https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/install-plugin",
-    version: "0.0.1",
-    mount,
-    unmount: NOOP
-  };
-  var install_plugin_default = installPlugin;
-  function mount() {
-    console.info("Hello install plugin!");
-  }
 
   // ../../packages/command-k/plugins/mocks/index.tsx
   init_react_shim();
@@ -31068,8 +31076,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   var import_react47 = __toESM(require_react());
   var CONTROLS_KEY = "controls";
   var DEFAULT_CONTROLS = {
-    isCommandActive: false,
-    isScrollPinned: false
+    isCommandActive: true,
+    isScrollPinned: true
   };
   function useControls({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
@@ -31116,7 +31124,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function useSettings({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
     const settings = storage2.data[SETTINGS_KEY] || DEFAULT_SETTINGS;
-    const clear = (0, import_react48.useCallback)(() => storage2.update(SETTINGS_KEY, null), []);
+    const clear = (0, import_react48.useCallback)(() => {
+      storage2.update(SETTINGS_KEY, null);
+      storage2.update(CONTROLS_KEY, null);
+    }, []);
     const updateOpacity = (0, import_react48.useCallback)((opacity2) => {
       const standardizedOpacity = opacity2 > 1 ? opacity2 / 10 : opacity2;
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
@@ -31217,13 +31228,18 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       callback: handleArrowKeys
     });
     return /* @__PURE__ */ React.createElement(flex_default, {
+      "data-overlay-controls": true,
       sx: __spreadValues({
         flexWrap: "wrap",
+        flexDirection: "column",
+        height: "calc(100% - 4rem)",
         "& > [data-input-row]": { width: "50%", padding: 2 },
         button: { alignSelf: "center", justifySelf: "flex-end", marginX: 2 },
         "& label": { justifyContent: "flex-end", paddingRight: 2 },
-        "& button": { marginTop: 3 }
+        "& button": { marginY: 2 }
       }, sx2)
+    }, /* @__PURE__ */ React.createElement(grid_default, {
+      columns: "1fr 1fr"
     }, /* @__PURE__ */ React.createElement(InputRow, {
       label: "Opacity",
       onChange: onOpacityChange,
@@ -31238,7 +31254,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       step: 0.01,
       type: "number",
       value: scale
-    }), /* @__PURE__ */ React.createElement(InputRow, {
+    })), /* @__PURE__ */ React.createElement(grid_default, {
+      columns: "1fr 1fr"
+    }, /* @__PURE__ */ React.createElement(InputRow, {
       label: "X",
       onChange: onXChange,
       placeholder: "x offset",
@@ -31252,14 +31270,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       step: 1,
       type: "number",
       value: y2
-    }), /* @__PURE__ */ React.createElement(grid_default, {
-      columns: "2rem 2rem",
-      sx: { paddingX: 3 }
+    })), /* @__PURE__ */ React.createElement(grid_default, {
+      "data-overlay-buttons": true,
+      columns: "2rem 2rem 1fr",
+      sx: { flex: 1, alignItems: "flex-end" }
+    }, /* @__PURE__ */ React.createElement(Tooltip, {
+      text: "Hold CMD to move overlay with arrow keys and mouse"
     }, /* @__PURE__ */ React.createElement(button_default, {
       variant: "circle-tertiary",
       sx: { color: isDraggable ? "focus" : isCommandActive ? "secondary" : "primary" },
       onClick: toggleIsCommandActive
-    }, /* @__PURE__ */ React.createElement(command_default, null)), /* @__PURE__ */ React.createElement(button_default, {
+    }, /* @__PURE__ */ React.createElement(command_default, null))), /* @__PURE__ */ React.createElement(Tooltip, {
+      text: "Lock the overlay to scroll"
+    }, /* @__PURE__ */ React.createElement(button_default, {
       variant: "circle-tertiary",
       sx: { color: isScrollPinned ? "secondary" : "primary" },
       onClick: toggleIsScrollPinned
@@ -31268,8 +31291,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       sx: { flex: 1, justifyContent: "flex-end", width: "100%" }
     }, /* @__PURE__ */ React.createElement(button_default, {
       variant: "pill-tertiary",
-      onClick: clearSettings
-    }, "Reset")), children);
+      onClick: clearSettings,
+      sx: { backgroundColor: "transparent" }
+    }, "Reset"))), children);
   }
 
   // ../../packages/command-k/plugins/mocks/floating-controls.tsx
@@ -31295,9 +31319,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     }, /* @__PURE__ */ React.createElement(OverlayControls, {
       useStorage: useStorage2,
       sx: {
-        gridTemplateColumns: "1fr 1fr 1fr 1fr",
-        "& > [data-input-row]": { width: "9rem" },
-        "& button": { marginTop: 0 },
+        flexDirection: "row",
+        gridTemplateColumns: "3rem 1fr 1fr 1fr",
+        "& [data-input-row]": { width: "9rem" },
+        "[data-overlay-buttons]": { alignItems: "center", marginLeft: 3 },
         "[data-reset-button]": { justifyContent: "flex-start", paddingLeft: 0 }
       }
     }, /* @__PURE__ */ React.createElement(button_default, {
@@ -31401,7 +31426,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   // ../../packages/command-k/plugins/mocks/overlay-settings.tsx
   init_react_shim();
   function OverlaySettings({ useStorage: useStorage2 }) {
-    return /* @__PURE__ */ React.createElement(box_default, null, /* @__PURE__ */ React.createElement(OverlayControls, {
+    return /* @__PURE__ */ React.createElement(box_default, {
+      "data-overlay-settings": true
+    }, /* @__PURE__ */ React.createElement(OverlayControls, {
       useStorage: useStorage2,
       sx: { "[data-reset-button-wrapper]": { gridColumn: "1/-1" } }
     }));
@@ -31499,24 +31526,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     }, children);
   }
 
+  // ../../packages/command-k/plugins/mocks/mocks.docs.tsx
+  init_react_shim();
+
   // ../../packages/command-k/plugins/settings/index.tsx
   init_react_shim();
 
   // ../../packages/command-k/plugins/settings/settings-plugin.tsx
   init_react_shim();
-  var settingsPlugin = {
-    id: "settings",
-    title: "Settings",
-    description: "CMD-K settings",
-    url: "https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/settings",
-    version: "0.0.1",
-    mount: mount2,
-    unmount: NOOP
-  };
-  var settings_plugin_default = settingsPlugin;
-  function mount2() {
-    console.info("Hello settings plugin!");
-  }
 
   // ../../packages/command-k/plugins/theme/index.tsx
   init_react_shim();
@@ -31584,28 +31601,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/uninstall/uninstall-plugin.tsx
   init_react_shim();
-  var uninstallPlugin = {
-    id: "uninstall",
-    title: "Uninstall plugin",
-    description: "Uninstall a plugin",
-    url: "https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/uninstall-plugin",
-    version: "0.0.1",
-    mount: mount3,
-    unmount: NOOP
-  };
-  var uninstall_plugin_default = uninstallPlugin;
-  function mount3() {
-    console.info("Hello uninstall plugin!");
-  }
 
   // ../../packages/command-k/plugins/index.tsx
-  var defaultPlugins = [
-    install_plugin_default,
-    mocks_plugin_default,
-    settings_plugin_default,
-    theme_plugin_default,
-    uninstall_plugin_default
-  ];
+  var defaultPlugins = [mocks_plugin_default, theme_plugin_default];
+
+  // ../../packages/command-k/providers/index.ts
+  init_react_shim();
 
   // ../../packages/command-k/types/index.d.ts
   init_react_shim();
@@ -31617,13 +31618,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   var PLUGINS = defaultPlugins;
   if (!constants_exports.IS_SERVER) {
     window.__cmdk = {
-      mount: mount4,
+      mount,
       unmount
     };
   }
   function useScriptCmdk(isActive = !constants_exports.IS_SERVER) {
     (0, import_react54.useEffect)(() => {
-      const unmount2 = mount4(isActive);
+      const unmount2 = mount(isActive);
       return unmount2;
     }, []);
   }
@@ -31655,7 +31656,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       plugins: PLUGINS
     })));
   }
-  function mount4(isActive = !constants_exports.IS_SERVER) {
+  function mount(isActive = !constants_exports.IS_SERVER) {
     let unmountReturn = NOOP;
     if (isActive) {
       let shadowRoot = getShadowRoot();
