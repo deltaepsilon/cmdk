@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   CommandIcon,
   Flex,
@@ -101,55 +102,65 @@ export default function OverlayControls({
     <Flex
       sx={{
         flexWrap: 'wrap',
+        flexDirection: 'column',
+        height: 'calc(100% - 4rem)',
         '& > [data-input-row]': { width: '50%', padding: 2 },
         button: { alignSelf: 'center', justifySelf: 'flex-end', marginX: 2 },
         '& label': { justifyContent: 'flex-end', paddingRight: 2 },
-        '& button': { marginTop: 3 },
+        '& button': { marginY: 2 },
         ...sx,
       }}
     >
-      <InputRow
-        label="Opacity"
-        onChange={onOpacityChange}
-        placeholder="opacity"
-        step={0.01}
-        type="number"
-        value={opacity}
-      />
-      <InputRow
-        label="Scale"
-        onChange={onScaleChange}
-        placeholder="scale"
-        step={0.01}
-        type="number"
-        value={scale}
-      />
-      <InputRow label="X" onChange={onXChange} placeholder="x offset" step={1} type="number" value={x} />
-      <InputRow label="Y" onChange={onYChange} placeholder="y offset" step={1} type="number" value={y} />
-
-      <Grid columns="2rem 2rem" sx={{ paddingX: 3 }}>
-        <Button
-          variant="circle-tertiary"
-          sx={{ color: isDraggable ? 'focus' : isCommandActive ? 'secondary' : 'primary' }}
-          onClick={toggleIsCommandActive}
-        >
-          <CommandIcon />
-        </Button>
-
-        <Button
-          variant="circle-tertiary"
-          sx={{ color: isScrollPinned ? 'secondary' : 'primary' }}
-          onClick={toggleIsScrollPinned}
-        >
-          <LockIcon />
-        </Button>
+      <Grid columns="1fr 1fr">
+        <InputRow
+          label="Opacity"
+          onChange={onOpacityChange}
+          placeholder="opacity"
+          step={0.01}
+          type="number"
+          value={opacity}
+        />
+        <InputRow
+          label="Scale"
+          onChange={onScaleChange}
+          placeholder="scale"
+          step={0.01}
+          type="number"
+          value={scale}
+        />
+      </Grid>
+      <Grid columns="1fr 1fr">
+        <InputRow label="X" onChange={onXChange} placeholder="x offset" step={1} type="number" value={x} />
+        <InputRow label="Y" onChange={onYChange} placeholder="y offset" step={1} type="number" value={y} />
       </Grid>
 
-      <Flex data-reset-button sx={{ flex: 1, justifyContent: 'flex-end', width: '100%' }}>
-        <Button variant="pill-tertiary" onClick={clearSettings}>
-          Reset
-        </Button>
-      </Flex>
+      <Grid data-overlay-buttons columns="2rem 2rem 1fr" sx={{ flex: 1, alignItems: 'flex-end' }}>
+        <Box>
+          <Button
+            variant="circle-tertiary"
+            sx={{ color: isDraggable ? 'focus' : isCommandActive ? 'secondary' : 'primary' }}
+            onClick={toggleIsCommandActive}
+          >
+            <CommandIcon />
+          </Button>
+        </Box>
+
+        <Box>
+          <Button
+            variant="circle-tertiary"
+            sx={{ color: isScrollPinned ? 'secondary' : 'primary' }}
+            onClick={toggleIsScrollPinned}
+          >
+            <LockIcon />
+          </Button>
+        </Box>
+
+        <Flex data-reset-button sx={{ flex: 1, justifyContent: 'flex-end', width: '100%' }}>
+          <Button variant="pill-tertiary" onClick={clearSettings}>
+            Reset
+          </Button>
+        </Flex>
+      </Grid>
 
       {children}
     </Flex>

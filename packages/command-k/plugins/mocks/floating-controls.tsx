@@ -40,9 +40,10 @@ export default function FloatingControls({
       <OverlayControls
         useStorage={useStorage}
         sx={{
-          gridTemplateColumns: '1fr 1fr 1fr 1fr',
-          '& > [data-input-row]': { width: '9rem' },
-          '& button': { marginTop: 0 },
+          flexDirection: 'row',
+          gridTemplateColumns: '3rem 1fr 1fr 1fr',
+          '& [data-input-row]': { width: '9rem' },
+          '[data-overlay-buttons]': { alignItems: 'center', marginLeft: 3 },
           '[data-reset-button]': { justifyContent: 'flex-start', paddingLeft: 0 },
         }}
       >
