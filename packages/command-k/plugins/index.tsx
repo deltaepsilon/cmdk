@@ -5,12 +5,6 @@ import { settingsPlugin } from './settings';
 import { themePlugin } from './theme';
 import { uninstallPlugin } from './uninstall';
 
-const defaultPlugins: CommandKPlugin[] = [
-  installPlugin,
-  mocksPlugin,
-  settingsPlugin,
-  themePlugin,
-  uninstallPlugin,
-];
+const defaultPlugins: CommandKPlugin[] = [mocksPlugin, themePlugin];
 
 export { defaultPlugins, installPlugin, mocksPlugin, settingsPlugin, themePlugin, uninstallPlugin };

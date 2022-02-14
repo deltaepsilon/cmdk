@@ -21,9 +21,9 @@ interface UseControls {
   updateIsScrollPinned: (isScrollPinned: boolean) => void;
 }
 
-const DEFAULT_CONTROLS: Controls = {
-  isCommandActive: false,
-  isScrollPinned: false,
+export const DEFAULT_CONTROLS: Controls = {
+  isCommandActive: true,
+  isScrollPinned: true,
 };
 
 export default function useControls({ useStorage }: { useStorage: MountContext['useStorage'] }): UseControls {

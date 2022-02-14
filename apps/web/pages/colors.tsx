@@ -1,7 +1,5 @@
-import { Box, Button, CmdkThemeProvider, Flex, Grid, Text } from 'ui';
-
 import ColorsDocs from 'ui/theme/colors.docs';
-import { CommandK } from 'command-k';
+import { Flex } from 'ui';
 
 export default function ColorsPage() {
   return (

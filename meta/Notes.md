@@ -1,8 +1,13 @@
 ## To Do
 
+- [ ] Repair mobile `header.tsx`. Consider creating a hamburger menu.
+- [ ] Start gridlines plugin
 
-- [ ] `OverlayControls` tooltips
-- [ ]  Start gridlines plugin
+## 2/14
+
+- 2.5 hours
+- [x] `OverlayControls` tooltips
+- [x] Overlay guide
 
 ## 2/12
 

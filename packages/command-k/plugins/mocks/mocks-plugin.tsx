@@ -57,7 +57,7 @@ function OverlayWrapper(context: MountContext) {
   ) : null;
 }
 
-function MocksPlugin({ useStorage }: MocksPluginProps) {
+export function MocksPlugin({ useStorage }: MocksPluginProps) {
   const storage = useStorage();
   const { handles } = useFiles({ storage });
   const hasHandles = !!handles.length;

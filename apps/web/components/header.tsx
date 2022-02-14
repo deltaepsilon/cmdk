@@ -1,4 +1,4 @@
-import { Box, Flex, List, ListItem, ThemeSwitcher } from 'ui';
+import { Box, Flex, List, ListItem, Text, ThemeSwitcher } from 'ui';
 
 import { Link } from 'components';
 
@@ -42,13 +42,14 @@ export default function Header() {
         }}
       >
         <HeaderListItem>
-          <Link href="/colors" variant="pill-tertiary">
-            Colors
-          </Link>
-        </HeaderListItem>
-        <HeaderListItem>
           <Link href="/cmdk-input" variant="pill-tertiary">
             CMDK Input
+          </Link>
+        </HeaderListItem>
+
+        <HeaderListItem>
+          <Link href="/colors" variant="pill-tertiary">
+            Colors
           </Link>
         </HeaderListItem>
         <HeaderListItem>
@@ -61,6 +62,24 @@ export default function Header() {
             }}
           />
         </HeaderListItem>
+
+        <Box sx={{ paddingLeft: 2, paddingTop: 5 }}>
+          <Text as="div" variant="title" sx={{ paddingLeft: 3, marginBottom: 3 }}>
+            PLUGINS
+          </Text>
+          <List>
+            <HeaderListItem>
+              <Link href="/mocks" variant="pill-tertiary">
+                Mocks
+              </Link>
+            </HeaderListItem>
+            <HeaderListItem>
+              <Link href="/lines" variant="pill-tertiary">
+                Lines
+              </Link>
+            </HeaderListItem>
+          </List>
+        </Box>
       </List>
     </Flex>
   );

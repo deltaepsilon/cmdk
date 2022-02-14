@@ -5,7 +5,7 @@ import { UseStorage } from 'command-k/providers/storage-provider';
 
 export default function OverlaySettings({ useStorage }: { useStorage: UseStorage }) {
   return (
-    <Box>
+    <Box data-overlay-settings>
       <OverlayControls
         useStorage={useStorage}
         sx={{ '[data-reset-button-wrapper]': { gridColumn: '1/-1' } }}

@@ -6,6 +6,7 @@ import {
   Grid,
   InputRow,
   LockIcon,
+  Tooltip,
   inputToNumber,
   useDebouncedInputState,
   useKeydown,
@@ -100,6 +101,7 @@ export default function OverlayControls({
 
   return (
     <Flex
+      data-overlay-controls
       sx={{
         flexWrap: 'wrap',
         flexDirection: 'column',
@@ -135,7 +137,7 @@ export default function OverlayControls({
       </Grid>
 
       <Grid data-overlay-buttons columns="2rem 2rem 1fr" sx={{ flex: 1, alignItems: 'flex-end' }}>
-        <Box>
+        <Tooltip text="Hold CMD to move overlay with arrow keys and mouse">
           <Button
             variant="circle-tertiary"
             sx={{ color: isDraggable ? 'focus' : isCommandActive ? 'secondary' : 'primary' }}
@@ -143,9 +145,9 @@ export default function OverlayControls({
           >
             <CommandIcon />
           </Button>
-        </Box>
+        </Tooltip>
 
-        <Box>
+        <Tooltip text="Lock the overlay to scroll">
           <Button
             variant="circle-tertiary"
             sx={{ color: isScrollPinned ? 'secondary' : 'primary' }}
@@ -153,10 +155,10 @@ export default function OverlayControls({
           >
             <LockIcon />
           </Button>
-        </Box>
+        </Tooltip>
 
         <Flex data-reset-button sx={{ flex: 1, justifyContent: 'flex-end', width: '100%' }}>
-          <Button variant="pill-tertiary" onClick={clearSettings}>
+          <Button variant="pill-tertiary" onClick={clearSettings} sx={{ backgroundColor: 'transparent' }}>
             Reset
           </Button>
         </Flex>

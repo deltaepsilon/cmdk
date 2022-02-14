@@ -37,7 +37,7 @@ function MocksOverlay({
   ) : null;
 }
 
-function ImageWrapper({ useStorage }: { useStorage: MountContext['useStorage'] }) {
+export function ImageWrapper({ useStorage }: { useStorage: MountContext['useStorage'] }) {
   const draggableRef = useRef<HTMLImageElement>(null);
   const { image } = useSelectedImage({ useStorage });
   const {

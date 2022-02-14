@@ -8,6 +8,7 @@ export { default as Label } from './label';
 export { default as Link } from './link';
 export { default as Modal } from './modal';
 export { default as Text } from './text';
+export { default as Tooltip } from './tooltip';
 export { default as ThemeSwitcher, ColorMode } from './theme-switcher';
 export { List, ListItem } from './list';
 export * from './input';
