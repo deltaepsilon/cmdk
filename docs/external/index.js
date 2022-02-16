@@ -1133,7 +1133,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useCallback(callback, deps);
           }
-          function useMemo8(create, deps) {
+          function useMemo9(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useMemo(create, deps);
           }
@@ -1694,7 +1694,7 @@
           exports.useEffect = useEffect18;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useLayoutEffect = useLayoutEffect4;
-          exports.useMemo = useMemo8;
+          exports.useMemo = useMemo9;
           exports.useReducer = useReducer;
           exports.useRef = useRef13;
           exports.useState = useState18;
@@ -27206,106 +27206,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   // ../../packages/ui/components/link.tsx
   init_react_shim();
 
-  // ../../packages/ui/components/modal.tsx
+  // ../../packages/ui/components/menu.tsx
   init_react_shim();
-  var import_react18 = __toESM(require_react());
-  function Modal({
-    children,
-    dismissOnEscape = true,
-    isActive = true,
-    keyboardTrigger: keyboardTrigger2 = () => false,
-    modalId = "",
-    onRender = NOOP,
-    startOpen = false,
-    sx: sx2 = {}
-  }) {
-    const ref = (0, import_react18.useRef)(null);
-    const { isOpen, setIsOpen, toggle } = useModalState({ startOpen });
-    const keydownCallback = (0, import_react18.useCallback)((e) => {
-      switch (true) {
-        case (e.code === "Escape" && dismissOnEscape):
-          setIsOpen(false);
-          break;
-        case keyboardTrigger2(e):
-          e.preventDefault();
-          setIsOpen(true);
-          break;
-      }
-    }, [dismissOnEscape, keyboardTrigger2, setIsOpen]);
-    useKeydown({ isActive, callback: keydownCallback });
-    (0, import_react18.useEffect)(() => {
-      onRender(ref);
-    }, []);
-    return /* @__PURE__ */ React.createElement(flex_default, {
-      "data-is-active": isActive,
-      "data-modal-id": modalId,
-      ref,
-      sx: __spreadValues({
-        display: isOpen ? null : "none !important",
-        position: "fixed",
-        inset: 0,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "modalScrim"
-      }, sx2),
-      onClick: toggle
-    }, isOpen ? /* @__PURE__ */ React.createElement(box_default, {
-      onClick: stopPropagation
-    }, children) : null);
-  }
-
-  // ../../packages/ui/components/text.tsx
-  init_react_shim();
-  var text_default = Text;
-
-  // ../../packages/ui/components/tooltip.tsx
-  init_react_shim();
-  function Tooltip({ children, text }) {
-    return /* @__PURE__ */ React.createElement(box_default, {
-      sx: { position: "relative", "&:hover": { "[data-tooltip]": { display: "block" } } }
-    }, children, /* @__PURE__ */ React.createElement(box_default, {
-      "data-tooltip": true,
-      sx: {
-        backgroundColor: "background",
-        bottom: "100%",
-        display: "none",
-        fontSize: 0,
-        padding: 2,
-        position: "absolute",
-        width: "10rem"
-      }
-    }, text));
-  }
-
-  // ../../packages/ui/components/theme-switcher.tsx
-  init_react_shim();
-  var import_react19 = __toESM(require_react());
-
-  // ../../packages/ui/components/list/index.tsx
-  init_react_shim();
-
-  // ../../packages/ui/components/list/list.tsx
-  init_react_shim();
-
-  // ../../packages/ui/components/list/list-item.tsx
-  init_react_shim();
-
-  // ../../packages/ui/components/input/index.ts
-  init_react_shim();
-
-  // ../../packages/ui/components/input/input.tsx
-  init_react_shim();
-  var input_default = Input;
-
-  // ../../packages/ui/components/input/input-row.tsx
-  init_react_shim();
-  function InputRow(_a) {
-    var _b = _a, { label, sx: sx2 = {} } = _b, props2 = __objRest(_b, ["label", "sx"]);
-    return /* @__PURE__ */ React.createElement(Flex, {
-      "data-input-row": true,
-      sx: __spreadValues({ alignItems: "center" }, sx2)
-    }, /* @__PURE__ */ React.createElement(Label, null, label), /* @__PURE__ */ React.createElement(Input, __spreadValues({}, props2)));
-  }
 
   // ../../packages/ui/utils/index.ts
   init_react_shim();
@@ -27357,32 +27259,35 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     e == null ? void 0 : e.stopPropagation();
   }
 
+  // ../../packages/ui/components/menu.tsx
+  var import_react31 = __toESM(require_react());
+
   // ../../packages/ui/hooks/index.ts
   init_react_shim();
 
   // ../../packages/ui/hooks/use-debounced-input-state.ts
   init_react_shim();
-  var import_react20 = __toESM(require_react());
+  var import_react18 = __toESM(require_react());
   function useDebouncedInputState({
     callback,
     onChange,
     millis = 300,
     value: incomingValue
   }) {
-    const [value, setValue] = (0, import_react20.useState)(incomingValue);
+    const [value, setValue] = (0, import_react18.useState)(incomingValue);
     const debouncedIncomingValue = useDebouncedValue(incomingValue, { millis });
-    const debouncedCallback = (0, import_react20.useMemo)(() => debounce(callback, { millis }), [callback, millis]);
-    const changeEventHandler = (0, import_react20.useCallback)((e) => {
+    const debouncedCallback = (0, import_react18.useMemo)(() => debounce(callback, { millis }), [callback, millis]);
+    const changeEventHandler = (0, import_react18.useCallback)((e) => {
       const v2 = onChange(e);
       setValue(v2);
       debouncedCallback(v2);
     }, [debouncedCallback, onChange, value]);
-    const updateState = (0, import_react20.useCallback)((getState) => {
+    const updateState = (0, import_react18.useCallback)((getState) => {
       const v2 = getState(value);
       setValue(v2);
       debouncedCallback(v2);
     }, [value]);
-    (0, import_react20.useEffect)(() => {
+    (0, import_react18.useEffect)(() => {
       setValue(debouncedIncomingValue);
     }, [debouncedIncomingValue]);
     return [value, changeEventHandler, updateState];
@@ -27393,14 +27298,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-debounced-value.ts
   init_react_shim();
-  var import_react22 = __toESM(require_react());
+  var import_react20 = __toESM(require_react());
 
   // ../../packages/ui/hooks/use-safe-effect.ts
   init_react_shim();
-  var import_react21 = __toESM(require_react());
+  var import_react19 = __toESM(require_react());
   function useSafeEffect(callback, memoArray) {
-    const isMountedRef = (0, import_react21.useRef)(true);
-    (0, import_react21.useEffect)(() => {
+    const isMountedRef = (0, import_react19.useRef)(true);
+    (0, import_react19.useEffect)(() => {
       const unmount2 = callback(isMountedRef);
       isMountedRef.current = true;
       return () => {
@@ -27415,8 +27320,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return leading ? useLeadingDebounce(value, { millis }) : useTrailingDebounce(value, { initializeValue, millis });
   }
   function useLeadingDebounce(value, { millis }) {
-    const blockedRef = (0, import_react22.useRef)();
-    const [debouncedValue, setDebouncedValue] = (0, import_react22.useState)(value);
+    const blockedRef = (0, import_react20.useRef)();
+    const [debouncedValue, setDebouncedValue] = (0, import_react20.useState)(value);
     useSafeEffect((isMountedRef) => {
       if (isMountedRef.current && !blockedRef.current) {
         blockedRef.current = true;
@@ -27429,8 +27334,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return debouncedValue;
   }
   function useTrailingDebounce(value, { initializeValue, millis }) {
-    const timerRef = (0, import_react22.useRef)();
-    const [debouncedValue, setDebouncedValue] = (0, import_react22.useState)(initializeValue ? value : void 0);
+    const timerRef = (0, import_react20.useRef)();
+    const [debouncedValue, setDebouncedValue] = (0, import_react20.useState)(initializeValue ? value : void 0);
     useSafeEffect((isMountedRef) => {
       timerRef.current && clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => isMountedRef.current && setDebouncedValue(value), millis);
@@ -27440,7 +27345,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-drag.ts
   init_react_shim();
-  var import_react23 = __toESM(require_react());
+  var import_react21 = __toESM(require_react());
   var DEFAULT_DRAG_START_COORDINATES = {
     x: 0,
     y: 0,
@@ -27448,16 +27353,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     clientY: 0
   };
   function useDrag({ onDrag, ref, x: x2, y: y2 }) {
-    const [dragStartCoordinates, setDragStartCoordinates] = (0, import_react23.useState)(DEFAULT_DRAG_START_COORDINATES);
-    const [isDragging, setIsDragging] = (0, import_react23.useState)(false);
-    const onMouseDown = (0, import_react23.useCallback)((e) => {
+    const [dragStartCoordinates, setDragStartCoordinates] = (0, import_react21.useState)(DEFAULT_DRAG_START_COORDINATES);
+    const [isDragging, setIsDragging] = (0, import_react21.useState)(false);
+    const onMouseDown = (0, import_react21.useCallback)((e) => {
       const { clientX, clientY } = e;
       setDragStartCoordinates({ clientX, clientY, x: x2, y: y2 });
       setIsDragging(true);
     }, [x2, y2]);
-    const onMouseUp = (0, import_react23.useCallback)(() => setIsDragging(false), []);
-    const onMouseOut = (0, import_react23.useCallback)(() => setIsDragging(false), []);
-    const onMouseMove = (0, import_react23.useCallback)((e) => {
+    const onMouseUp = (0, import_react21.useCallback)(() => setIsDragging(false), []);
+    const onMouseOut = (0, import_react21.useCallback)(() => setIsDragging(false), []);
+    const onMouseMove = (0, import_react21.useCallback)((e) => {
       if (isDragging) {
         const { clientX, clientY, x: x3, y: y3 } = dragStartCoordinates;
         const changeX = e.clientX - clientX;
@@ -27465,7 +27370,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         onDrag({ changeX, changeY, startX: x3, startY: y3 });
       }
     }, [dragStartCoordinates, isDragging, onDrag]);
-    (0, import_react23.useEffect)(() => {
+    (0, import_react21.useEffect)(() => {
       !isDragging && setDragStartCoordinates(DEFAULT_DRAG_START_COORDINATES);
     }, [isDragging, setDragStartCoordinates]);
     return useValue({ isDragging, onMouseDown, onMouseUp, onMouseMove, onMouseOut });
@@ -27473,30 +27378,30 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-event-bus.ts
   init_react_shim();
-  var import_react25 = __toESM(require_react());
+  var import_react23 = __toESM(require_react());
 
   // ../../packages/ui/hooks/use-value.ts
   init_react_shim();
-  var import_react24 = __toESM(require_react());
+  var import_react22 = __toESM(require_react());
   function useValue(map) {
-    return (0, import_react24.useMemo)(() => map, Object.values(map));
+    return (0, import_react22.useMemo)(() => map, Object.values(map));
   }
 
   // ../../packages/ui/hooks/use-event-bus.ts
   function useEventBus() {
-    const listeners = (0, import_react25.useRef)([]);
-    const dispatch = (0, import_react25.useCallback)((event, data = {}) => {
+    const listeners = (0, import_react23.useRef)([]);
+    const dispatch = (0, import_react23.useCallback)((event, data = {}) => {
       document.dispatchEvent(new CustomEvent(event, { detail: data }));
     }, []);
-    const remove = (0, import_react25.useCallback)((event, callback) => {
+    const remove = (0, import_react23.useCallback)((event, callback) => {
       document.removeEventListener(event, callback);
     }, []);
-    const on2 = (0, import_react25.useCallback)((event, callback) => {
+    const on2 = (0, import_react23.useCallback)((event, callback) => {
       listeners.current.push({ event, callback });
       document.addEventListener(event, callback);
       return () => remove(event, callback);
     }, [remove]);
-    (0, import_react25.useEffect)(() => {
+    (0, import_react23.useEffect)(() => {
       return () => {
         listeners.current.forEach(({ event, callback }) => remove(event, callback));
         listeners.current = [];
@@ -27507,27 +27412,27 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-flag.ts
   init_react_shim();
-  var import_react26 = __toESM(require_react());
+  var import_react24 = __toESM(require_react());
   function useFlag(initialValue = false) {
-    const [flag, setFlag] = (0, import_react26.useState)(initialValue);
-    const toggle = (0, import_react26.useCallback)(() => setFlag((f2) => !f2), []);
+    const [flag, setFlag] = (0, import_react24.useState)(initialValue);
+    const toggle = (0, import_react24.useCallback)(() => setFlag((f2) => !f2), []);
     return [flag, setFlag, toggle];
   }
 
   // ../../packages/ui/hooks/use-has-switched.ts
   init_react_shim();
-  var import_react27 = __toESM(require_react());
+  var import_react25 = __toESM(require_react());
 
   // ../../packages/ui/hooks/use-is-key-active.ts
   init_react_shim();
-  var import_react30 = __toESM(require_react());
+  var import_react28 = __toESM(require_react());
 
   // ../../packages/ui/hooks/use-keydown.ts
   init_react_shim();
-  var import_react28 = __toESM(require_react());
+  var import_react26 = __toESM(require_react());
   function useKeydown({ enableRepeat = false, isActive = true, el, callback }, memoArray = []) {
-    const localCallback = (0, import_react28.useCallback)((e) => (enableRepeat || !e.repeat) && callback(e), [callback]);
-    (0, import_react28.useEffect)(() => {
+    const localCallback = (0, import_react26.useCallback)((e) => (enableRepeat || !e.repeat) && callback(e), [callback]);
+    (0, import_react26.useEffect)(() => {
       if (isActive) {
         const target = el || window.document;
         target.addEventListener("keydown", localCallback);
@@ -27539,9 +27444,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-keyup.ts
   init_react_shim();
-  var import_react29 = __toESM(require_react());
+  var import_react27 = __toESM(require_react());
   function useKeyup({ isActive = true, el, callback }, memoArray = []) {
-    (0, import_react29.useEffect)(() => {
+    (0, import_react27.useEffect)(() => {
       if (isActive) {
         const target = el || window.document;
         target.addEventListener("keyup", callback);
@@ -27553,13 +27458,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-is-key-active.ts
   function useIsKeyActive({ isActive = true, keys }) {
-    const [isKeyActive, setIsKeyActive] = (0, import_react30.useState)(false);
-    const onKeydown = (0, import_react30.useCallback)((e) => {
+    const [isKeyActive, setIsKeyActive] = (0, import_react28.useState)(false);
+    const onKeydown = (0, import_react28.useCallback)((e) => {
       if (keys.has(e.code)) {
         setIsKeyActive(true);
       }
     }, []);
-    const onKeyup = (0, import_react30.useCallback)((e) => {
+    const onKeyup = (0, import_react28.useCallback)((e) => {
       if (keys.has(e.code)) {
         setIsKeyActive(false);
       }
@@ -27571,21 +27476,21 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-modal-state.ts
   init_react_shim();
-  var import_react31 = __toESM(require_react());
+  var import_react29 = __toESM(require_react());
   function useModalState({ debounceOptions = { millis: 0 }, dismissOnEscape = false, startOpen = false } = {
     startOpen: false,
     dismissOnEscape: false
   }) {
-    const [rawIsOpen, setIsOpen] = (0, import_react31.useState)(startOpen);
-    const [scrollPosition, setScrollPosition] = (0, import_react31.useState)(null);
+    const [rawIsOpen, setIsOpen] = (0, import_react29.useState)(startOpen);
+    const [scrollPosition, setScrollPosition] = (0, import_react29.useState)(null);
     const isOpen = useDebouncedValue(rawIsOpen, debounceOptions);
-    const onOpen = (0, import_react31.useCallback)(() => {
+    const onOpen = (0, import_react29.useCallback)(() => {
       if (!constants_exports.IS_SERVER) {
         setScrollPosition(window.pageYOffset);
       }
       setIsOpen(true);
     }, [setIsOpen]);
-    const onDismiss = (0, import_react31.useCallback)((e) => {
+    const onDismiss = (0, import_react29.useCallback)((e) => {
       stopClick(e);
       setIsOpen(false);
       if (!constants_exports.IS_SERVER && scrollPosition !== null) {
@@ -27595,11 +27500,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }, 200);
       }
     }, [scrollPosition, setIsOpen]);
-    const toggle = (0, import_react31.useCallback)((e) => {
+    const toggle = (0, import_react29.useCallback)((e) => {
       stopClick(e);
       rawIsOpen ? onDismiss() : onOpen();
     }, [onDismiss, onOpen, rawIsOpen]);
-    const onKeydown = (0, import_react31.useCallback)((e) => {
+    const onKeydown = (0, import_react29.useCallback)((e) => {
       switch (e.key) {
         case "Escape":
           return onDismiss();
@@ -27611,15 +27516,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-scroll.ts
   init_react_shim();
-  var import_react32 = __toESM(require_react());
+  var import_react30 = __toESM(require_react());
   var DEFAULT_SCROLL = { scrollLeft: 0, scrollTop: 0 };
   function useScroll({ isActive = true }, memoArray = []) {
-    const [scroll, setScroll] = (0, import_react32.useState)(DEFAULT_SCROLL);
-    const callback = (0, import_react32.useCallback)(() => {
+    const [scroll, setScroll] = (0, import_react30.useState)(DEFAULT_SCROLL);
+    const callback = (0, import_react30.useCallback)(() => {
       const { scrollLeft, scrollTop } = document.scrollingElement || DEFAULT_SCROLL;
       setScroll({ scrollLeft, scrollTop });
     }, []);
-    (0, import_react32.useEffect)(() => {
+    (0, import_react30.useEffect)(() => {
       if (isActive) {
         const target = window.document;
         target.addEventListener("scroll", callback);
@@ -27627,6 +27532,107 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
     }, [isActive, callback, ...memoArray]);
     return isActive ? scroll : DEFAULT_SCROLL;
+  }
+
+  // ../../packages/ui/components/modal.tsx
+  init_react_shim();
+  var import_react32 = __toESM(require_react());
+  function Modal({
+    children,
+    dismissOnEscape = true,
+    isActive = true,
+    keyboardTrigger: keyboardTrigger2 = () => false,
+    modalId = "",
+    onRender = NOOP,
+    startOpen = false,
+    sx: sx2 = {}
+  }) {
+    const ref = (0, import_react32.useRef)(null);
+    const { isOpen, setIsOpen, toggle } = useModalState({ startOpen });
+    const keydownCallback = (0, import_react32.useCallback)((e) => {
+      switch (true) {
+        case (e.code === "Escape" && dismissOnEscape):
+          setIsOpen(false);
+          break;
+        case keyboardTrigger2(e):
+          e.preventDefault();
+          setIsOpen(true);
+          break;
+      }
+    }, [dismissOnEscape, keyboardTrigger2, setIsOpen]);
+    useKeydown({ isActive, callback: keydownCallback });
+    (0, import_react32.useEffect)(() => {
+      onRender(ref);
+    }, []);
+    return /* @__PURE__ */ React.createElement(flex_default, {
+      "data-is-active": isActive,
+      "data-modal-id": modalId,
+      ref,
+      sx: __spreadValues({
+        display: isOpen ? null : "none !important",
+        position: "fixed",
+        inset: 0,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "modalScrim"
+      }, sx2),
+      onClick: toggle
+    }, isOpen ? /* @__PURE__ */ React.createElement(box_default, {
+      onClick: stopPropagation
+    }, children) : null);
+  }
+
+  // ../../packages/ui/components/text.tsx
+  init_react_shim();
+  var text_default = Text;
+
+  // ../../packages/ui/components/tooltip.tsx
+  init_react_shim();
+  function Tooltip({ children, text }) {
+    return /* @__PURE__ */ React.createElement(box_default, {
+      sx: { position: "relative", "&:hover": { "[data-tooltip]": { display: "block" } } }
+    }, children, /* @__PURE__ */ React.createElement(box_default, {
+      "data-tooltip": true,
+      sx: {
+        backgroundColor: "background",
+        bottom: "100%",
+        display: "none",
+        fontSize: 0,
+        padding: 2,
+        position: "absolute",
+        width: "10rem"
+      }
+    }, text));
+  }
+
+  // ../../packages/ui/components/theme-switcher.tsx
+  init_react_shim();
+  var import_react33 = __toESM(require_react());
+
+  // ../../packages/ui/components/list/index.tsx
+  init_react_shim();
+
+  // ../../packages/ui/components/list/list.tsx
+  init_react_shim();
+
+  // ../../packages/ui/components/list/list-item.tsx
+  init_react_shim();
+
+  // ../../packages/ui/components/input/index.ts
+  init_react_shim();
+
+  // ../../packages/ui/components/input/input.tsx
+  init_react_shim();
+  var input_default = Input;
+
+  // ../../packages/ui/components/input/input-row.tsx
+  init_react_shim();
+  function InputRow(_a) {
+    var _b = _a, { label, sx: sx2 = {} } = _b, props2 = __objRest(_b, ["label", "sx"]);
+    return /* @__PURE__ */ React.createElement(Flex, {
+      "data-input-row": true,
+      sx: __spreadValues({ alignItems: "center" }, sx2)
+    }, /* @__PURE__ */ React.createElement(Label, null, label), /* @__PURE__ */ React.createElement(Input, __spreadValues({}, props2)));
   }
 
   // ../../packages/ui/constants.ts
@@ -27955,8 +27961,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/providers/flag-provider.tsx
   init_react_shim();
-  var import_react33 = __toESM(require_react());
-  var FlagContext = (0, import_react33.createContext)({
+  var import_react34 = __toESM(require_react());
+  var FlagContext = (0, import_react34.createContext)({
     flag: false,
     setFlag: NOOP,
     toggle: NOOP
@@ -28675,22 +28681,22 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/components/command-k/command-k.tsx
   init_react_shim();
-  var import_react43 = __toESM(require_react());
+  var import_react44 = __toESM(require_react());
 
   // ../../packages/command-k/components/command-k/command-k-input.tsx
   init_react_shim();
-  var import_react41 = __toESM(require_react());
+  var import_react42 = __toESM(require_react());
 
   // ../../packages/command-k/components/command-k/pane.tsx
   init_react_shim();
-  var import_react39 = __toESM(require_react());
+  var import_react40 = __toESM(require_react());
 
   // ../../packages/command-k/hooks/index.ts
   init_react_shim();
 
   // ../../packages/command-k/hooks/use-files.ts
   init_react_shim();
-  var import_react34 = __toESM(require_react());
+  var import_react35 = __toESM(require_react());
 
   // ../../packages/command-k/utils/index.ts
   init_react_shim();
@@ -28711,10 +28717,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     options = { multiple: false },
     storage: storage2
   }) {
-    const handles = (0, import_react34.useMemo)(() => storage2.data[HANDLES_KEY] || [], [storage2.data]);
-    const thumbnails = (0, import_react34.useMemo)(() => storage2.data[THUMBNAILS_KEY] || {}, [storage2.data]);
+    const handles = (0, import_react35.useMemo)(() => storage2.data[HANDLES_KEY] || [], [storage2.data]);
+    const thumbnails = (0, import_react35.useMemo)(() => storage2.data[THUMBNAILS_KEY] || {}, [storage2.data]);
     const [isDropping, setIsDropping] = useFlag(false);
-    const refreshThumbnails = (0, import_react34.useCallback)((overrideHandles) => __async(this, null, function* () {
+    const refreshThumbnails = (0, import_react35.useCallback)((overrideHandles) => __async(this, null, function* () {
       const localHandles = overrideHandles || handles;
       const thumbnails2 = {};
       let i2 = localHandles.length;
@@ -28729,7 +28735,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       yield storage2.update(THUMBNAILS_KEY, thumbnails2);
     }), [handles]);
-    const getFileHandles = (0, import_react34.useCallback)(() => __async(this, null, function* () {
+    const getFileHandles = (0, import_react35.useCallback)(() => __async(this, null, function* () {
       if (window.isSecureContext) {
         const items = yield window.showOpenFilePicker(options);
         const handles2 = items.filter((item) => item.kind === "file" /* file */);
@@ -28740,7 +28746,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         throw Error("Insecure context. Must use HTTPS or localhost");
       }
     }), [refreshThumbnails]);
-    const handleFileDrop = (0, import_react34.useCallback)((e) => __async(this, null, function* () {
+    const handleFileDrop = (0, import_react35.useCallback)((e) => __async(this, null, function* () {
       e.preventDefault();
       setIsDropping(false);
       const items = [...e.dataTransfer.items];
@@ -28752,11 +28758,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       yield refreshThumbnails(handles2);
       onFileSelect(handles2);
     }), [refreshThumbnails]);
-    const handleFileDragOver = (0, import_react34.useCallback)((e) => {
+    const handleFileDragOver = (0, import_react35.useCallback)((e) => {
       e.preventDefault();
       setIsDropping(true);
     }, [setIsDropping]);
-    const handleFileDragLeave = (0, import_react34.useCallback)((e) => {
+    const handleFileDragLeave = (0, import_react35.useCallback)((e) => {
       e.preventDefault();
       setIsDropping(false);
     }, [setIsDropping]);
@@ -28837,14 +28843,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/hooks/use-layers.ts
   init_react_shim();
-  var import_react35 = __toESM(require_react());
+  var import_react36 = __toESM(require_react());
   var MOUNT_POINT_ID = "cmdk-mount-point";
   function useLayers({
     mountPointWrapper,
     overlayWrapper
   }) {
-    const layersMapRef = (0, import_react35.useRef)({});
-    const getLayer = (0, import_react35.useCallback)((pluginId) => {
+    const layersMapRef = (0, import_react36.useRef)({});
+    const getLayer = (0, import_react36.useCallback)((pluginId) => {
       let layer = layersMapRef.current[pluginId];
       if (!layer) {
         layer = {
@@ -28861,7 +28867,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       return layer;
     }, []);
-    const getMountPoint = (0, import_react35.useCallback)((pluginId) => {
+    const getMountPoint = (0, import_react36.useCallback)((pluginId) => {
       var _a;
       const layer = getLayer(pluginId);
       const iframeDocument = (_a = layer.mountPoint.contentWindow) == null ? void 0 : _a.document;
@@ -28874,17 +28880,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       return (iframeDocument == null ? void 0 : iframeDocument.getElementById(MOUNT_POINT_ID)) || null;
     }, []);
-    const getOverlayContainer = (0, import_react35.useCallback)((pluginId) => {
+    const getOverlayContainer = (0, import_react36.useCallback)((pluginId) => {
       const layer = getLayer(pluginId);
       return layer.overlayContainer;
     }, []);
-    const getUnmountOverlay = (0, import_react35.useCallback)((layer) => () => {
+    const getUnmountOverlay = (0, import_react36.useCallback)((layer) => () => {
       layer.overlayContainer.childNodes.forEach((child) => {
         layer.overlayContainer.removeChild(child);
       });
       overlayWrapper == null ? void 0 : overlayWrapper.removeChild(layer.overlayContainer);
     }, []);
-    const mountLayer = (0, import_react35.useCallback)((pluginId) => {
+    const mountLayer = (0, import_react36.useCallback)((pluginId) => {
       const layer = getLayer(pluginId);
       mountPointWrapper == null ? void 0 : mountPointWrapper.appendChild(layer.mountPoint);
       overlayWrapper == null ? void 0 : overlayWrapper.appendChild(layer.overlayContainer);
@@ -30173,10 +30179,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }
 
   // ../../packages/command-k/hooks/use-search.ts
-  var import_react36 = __toESM(require_react());
+  var import_react37 = __toESM(require_react());
   function useSearch({ query, plugins }) {
-    const fuse = (0, import_react36.useMemo)(() => new Fuse(plugins, { keys: ["id", "title", "description"], shouldSort: true }), [plugins]);
-    return (0, import_react36.useMemo)(() => {
+    const fuse = (0, import_react37.useMemo)(() => new Fuse(plugins, { keys: ["id", "title", "description"], shouldSort: true }), [plugins]);
+    return (0, import_react37.useMemo)(() => {
       return query ? fuse.search(query) : plugins.map((item, index2) => ({
         item,
         refIndex: index2,
@@ -30191,7 +30197,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/providers/storage-provider.tsx
   init_react_shim();
-  var import_react37 = __toESM(require_react());
+  var import_react38 = __toESM(require_react());
   var import_localforage = __toESM(require_localforage());
 
   // ../../node_modules/immer/dist/immer.esm.js
@@ -30581,53 +30587,51 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   // ../../packages/command-k/providers/storage-provider.tsx
   var INITIAL_DATA = { isUnloaded: true };
   var DEFAULT_DATA = { isUnloaded: false };
-  var StorageContext = (0, import_react37.createContext)({
+  var StorageContext = (0, import_react38.createContext)({
     data: INITIAL_DATA,
-    clear: () => __async(void 0, null, function* () {
-    }),
-    get: () => __async(void 0, null, function* () {
-      return INITIAL_DATA;
-    }),
-    set: () => __async(void 0, null, function* () {
-    }),
-    update: () => __async(void 0, null, function* () {
-    })
+    clear: async () => {
+    },
+    get: async () => INITIAL_DATA,
+    set: async () => {
+    },
+    update: async () => {
+    }
   });
   function StorageProvider({
     children,
     storageKey
   }) {
     const { dispatch, on: on2 } = useEventBus();
-    const [pluginData, setPluginData] = (0, import_react37.useState)(INITIAL_DATA);
-    const get7 = (0, import_react37.useCallback)(() => __async(this, null, function* () {
-      const data = (yield import_localforage.default.getItem(storageKey)) || DEFAULT_DATA;
+    const [pluginData, setPluginData] = (0, import_react38.useState)(INITIAL_DATA);
+    const get7 = (0, import_react38.useCallback)(async () => {
+      const data = await import_localforage.default.getItem(storageKey) || DEFAULT_DATA;
       setPluginData(data);
       return data;
-    }), []);
-    const set = (0, import_react37.useCallback)((data) => __async(this, null, function* () {
+    }, []);
+    const set = (0, import_react38.useCallback)(async (data) => {
       dispatch(getStorageUpdateEventName(storageKey), data);
-    }), [storageKey]);
-    const clear = (0, import_react37.useCallback)(() => __async(this, null, function* () {
-      yield import_localforage.default.removeItem(storageKey);
-      yield get7();
-    }), [get7]);
-    const update = (0, import_react37.useCallback)((key, data) => __async(this, null, function* () {
-      const existing = yield get7();
+    }, [storageKey]);
+    const clear = (0, import_react38.useCallback)(async () => {
+      await import_localforage.default.removeItem(storageKey);
+      await get7();
+    }, [get7]);
+    const update = (0, import_react38.useCallback)(async (key, data) => {
+      const existing = await get7();
       const updated = immer_esm_default(existing, (draft) => {
         draft[key] = data;
       });
       set(updated);
-    }), [set]);
+    }, [set]);
     const value = useValue({ data: pluginData, clear, get: get7, set, update });
-    (0, import_react37.useEffect)(() => {
+    (0, import_react38.useEffect)(() => {
       get7();
     }, []);
-    (0, import_react37.useEffect)(() => {
-      on2(getStorageUpdateEventName(storageKey), (e) => __async(this, null, function* () {
+    (0, import_react38.useEffect)(() => {
+      on2(getStorageUpdateEventName(storageKey), async (e) => {
         const data = e.detail;
-        yield import_localforage.default.setItem(storageKey, data);
+        await import_localforage.default.setItem(storageKey, data);
         setPluginData(data || DEFAULT_DATA);
-      }));
+      });
     }, [set, storageKey]);
     return /* @__PURE__ */ React.createElement(StorageContext.Provider, {
       value
@@ -30638,9 +30642,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }
 
   // ../../packages/command-k/hooks/use-storage.ts
-  var import_react38 = __toESM(require_react());
+  var import_react39 = __toESM(require_react());
   function useStorage() {
-    return (0, import_react38.useContext)(StorageContext);
+    return (0, import_react39.useContext)(StorageContext);
   }
 
   // ../../packages/command-k/components/command-k/search-result.tsx
@@ -30671,18 +30675,18 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     plugins,
     query
   }) {
-    const resultsRef = (0, import_react39.useRef)(null);
-    const mountPointWrapperRef = (0, import_react39.useRef)(null);
-    const [refIndex, setRefIndex] = (0, import_react39.useState)(0);
-    const getOnClick = (0, import_react39.useCallback)((i2) => () => {
+    const resultsRef = (0, import_react40.useRef)(null);
+    const mountPointWrapperRef = (0, import_react40.useRef)(null);
+    const [refIndex, setRefIndex] = (0, import_react40.useState)(0);
+    const getOnClick = (0, import_react40.useCallback)((i2) => () => {
       const plugin = plugins[i2];
       setRefIndex(i2);
       setActivePlugin(plugin);
     }, []);
-    const selectActive = (0, import_react39.useCallback)(() => {
+    const selectActive = (0, import_react40.useCallback)(() => {
       setActivePlugin(plugins[refIndex]);
     }, [refIndex, plugins]);
-    const onClose = (0, import_react39.useCallback)(() => {
+    const onClose = (0, import_react40.useCallback)(() => {
       setActivePlugin(null);
     }, [setActivePlugin]);
     const searchResults = useSearch({ query, plugins });
@@ -30697,11 +30701,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       setRefIndex,
       searchResults
     });
-    (0, import_react39.useEffect)(() => {
+    (0, import_react40.useEffect)(() => {
       const firstPlugin = searchResults[0];
       firstPlugin && setRefIndex(firstPlugin.refIndex);
     }, [query]);
-    (0, import_react39.useEffect)(() => {
+    (0, import_react40.useEffect)(() => {
       onIsActiveChanged && onIsActiveChanged(!!activePlugin);
     }, [activePlugin]);
     return /* @__PURE__ */ React.createElement(box_default, {
@@ -30750,7 +30754,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       overlayWrapper: overlayWrapperRef.current
     });
     const [, setColorMode] = useColorMode();
-    (0, import_react39.useEffect)(() => {
+    (0, import_react40.useEffect)(() => {
       var _a;
       if (activePlugin) {
         const layer = getLayer(activePlugin.id);
@@ -30786,7 +30790,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }
   function getThemeProvider(mountPoint, key) {
     return ({ children }) => {
-      const cache = (0, import_react39.useRef)(emotion_cache_browser_esm_default({ container: mountPoint.parentElement, key }));
+      const cache = (0, import_react40.useRef)(emotion_cache_browser_esm_default({ container: mountPoint.parentElement, key }));
       return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Fonts, null), /* @__PURE__ */ React.createElement(CacheProvider, {
         value: cache.current
       }, /* @__PURE__ */ React.createElement(CmdkThemeProvider, {
@@ -30816,11 +30820,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     overlayWrapperRef,
     plugins
   }) {
-    const [query, setQuery] = (0, import_react41.useState)("");
-    const [activePlugin, setActivePlugin] = (0, import_react41.useState)(null);
-    const [isPaneActive, setIsPaneActive] = (0, import_react41.useState)(false);
-    const onChange = (0, import_react41.useCallback)((e) => setQuery(e.target.value), []);
-    const onClose = (0, import_react41.useCallback)(() => setActivePlugin(null), []);
+    const [query, setQuery] = (0, import_react42.useState)("");
+    const [activePlugin, setActivePlugin] = (0, import_react42.useState)(null);
+    const [isPaneActive, setIsPaneActive] = (0, import_react42.useState)(false);
+    const onChange = (0, import_react42.useCallback)((e) => setQuery(e.target.value), []);
+    const onClose = (0, import_react42.useCallback)(() => setActivePlugin(null), []);
     useKeydown({
       isActive: !isPaneActive,
       callback: (e) => {
@@ -30829,11 +30833,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
       }
     });
-    (0, import_react41.useEffect)(() => {
+    (0, import_react42.useEffect)(() => {
       onIsActiveChanged(!!query || !!isPaneActive);
     }, [isPaneActive, query]);
     return isActive ? /* @__PURE__ */ React.createElement(box_default, {
-      sx: { borderRadius: "sm", position: "relative", width: 360 }
+      sx: {
+        borderRadius: "sm",
+        position: "relative",
+        width: 360,
+        maxWidth: "calc(100vw - 2rem)"
+      }
     }, /* @__PURE__ */ React.createElement(box_default, {
       sx: { position: "absolute", top: 3, left: 2, zIndex: 1 }
     }, ">"), /* @__PURE__ */ React.createElement(input_default, {
@@ -30864,8 +30873,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/components/command-k/overlay-wrapper.tsx
   init_react_shim();
-  var import_react42 = __toESM(require_react());
-  var overlay_wrapper_default = (0, import_react42.forwardRef)((props2, ref) => /* @__PURE__ */ React.createElement(box_default, __spreadValues({
+  var import_react43 = __toESM(require_react());
+  var overlay_wrapper_default = (0, import_react43.forwardRef)((props2, ref) => /* @__PURE__ */ React.createElement(box_default, __spreadValues({
     "data-overlays-wrapper": true,
     ref,
     sx: {
@@ -30884,10 +30893,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     plugins = [],
     startOpen = false
   }) {
-    const overlayWrapperRef = (0, import_react43.useRef)(null);
-    const [isActive, setIsActive] = (0, import_react43.useState)(false);
-    const [isInputActive, setIsInputActive] = (0, import_react43.useState)(true);
-    const onRender = (0, import_react43.useCallback)((ref) => {
+    const overlayWrapperRef = (0, import_react44.useRef)(null);
+    const [isActive, setIsActive] = (0, import_react44.useState)(false);
+    const [isInputActive, setIsInputActive] = (0, import_react44.useState)(true);
+    const onRender = (0, import_react44.useCallback)((ref) => {
       const modals = document.querySelectorAll('[data-modal-id^="cmdk"]');
       const isRedundant = !!modals[0] && modals[0] !== ref.current;
       if (!isRedundant) {
@@ -30935,26 +30944,26 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/mocks/mocks-plugin.tsx
   init_react_shim();
-  var import_react52 = __toESM(require_react());
+  var import_react53 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/file-selector.tsx
   init_react_shim();
 
   // ../../packages/command-k/plugins/mocks/use-selected-image.ts
   init_react_shim();
-  var import_react44 = __toESM(require_react());
+  var import_react45 = __toESM(require_react());
   var SELECTED_HANDLE_KEY = "selected-handle";
   function useSelectedImage({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
     const { thumbnails } = useFiles({ storage: storage2 });
     const selectedHandleKey = storage2.data[SELECTED_HANDLE_KEY];
-    const image = (0, import_react44.useMemo)(() => thumbnails[selectedHandleKey], [selectedHandleKey, storage2]);
-    const clear = (0, import_react44.useCallback)(() => storage2.update(SELECTED_HANDLE_KEY, null), []);
+    const image = (0, import_react45.useMemo)(() => thumbnails[selectedHandleKey], [selectedHandleKey, storage2]);
+    const clear = (0, import_react45.useCallback)(() => storage2.update(SELECTED_HANDLE_KEY, null), []);
     return useValue({ clear, image });
   }
 
   // ../../packages/command-k/plugins/mocks/file-selector.tsx
-  var import_react45 = __toESM(require_react());
+  var import_react46 = __toESM(require_react());
   function FileSelector({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
     const { handles, refreshThumbnails, thumbnails } = useFiles({ storage: storage2 });
@@ -30979,7 +30988,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     useStorage: useStorage2
   }) {
     const storage2 = useStorage2();
-    const onClick = (0, import_react45.useCallback)(() => storage2.update(SELECTED_HANDLE_KEY, handle.name), [handle, useStorage2]);
+    const onClick = (0, import_react46.useCallback)(() => storage2.update(SELECTED_HANDLE_KEY, handle.name), [handle, useStorage2]);
     return /* @__PURE__ */ React.createElement(box_default, {
       sx: { variant: "boxes.square", position: "relative" }
     }, /* @__PURE__ */ React.createElement(flex_default, {
@@ -31015,19 +31024,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/mocks/file-upload.tsx
   init_react_shim();
-  var import_react46 = __toESM(require_react());
+  var import_react47 = __toESM(require_react());
   function FileUpload({
     onFileSelect,
     useStorage: useStorage2
   }) {
     const storage2 = useStorage2();
-    const wrapperRef = (0, import_react46.useRef)(null);
+    const wrapperRef = (0, import_react47.useRef)(null);
     const { getFileHandles, handleFileDragLeave, handleFileDragOver, handleFileDrop, isDropping } = useFiles({
       onFileSelect,
       options: { multiple: true },
       storage: storage2
     });
-    (0, import_react46.useEffect)(() => {
+    (0, import_react47.useEffect)(() => {
       focusOnActiveButton(wrapperRef);
     }, []);
     return /* @__PURE__ */ React.createElement(flex_default, {
@@ -31061,19 +31070,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/mocks/mocks-overlay.tsx
   init_react_shim();
-  var import_react51 = __toESM(require_react());
+  var import_react52 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/floating-controls.tsx
   init_react_shim();
-  var import_react50 = __toESM(require_react());
+  var import_react51 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/overlay-controls.tsx
   init_react_shim();
-  var import_react49 = __toESM(require_react());
+  var import_react50 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/use-controls.ts
   init_react_shim();
-  var import_react47 = __toESM(require_react());
+  var import_react48 = __toESM(require_react());
   var CONTROLS_KEY = "controls";
   var DEFAULT_CONTROLS = {
     isCommandActive: true,
@@ -31082,19 +31091,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function useControls({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
     const controls = storage2.data[CONTROLS_KEY] || DEFAULT_CONTROLS;
-    const clear = (0, import_react47.useCallback)(() => storage2.update(CONTROLS_KEY, null), []);
-    const updateIsCommandActive = (0, import_react47.useCallback)((isCommandActive) => {
+    const clear = (0, import_react48.useCallback)(() => storage2.update(CONTROLS_KEY, null), []);
+    const updateIsCommandActive = (0, import_react48.useCallback)((isCommandActive) => {
       storage2.update(CONTROLS_KEY, immer_esm_default(controls, (draft) => {
         draft.isCommandActive = isCommandActive;
       }));
     }, [controls, storage2]);
-    const updateIsScrollPinned = (0, import_react47.useCallback)((isScrollPinned) => {
+    const updateIsScrollPinned = (0, import_react48.useCallback)((isScrollPinned) => {
       storage2.update(CONTROLS_KEY, immer_esm_default(controls, (draft) => {
         draft.isScrollPinned = isScrollPinned;
       }));
     }, [controls, storage2]);
-    const toggleIsCommandActive = (0, import_react47.useCallback)(() => updateIsCommandActive(!controls.isCommandActive), [controls.isCommandActive, updateIsCommandActive]);
-    const toggleIsScrollPinned = (0, import_react47.useCallback)(() => updateIsScrollPinned(!controls.isScrollPinned), [controls.isScrollPinned, updateIsScrollPinned]);
+    const toggleIsCommandActive = (0, import_react48.useCallback)(() => updateIsCommandActive(!controls.isCommandActive), [controls.isCommandActive, updateIsCommandActive]);
+    const toggleIsScrollPinned = (0, import_react48.useCallback)(() => updateIsScrollPinned(!controls.isScrollPinned), [controls.isScrollPinned, updateIsScrollPinned]);
     const isControlPressed = useIsKeyActive({
       isActive: controls.isCommandActive,
       keys: /* @__PURE__ */ new Set(["ControlLeft", "ControlRight"])
@@ -31113,7 +31122,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/mocks/use-settings.ts
   init_react_shim();
-  var import_react48 = __toESM(require_react());
+  var import_react49 = __toESM(require_react());
   var SETTINGS_KEY = "settings";
   var DEFAULT_SETTINGS = {
     opacity: 0.25,
@@ -31124,34 +31133,34 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function useSettings({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
     const settings = storage2.data[SETTINGS_KEY] || DEFAULT_SETTINGS;
-    const clear = (0, import_react48.useCallback)(() => {
+    const clear = (0, import_react49.useCallback)(() => {
       storage2.update(SETTINGS_KEY, null);
       storage2.update(CONTROLS_KEY, null);
     }, []);
-    const updateOpacity = (0, import_react48.useCallback)((opacity2) => {
+    const updateOpacity = (0, import_react49.useCallback)((opacity2) => {
       const standardizedOpacity = opacity2 > 1 ? opacity2 / 10 : opacity2;
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.opacity = Math.min(Math.max(standardizedOpacity, 0), 1);
       }));
     }, [settings, storage2]);
-    const updateScale = (0, import_react48.useCallback)((scale) => {
+    const updateScale = (0, import_react49.useCallback)((scale) => {
       const standardizedScale = scale > 10 ? scale / 10 : scale;
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.scale = Math.min(Math.max(standardizedScale, 0), 10);
       }));
     }, [settings, storage2]);
-    const updateX = (0, import_react48.useCallback)((x2) => {
+    const updateX = (0, import_react49.useCallback)((x2) => {
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.x = x2;
       }));
     }, [settings, storage2]);
-    const updateXY = (0, import_react48.useCallback)(({ x: x2, y: y2 }) => {
+    const updateXY = (0, import_react49.useCallback)(({ x: x2, y: y2 }) => {
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.x = x2;
         draft.y = y2;
       }));
     }, [settings, storage2]);
-    const updateY = (0, import_react48.useCallback)((y2) => {
+    const updateY = (0, import_react49.useCallback)((y2) => {
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.y = y2;
       }));
@@ -31203,7 +31212,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       millis: INPUT_MILLIS,
       value: settings.y
     });
-    const handleArrowKeys = (0, import_react49.useCallback)((e) => {
+    const handleArrowKeys = (0, import_react50.useCallback)((e) => {
       if (e.ctrlKey) {
         switch (e.code) {
           case "ControlLeft":
@@ -31340,7 +31349,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const { data, update } = useStorage2();
     const position3 = data[CONTROLS_POSITION_KEY] || "bottom" /* bottom */;
     const isTop = position3 === "top" /* top */;
-    const togglePosition = (0, import_react50.useCallback)(() => update(CONTROLS_POSITION_KEY, isTop ? "bottom" /* bottom */ : "top" /* top */), [update, isTop]);
+    const togglePosition = (0, import_react51.useCallback)(() => update(CONTROLS_POSITION_KEY, isTop ? "bottom" /* bottom */ : "top" /* top */), [update, isTop]);
     return useValue({ isTop, togglePosition });
   }
 
@@ -31349,7 +31358,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function MocksOverlayPortal(context) {
     const { overlayContainer, unmountOverlay, useStorage: useStorage2 } = context;
     const { clear } = useSelectedImage({ useStorage: useStorage2 });
-    const unmount2 = (0, import_react51.useCallback)(() => __async(this, null, function* () {
+    const unmount2 = (0, import_react52.useCallback)(() => __async(this, null, function* () {
       yield clear();
       setTimeout(unmountOverlay, 1e3);
     }), [clear]);
@@ -31371,7 +31380,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     })) : null;
   }
   function ImageWrapper({ useStorage: useStorage2 }) {
-    const draggableRef = (0, import_react51.useRef)(null);
+    const draggableRef = (0, import_react52.useRef)(null);
     const { image } = useSelectedImage({ useStorage: useStorage2 });
     const {
       controls: { isScrollPinned },
@@ -31383,10 +31392,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       onChange: () => ({ x: 0, y: 0 }),
       value: settings
     });
-    const onDrag = (0, import_react51.useCallback)(({ changeX, changeY, startX, startY }) => {
+    const onDrag = (0, import_react52.useCallback)(({ changeX, changeY, startX, startY }) => {
       updateXYState(() => ({ x: startX + changeX, y: startY + changeY }));
     }, [updateXYState]);
-    const { width: width2, height: height2 } = (0, import_react51.useMemo)(() => ({ width: ((image == null ? void 0 : image.width) || 0) * settings.scale, height: ((image == null ? void 0 : image.height) || 0) * settings.scale }), [image, settings]);
+    const { width: width2, height: height2 } = (0, import_react52.useMemo)(() => ({ width: ((image == null ? void 0 : image.width) || 0) * settings.scale, height: ((image == null ? void 0 : image.height) || 0) * settings.scale }), [image, settings]);
     const { isDragging, onMouseDown, onMouseUp, onMouseMove, onMouseOut } = useDrag({
       ref: draggableRef,
       onDrag,
@@ -31400,7 +31409,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       sx: {
         position: "fixed",
         inset: 0,
-        opacity: settings.opacity
+        opacity: settings.opacity,
+        pointerEvents: "none"
       }
     }, /* @__PURE__ */ React.createElement(image_default, {
       ref: draggableRef,
@@ -31408,7 +31418,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       onMouseUp,
       onMouseMove,
       onMouseOut,
-      draggable: false,
+      "data-is-dragging": isDragging,
       src: image == null ? void 0 : image.base64,
       width: `${width2}px`,
       height: `${height2}px`,
@@ -31418,7 +31428,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         pointerEvents: isDragging || isDraggable ? "auto" : "none",
         top: `${adjustedY}px`,
         left: `${adjustedX}px`,
-        maxWidth: "initial"
+        maxWidth: "initial",
+        userSelect: "none"
       }
     }));
   }
@@ -31464,7 +31475,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const isUnloaded = storage2.data.isUnloaded;
     const [isUploading, setIsUploading, toggleUploading] = useFlag();
     const { image, clear: clearImage } = useSelectedImage({ useStorage: useStorage2 });
-    (0, import_react52.useEffect)(() => {
+    (0, import_react53.useEffect)(() => {
       if (!isUnloaded) {
         setIsUploading(!hasHandles);
       }
@@ -31540,7 +31551,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/theme/theme-plugin.tsx
   init_react_shim();
-  var import_react53 = __toESM(require_react());
+  var import_react54 = __toESM(require_react());
   var import_react_dom3 = __toESM(require_react_dom());
   var themePlugin = {
     id: "theme",
@@ -31559,16 +31570,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function ThemePlugin({
     setColorMode: setParentColorMode
   }) {
-    const buttonWrapperRef = (0, import_react53.useRef)(null);
+    const buttonWrapperRef = (0, import_react54.useRef)(null);
     const [colorMode, setLocalColorMode] = useColorMode();
     const isLight = colorMode === "default" /* light */;
-    const toggleColorMode = (0, import_react53.useCallback)(() => {
+    const toggleColorMode = (0, import_react54.useCallback)(() => {
       const updatedColorMode = isLight ? "dark" /* dark */ : "default" /* light */;
       focusOnActiveButton(buttonWrapperRef);
       setLocalColorMode(updatedColorMode);
       setParentColorMode(updatedColorMode);
     }, [isLight, setLocalColorMode, setParentColorMode]);
-    (0, import_react53.useLayoutEffect)(() => {
+    (0, import_react54.useLayoutEffect)(() => {
       focusOnActiveButton(buttonWrapperRef);
     }, []);
     return /* @__PURE__ */ React.createElement(flex_default, {
@@ -31612,7 +31623,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   init_react_shim();
 
   // index.tsx
-  var import_react54 = __toESM(require_react());
+  var import_react55 = __toESM(require_react());
   var import_react_dom4 = __toESM(require_react_dom());
   var ID = "cmdk";
   var PLUGINS = defaultPlugins;
@@ -31623,14 +31634,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     };
   }
   function useScriptCmdk(isActive = !constants_exports.IS_SERVER) {
-    (0, import_react54.useEffect)(() => {
+    (0, import_react55.useEffect)(() => {
       const unmount2 = mount(isActive);
       return unmount2;
     }, []);
   }
   function ThemedCommandK() {
-    const [cache, setCache] = (0, import_react54.useState)(emotion_cache_browser_esm_default({ container: document.body, key: "command-k" }));
-    const onRender = (0, import_react54.useCallback)((ref) => {
+    const [cache, setCache] = (0, import_react55.useState)(emotion_cache_browser_esm_default({ container: document.body, key: "command-k" }));
+    const onRender = (0, import_react55.useCallback)((ref) => {
       const container = ref.current.parentElement;
       const key = "command-k";
       setCache(emotion_cache_browser_esm_default({
