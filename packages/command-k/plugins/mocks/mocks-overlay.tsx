@@ -76,6 +76,7 @@ export function ImageWrapper({ useStorage }: { useStorage: MountContext['useStor
         position: 'fixed',
         inset: 0,
         opacity: settings.opacity,
+        pointerEvents: 'none',
       }}
     >
       <Image
@@ -84,7 +85,7 @@ export function ImageWrapper({ useStorage }: { useStorage: MountContext['useStor
         onMouseUp={onMouseUp}
         onMouseMove={onMouseMove}
         onMouseOut={onMouseOut}
-        draggable={false}
+        data-is-dragging={isDragging}
         src={image?.base64}
         width={`${width}px`}
         height={`${height}px`}
@@ -95,6 +96,7 @@ export function ImageWrapper({ useStorage }: { useStorage: MountContext['useStor
           top: `${adjustedY}px`,
           left: `${adjustedX}px`,
           maxWidth: 'initial',
+          userSelect: 'none',
         }}
       />
     </Box>

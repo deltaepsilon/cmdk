@@ -6,6 +6,7 @@ export { default as Grid } from './grid';
 export { default as Image } from './image';
 export { default as Label } from './label';
 export { default as Link } from './link';
+export { default as Menu, MenuPosition } from './menu';
 export { default as Modal } from './modal';
 export { default as Text } from './text';
 export { default as Tooltip } from './tooltip';

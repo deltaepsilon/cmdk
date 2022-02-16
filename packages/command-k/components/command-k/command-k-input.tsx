@@ -38,7 +38,8 @@ export default function CommandKInput({
   }, [isPaneActive, query]);
 
   return isActive ? (
-    <Box sx={{ borderRadius: 'sm', position: 'relative', width: 360 }}>
+    <Box sx={{ borderRadius: 'sm', position: 'relative', width: 360
+    , maxWidth: 'calc(100vw - 2rem)' }}>
       <Box sx={{ position: 'absolute', top: 3, left: 2, zIndex: 1 }}>&gt;</Box>
       <Input
         autoFocus

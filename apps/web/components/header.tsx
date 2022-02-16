@@ -1,14 +1,18 @@
-import { Box, Flex, List, ListItem, Text, ThemeSwitcher } from 'ui';
+import { Box, Button, Flex, List, ListItem, Menu, MenuIcon, MenuPosition, Text, ThemeSwitcher } from 'ui';
 
 import { Link } from 'components';
+import { useResponsiveValue } from '@theme-ui/match-media';
 
 export default function Header() {
+  const isHorizontal = useResponsiveValue([true, true, false]);
+  const isMobile = useResponsiveValue([true, false]);
+
   return (
     <Flex
       sx={{
-        flexDirection: ['row', 'row', 'column'],
+        flexDirection: isHorizontal ? 'row' : 'column',
         alignItems: 'center',
-        justifyContent: ['space-between', 'space-between', null],
+        justifyContent: isHorizontal ? 'space-between' : null,
         padding: [2, 3, 4],
         paddingRight: '0 !important',
       }}
@@ -17,7 +21,7 @@ export default function Header() {
         href="/"
         sx={{
           alignSelf: 'flex-start',
-          flex: [1, 3, 0],
+          flex: [1, 2, 0],
           fontFamily: 'feature',
           fontSize: 3,
           marginLeft: [0, 0, 3],
@@ -34,24 +38,30 @@ export default function Header() {
       <List
         sx={{
           alignContent: 'flex-start',
-          flex: [2, 2, 1],
-          gridTemplateColumns: ['4rem 5rem 4rem', '4rem 5rem 4rem', '1fr', '1fr'],
+          flex: isHorizontal ? null : 1,
+          gridTemplateColumns: isHorizontal ? '2rem 2rem' : '1fr',
           gridTemplateRows: 'min-content',
-          justifyItems: ['flex-start', 'flex-end', 'flex-start'],
-          width: [null, null, '100%'],
+          justifyItems: ['center', 'center', 'flex-start'],
+          width: isHorizontal ? null : '100%',
+          paddingRight: 3,
         }}
       >
-        <HeaderListItem>
-          <Link href="/cmdk-input" variant="pill-tertiary">
-            CMDK Input
-          </Link>
-        </HeaderListItem>
+        {!isHorizontal && (
+          <>
+            <HeaderListItem>
+              <Link href="/cmdk-input" variant="pill-tertiary">
+                CMDK Input
+              </Link>
+            </HeaderListItem>
 
-        <HeaderListItem>
-          <Link href="/colors" variant="pill-tertiary">
-            Colors
-          </Link>
-        </HeaderListItem>
+            <HeaderListItem>
+              <Link href="/colors" variant="pill-tertiary">
+                Colors
+              </Link>
+            </HeaderListItem>
+          </>
+        )}
+
         <HeaderListItem>
           <ThemeSwitcher
             sx={{
@@ -62,24 +72,61 @@ export default function Header() {
             }}
           />
         </HeaderListItem>
+        <HeaderListItem>
+          {isHorizontal ? (
+            <Menu
+              position={MenuPosition.BottomLeft}
+              trigger={
+                <Button variant="circle-tertiary">
+                  <MenuIcon />
+                </Button>
+              }
+            >
+              <List sx={{ width: 100 }}>
+                <ListItem>
+                  <Link href="/cmdk-input" variant="pill-tertiary">
+                    CMDK Input
+                  </Link>
+                </ListItem>
 
-        <Box sx={{ paddingLeft: 2, paddingTop: 5 }}>
-          <Text as="div" variant="title" sx={{ paddingLeft: 3, marginBottom: 3 }}>
-            PLUGINS
-          </Text>
-          <List>
-            <HeaderListItem>
-              <Link href="/mocks" variant="pill-tertiary">
-                Mocks
-              </Link>
-            </HeaderListItem>
-            <HeaderListItem>
-              <Link href="/lines" variant="pill-tertiary">
-                Lines
-              </Link>
-            </HeaderListItem>
-          </List>
-        </Box>
+                <ListItem>
+                  <Link href="/colors" variant="pill-tertiary">
+                    Colors
+                  </Link>
+                </ListItem>
+
+                <ListItem>
+                  <Link href="/mocks" variant="pill-tertiary">
+                    Mocks
+                  </Link>
+                </ListItem>
+                <ListItem>
+                  <Link href="/lines" variant="pill-tertiary">
+                    Lines
+                  </Link>
+                </ListItem>
+              </List>
+            </Menu>
+          ) : (
+            <Box sx={{ paddingLeft: 2, paddingTop: 5 }}>
+              <Text as="div" variant="title" sx={{ paddingLeft: 3, marginBottom: 3 }}>
+                PLUGINS
+              </Text>
+              <List>
+                <HeaderListItem>
+                  <Link href="/mocks" variant="pill-tertiary">
+                    Mocks
+                  </Link>
+                </HeaderListItem>
+                <HeaderListItem>
+                  <Link href="/lines" variant="pill-tertiary">
+                    Lines
+                  </Link>
+                </HeaderListItem>
+              </List>
+            </Box>
+          )}
+        </HeaderListItem>
       </List>
     </Flex>
   );

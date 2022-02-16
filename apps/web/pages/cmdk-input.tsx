@@ -12,11 +12,11 @@ export default function IndexPage() {
       sx={{
         backgroundColor: 'modalScrim',
         justifyContent: 'center',
-        padding: 5,
+        padding: [1, 3, 5],
         width: '100%',
       }}
     >
-      <Box>
+      <Flex sx={{ justifyContent: 'center', width: '100%' }}>
         <OverlayWrapper ref={overlayWrapperRef} />
         <CommandKInput
           id="cmdk-input-page"
@@ -24,7 +24,7 @@ export default function IndexPage() {
           plugins={PLUGINS}
           overlayWrapperRef={overlayWrapperRef}
         />
-      </Box>
+      </Flex>
     </Flex>
   );
 }

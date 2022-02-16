@@ -18,7 +18,9 @@ export default function MocksDocsConnected() {
 function MockDocs() {
   return (
     <>
-      <ImageWrapper useStorage={useStorage} />
+      <Box sx={{ position: 'relative', zIndex: 1 }}>
+        <ImageWrapper useStorage={useStorage} />
+      </Box>
       <Grid gap="5">
         <Text as="h1" variant="headline1">
           Mocks
