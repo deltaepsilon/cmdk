@@ -15,9 +15,10 @@ interface Props {
   children: React.ReactNode;
   trigger: React.ReactNode;
   position?: MenuPosition;
+  sx?: ThemeUIStyleObject;
 }
 
-export default function Menu({ children, trigger, position }: Props) {
+export default function Menu({ children, trigger, position, sx = {} }: Props) {
   const { isOpen, toggle } = useModalState({ dismissOnEscape: true, startOpen: false });
   const positionSx = useMemo(() => {
     const isTop = position === MenuPosition.TopLeft || position === MenuPosition.TopRight;
@@ -40,7 +41,7 @@ export default function Menu({ children, trigger, position }: Props) {
   }, [position]);
 
   return (
-    <Box onClick={toggle} sx={{ position: 'relative', zIndex: 'menu' }}>
+    <Box onClick={toggle} sx={{ position: 'relative', zIndex: 'menu', ...sx }}>
       <Box sx={{ display: isOpen ? 'block' : 'none', position: 'fixed', inset: 0 }} />
       <Box sx={{ position: 'relative' }}>
         <Box>{trigger}</Box>

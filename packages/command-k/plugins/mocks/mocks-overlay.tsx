@@ -86,6 +86,7 @@ export function ImageWrapper({ useStorage }: { useStorage: MountContext['useStor
         onMouseMove={onMouseMove}
         onMouseOut={onMouseOut}
         data-is-dragging={isDragging}
+        draggable={false} // Disables image drag
         src={image?.base64}
         width={`${width}px`}
         height={`${height}px`}

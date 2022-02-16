@@ -40,8 +40,14 @@ export default function FloatingControls({
       <OverlayControls
         useStorage={useStorage}
         sx={{
-          flexDirection: 'row',
+          flexDirection: ['column-reverse', 'column-reverse', 'column-reverse', 'row'],
           gridTemplateColumns: '3rem 1fr 1fr 1fr',
+          '[data-input-wrapper]': {
+            flexDirection: ['column', 'column', 'row'],
+            '& > div:last-of-type': {
+              display: ['none', 'none', 'block'],
+            },
+          },
           '& [data-input-row]': { width: '9rem' },
           '[data-overlay-buttons]': { alignItems: 'center', marginLeft: 3 },
           '[data-reset-button]': { justifyContent: 'flex-start', paddingLeft: 0 },
