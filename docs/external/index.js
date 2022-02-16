@@ -563,7 +563,7 @@
             }
             return element;
           };
-          function createElement19(type, config10, children) {
+          function createElement20(type, config10, children) {
             var propName;
             var props2 = {};
             var key = null;
@@ -1121,7 +1121,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect18(create, deps) {
+          function useEffect19(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1611,7 +1611,7 @@
                 error("React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
               }
             }
-            var element = createElement19.apply(this, arguments);
+            var element = createElement20.apply(this, arguments);
             if (element == null) {
               return element;
             }
@@ -1691,7 +1691,7 @@
           exports.useCallback = useCallback28;
           exports.useContext = useContext7;
           exports.useDebugValue = useDebugValue;
-          exports.useEffect = useEffect18;
+          exports.useEffect = useEffect19;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useLayoutEffect = useLayoutEffect4;
           exports.useMemo = useMemo9;
@@ -5018,11 +5018,11 @@
       if (true) {
         (function() {
           "use strict";
-          var React21 = require_react();
+          var React22 = require_react();
           var _assign = require_object_assign();
           var Scheduler = require_scheduler();
           var tracing = require_tracing();
-          var ReactSharedInternals = React21.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React22.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function warn(format2) {
             {
               for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -5054,7 +5054,7 @@
               Function.prototype.apply.call(console[level], console, argsWithFormat);
             }
           }
-          if (!React21) {
+          if (!React22) {
             {
               throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
             }
@@ -6270,7 +6270,7 @@
           var didWarnInvalidChild = false;
           function flattenChildren(children) {
             var content = "";
-            React21.Children.forEach(children, function(child) {
+            React22.Children.forEach(children, function(child) {
               if (child == null) {
                 return;
               }
@@ -6281,7 +6281,7 @@
           function validateProps(element, props2) {
             {
               if (typeof props2.children === "object" && props2.children !== null) {
-                React21.Children.forEach(props2.children, function(child) {
+                React22.Children.forEach(props2.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -11035,7 +11035,7 @@
               }
             }
           }
-          function createElement19(type, props2, rootContainerElement, parentNamespace) {
+          function createElement20(type, props2, rootContainerElement, parentNamespace) {
             var isCustomComponentTag;
             var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
             var domElement;
@@ -11912,7 +11912,7 @@
               }
               parentNamespace = hostContextDev.namespace;
             }
-            var domElement = createElement19(type, props2, rootContainerInstance, parentNamespace);
+            var domElement = createElement20(type, props2, rootContainerInstance, parentNamespace);
             precacheFiberNode(internalInstanceHandle, domElement);
             updateFiberProps(domElement, props2);
             return domElement;
@@ -13474,7 +13474,7 @@
           }
           var fakeInternalInstance = {};
           var isArray2 = Array.isArray;
-          var emptyRefsObject = new React21.Component().refs;
+          var emptyRefsObject = new React22.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -27534,6 +27534,44 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return isActive ? scroll : DEFAULT_SCROLL;
   }
 
+  // ../../packages/ui/components/menu.tsx
+  function Menu({ children, trigger, position: position3, sx: sx2 = {} }) {
+    const { isOpen, toggle } = useModalState({ dismissOnEscape: true, startOpen: false });
+    const positionSx = (0, import_react31.useMemo)(() => {
+      const isTop = position3 === "top-left" /* TopLeft */ || position3 === "top-right" /* TopRight */;
+      const isLeft = position3 === "top-left" /* TopLeft */ || position3 === "bottom-left" /* BottomLeft */;
+      const result = {};
+      if (isTop) {
+        result.bottom = 0;
+      } else {
+        result.top = 0;
+      }
+      if (isLeft) {
+        result.right = 0;
+      } else {
+        result.left = 0;
+      }
+      return result;
+    }, [position3]);
+    return /* @__PURE__ */ React.createElement(box_default, {
+      onClick: toggle,
+      sx: __spreadValues({ position: "relative", zIndex: "menu" }, sx2)
+    }, /* @__PURE__ */ React.createElement(box_default, {
+      sx: { display: isOpen ? "block" : "none", position: "fixed", inset: 0 }
+    }), /* @__PURE__ */ React.createElement(box_default, {
+      sx: { position: "relative" }
+    }, /* @__PURE__ */ React.createElement(box_default, null, trigger), /* @__PURE__ */ React.createElement(box_default, {
+      onClick: stopPropagation,
+      sx: __spreadValues({
+        backgroundColor: "background",
+        display: isOpen ? "block" : "none",
+        variant: "boxes.border",
+        position: "absolute",
+        zIndex: 1
+      }, positionSx)
+    }, children)));
+  }
+
   // ../../packages/ui/components/modal.tsx
   init_react_shim();
   var import_react32 = __toESM(require_react());
@@ -27821,10 +27859,33 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }));
   var refresh_cw_default = RefreshCwIcon;
 
-  // ../../packages/ui/icons/components/sun.tsx
+  // ../../packages/ui/icons/components/settings.tsx
   init_react_shim();
   var React17 = __toESM(require_react());
-  var SunIcon = (props2) => /* @__PURE__ */ React17.createElement("svg", __spreadValues({
+  var SettingsIcon = (props2) => /* @__PURE__ */ React17.createElement("svg", __spreadValues({
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "feather feather-settings"
+  }, props2), /* @__PURE__ */ React17.createElement("circle", {
+    cx: 12,
+    cy: 12,
+    r: 3
+  }), /* @__PURE__ */ React17.createElement("path", {
+    d: "M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+  }));
+  var settings_default = SettingsIcon;
+
+  // ../../packages/ui/icons/components/sun.tsx
+  init_react_shim();
+  var React18 = __toESM(require_react());
+  var SunIcon = (props2) => /* @__PURE__ */ React18.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27835,46 +27896,46 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-sun"
-  }, props2), /* @__PURE__ */ React17.createElement("circle", {
+  }, props2), /* @__PURE__ */ React18.createElement("circle", {
     cx: 12,
     cy: 12,
     r: 5
-  }), /* @__PURE__ */ React17.createElement("line", {
+  }), /* @__PURE__ */ React18.createElement("line", {
     x1: 12,
     y1: 1,
     x2: 12,
     y2: 3
-  }), /* @__PURE__ */ React17.createElement("line", {
+  }), /* @__PURE__ */ React18.createElement("line", {
     x1: 12,
     y1: 21,
     x2: 12,
     y2: 23
-  }), /* @__PURE__ */ React17.createElement("line", {
+  }), /* @__PURE__ */ React18.createElement("line", {
     x1: 4.22,
     y1: 4.22,
     x2: 5.64,
     y2: 5.64
-  }), /* @__PURE__ */ React17.createElement("line", {
+  }), /* @__PURE__ */ React18.createElement("line", {
     x1: 18.36,
     y1: 18.36,
     x2: 19.78,
     y2: 19.78
-  }), /* @__PURE__ */ React17.createElement("line", {
+  }), /* @__PURE__ */ React18.createElement("line", {
     x1: 1,
     y1: 12,
     x2: 3,
     y2: 12
-  }), /* @__PURE__ */ React17.createElement("line", {
+  }), /* @__PURE__ */ React18.createElement("line", {
     x1: 21,
     y1: 12,
     x2: 23,
     y2: 12
-  }), /* @__PURE__ */ React17.createElement("line", {
+  }), /* @__PURE__ */ React18.createElement("line", {
     x1: 4.22,
     y1: 19.78,
     x2: 5.64,
     y2: 18.36
-  }), /* @__PURE__ */ React17.createElement("line", {
+  }), /* @__PURE__ */ React18.createElement("line", {
     x1: 18.36,
     y1: 5.64,
     x2: 19.78,
@@ -27884,8 +27945,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/icons/components/trash.tsx
   init_react_shim();
-  var React18 = __toESM(require_react());
-  var TrashIcon = (props2) => /* @__PURE__ */ React18.createElement("svg", __spreadValues({
+  var React19 = __toESM(require_react());
+  var TrashIcon = (props2) => /* @__PURE__ */ React19.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27896,17 +27957,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-trash"
-  }, props2), /* @__PURE__ */ React18.createElement("polyline", {
+  }, props2), /* @__PURE__ */ React19.createElement("polyline", {
     points: "3 6 5 6 21 6"
-  }), /* @__PURE__ */ React18.createElement("path", {
+  }), /* @__PURE__ */ React19.createElement("path", {
     d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
   }));
   var trash_default = TrashIcon;
 
   // ../../packages/ui/icons/components/upload.tsx
   init_react_shim();
-  var React19 = __toESM(require_react());
-  var UploadIcon = (props2) => /* @__PURE__ */ React19.createElement("svg", __spreadValues({
+  var React20 = __toESM(require_react());
+  var UploadIcon = (props2) => /* @__PURE__ */ React20.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27917,11 +27978,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-upload"
-  }, props2), /* @__PURE__ */ React19.createElement("path", {
+  }, props2), /* @__PURE__ */ React20.createElement("path", {
     d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
-  }), /* @__PURE__ */ React19.createElement("polyline", {
+  }), /* @__PURE__ */ React20.createElement("polyline", {
     points: "17 8 12 3 7 8"
-  }), /* @__PURE__ */ React19.createElement("line", {
+  }), /* @__PURE__ */ React20.createElement("line", {
     x1: 12,
     y1: 3,
     x2: 12,
@@ -27931,8 +27992,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/icons/components/x.tsx
   init_react_shim();
-  var React20 = __toESM(require_react());
-  var XIcon = (props2) => /* @__PURE__ */ React20.createElement("svg", __spreadValues({
+  var React21 = __toESM(require_react());
+  var XIcon = (props2) => /* @__PURE__ */ React21.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27943,12 +28004,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-x"
-  }, props2), /* @__PURE__ */ React20.createElement("line", {
+  }, props2), /* @__PURE__ */ React21.createElement("line", {
     x1: 18,
     y1: 6,
     x2: 6,
     y2: 18
-  }), /* @__PURE__ */ React20.createElement("line", {
+  }), /* @__PURE__ */ React21.createElement("line", {
     x1: 6,
     y1: 6,
     x2: 18,
@@ -30589,13 +30650,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   var DEFAULT_DATA = { isUnloaded: false };
   var StorageContext = (0, import_react38.createContext)({
     data: INITIAL_DATA,
-    clear: async () => {
-    },
-    get: async () => INITIAL_DATA,
-    set: async () => {
-    },
-    update: async () => {
-    }
+    clear: () => __async(void 0, null, function* () {
+    }),
+    get: () => __async(void 0, null, function* () {
+      return INITIAL_DATA;
+    }),
+    set: () => __async(void 0, null, function* () {
+    }),
+    update: () => __async(void 0, null, function* () {
+    })
   });
   function StorageProvider({
     children,
@@ -30603,35 +30666,35 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }) {
     const { dispatch, on: on2 } = useEventBus();
     const [pluginData, setPluginData] = (0, import_react38.useState)(INITIAL_DATA);
-    const get7 = (0, import_react38.useCallback)(async () => {
-      const data = await import_localforage.default.getItem(storageKey) || DEFAULT_DATA;
+    const get7 = (0, import_react38.useCallback)(() => __async(this, null, function* () {
+      const data = (yield import_localforage.default.getItem(storageKey)) || DEFAULT_DATA;
       setPluginData(data);
       return data;
-    }, []);
-    const set = (0, import_react38.useCallback)(async (data) => {
+    }), []);
+    const set = (0, import_react38.useCallback)((data) => __async(this, null, function* () {
       dispatch(getStorageUpdateEventName(storageKey), data);
-    }, [storageKey]);
-    const clear = (0, import_react38.useCallback)(async () => {
-      await import_localforage.default.removeItem(storageKey);
-      await get7();
-    }, [get7]);
-    const update = (0, import_react38.useCallback)(async (key, data) => {
-      const existing = await get7();
+    }), [storageKey]);
+    const clear = (0, import_react38.useCallback)(() => __async(this, null, function* () {
+      yield import_localforage.default.removeItem(storageKey);
+      yield get7();
+    }), [get7]);
+    const update = (0, import_react38.useCallback)((key, data) => __async(this, null, function* () {
+      const existing = yield get7();
       const updated = immer_esm_default(existing, (draft) => {
         draft[key] = data;
       });
       set(updated);
-    }, [set]);
+    }), [set]);
     const value = useValue({ data: pluginData, clear, get: get7, set, update });
     (0, import_react38.useEffect)(() => {
       get7();
     }, []);
     (0, import_react38.useEffect)(() => {
-      on2(getStorageUpdateEventName(storageKey), async (e) => {
+      on2(getStorageUpdateEventName(storageKey), (e) => __async(this, null, function* () {
         const data = e.detail;
-        await import_localforage.default.setItem(storageKey, data);
+        yield import_localforage.default.setItem(storageKey, data);
         setPluginData(data || DEFAULT_DATA);
-      });
+      }));
     }, [set, storageKey]);
     return /* @__PURE__ */ React.createElement(StorageContext.Provider, {
       value
@@ -30944,7 +31007,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/mocks/mocks-plugin.tsx
   init_react_shim();
-  var import_react53 = __toESM(require_react());
+  var import_react54 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/file-selector.tsx
   init_react_shim();
@@ -31070,15 +31133,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/mocks/mocks-overlay.tsx
   init_react_shim();
-  var import_react52 = __toESM(require_react());
+  var import_react53 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/floating-controls.tsx
   init_react_shim();
-  var import_react51 = __toESM(require_react());
+  var import_react52 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/overlay-controls.tsx
   init_react_shim();
-  var import_react50 = __toESM(require_react());
+  var import_react51 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/use-controls.ts
   init_react_shim();
@@ -31120,9 +31183,47 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     });
   }
 
-  // ../../packages/command-k/plugins/mocks/use-settings.ts
+  // ../../node_modules/@theme-ui/match-media/dist/theme-ui-match-media.esm.js
   init_react_shim();
   var import_react49 = __toESM(require_react());
+  var useBreakpointIndex = (options = {}) => {
+    const context = useThemeUI();
+    const {
+      defaultIndex = 0
+    } = options;
+    const breakpoints2 = context.theme && context.theme.breakpoints || defaultBreakpoints;
+    if (typeof defaultIndex !== "number") {
+      throw new TypeError(`Default breakpoint index should be a number. Got: ${defaultIndex}, ${typeof defaultIndex}`);
+    } else if (defaultIndex < 0 || defaultIndex > breakpoints2.length - 1) {
+      throw new RangeError(`Default breakpoint index out of range. Theme has ${breakpoints2.length} breakpoints, got index ${defaultIndex}`);
+    }
+    const [value, setValue] = (0, import_react49.useState)(defaultIndex);
+    (0, import_react49.useEffect)(() => {
+      const getIndex = () => breakpoints2.filter((bp) => window.matchMedia(`screen and (min-width: ${bp})`).matches).length;
+      const onResize = () => {
+        const newValue = getIndex();
+        if (value !== newValue) {
+          setValue(newValue);
+        }
+      };
+      onResize();
+      window.addEventListener("resize", onResize);
+      return () => window.removeEventListener("resize", onResize);
+    }, [breakpoints2, value]);
+    return value;
+  };
+  function useResponsiveValue(values, options = {}) {
+    const {
+      theme: theme2
+    } = useThemeUI();
+    const array = typeof values === "function" ? values(theme2) : values;
+    const index2 = useBreakpointIndex(options);
+    return array[index2 >= array.length ? array.length - 1 : index2];
+  }
+
+  // ../../packages/command-k/plugins/mocks/use-settings.ts
+  init_react_shim();
+  var import_react50 = __toESM(require_react());
   var SETTINGS_KEY = "settings";
   var DEFAULT_SETTINGS = {
     opacity: 0.25,
@@ -31133,34 +31234,34 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function useSettings({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
     const settings = storage2.data[SETTINGS_KEY] || DEFAULT_SETTINGS;
-    const clear = (0, import_react49.useCallback)(() => {
+    const clear = (0, import_react50.useCallback)(() => {
       storage2.update(SETTINGS_KEY, null);
       storage2.update(CONTROLS_KEY, null);
     }, []);
-    const updateOpacity = (0, import_react49.useCallback)((opacity2) => {
+    const updateOpacity = (0, import_react50.useCallback)((opacity2) => {
       const standardizedOpacity = opacity2 > 1 ? opacity2 / 10 : opacity2;
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.opacity = Math.min(Math.max(standardizedOpacity, 0), 1);
       }));
     }, [settings, storage2]);
-    const updateScale = (0, import_react49.useCallback)((scale) => {
+    const updateScale = (0, import_react50.useCallback)((scale) => {
       const standardizedScale = scale > 10 ? scale / 10 : scale;
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.scale = Math.min(Math.max(standardizedScale, 0), 10);
       }));
     }, [settings, storage2]);
-    const updateX = (0, import_react49.useCallback)((x2) => {
+    const updateX = (0, import_react50.useCallback)((x2) => {
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.x = x2;
       }));
     }, [settings, storage2]);
-    const updateXY = (0, import_react49.useCallback)(({ x: x2, y: y2 }) => {
+    const updateXY = (0, import_react50.useCallback)(({ x: x2, y: y2 }) => {
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.x = x2;
         draft.y = y2;
       }));
     }, [settings, storage2]);
-    const updateY = (0, import_react49.useCallback)((y2) => {
+    const updateY = (0, import_react50.useCallback)((y2) => {
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.y = y2;
       }));
@@ -31175,20 +31276,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     useStorage: useStorage2,
     sx: sx2 = {}
   }) {
-    const {
-      clear: clearSettings,
-      settings,
-      updateOpacity,
-      updateScale,
-      updateX,
-      updateY
-    } = useSettings({ useStorage: useStorage2 });
+    const { settings, updateOpacity, updateScale, updateX, updateY } = useSettings({ useStorage: useStorage2 });
     const {
       clear: clearControls,
-      controls: { isCommandActive, isScrollPinned },
-      isDraggable,
-      toggleIsCommandActive,
-      toggleIsScrollPinned
+      controls: { isCommandActive }
     } = useControls({ useStorage: useStorage2 });
     const [opacity2, onOpacityChange] = useDebouncedInputState({
       callback: updateOpacity,
@@ -31212,7 +31303,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       millis: INPUT_MILLIS,
       value: settings.y
     });
-    const handleArrowKeys = (0, import_react50.useCallback)((e) => {
+    const handleArrowKeys = (0, import_react51.useCallback)((e) => {
       if (e.ctrlKey) {
         switch (e.code) {
           case "ControlLeft":
@@ -31231,6 +31322,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
       }
     }, [clearControls, updateXState, updateYState]);
+    const isCompact = useResponsiveValue([true, true, true, false]);
     useKeydown({
       enableRepeat: true,
       isActive: isCommandActive,
@@ -31239,17 +31331,24 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return /* @__PURE__ */ React.createElement(flex_default, {
       "data-overlay-controls": true,
       sx: __spreadValues({
-        flexWrap: "wrap",
         flexDirection: "column",
+        flexWrap: "wrap",
         height: "calc(100% - 4rem)",
         "& > [data-input-row]": { width: "50%", padding: 2 },
         button: { alignSelf: "center", justifySelf: "flex-end", marginX: 2 },
         "& label": { justifyContent: "flex-end", paddingRight: 2 },
         "& button": { marginY: 2 }
       }, sx2)
-    }, /* @__PURE__ */ React.createElement(grid_default, {
-      columns: "1fr 1fr"
-    }, /* @__PURE__ */ React.createElement(InputRow, {
+    }, /* @__PURE__ */ React.createElement(flex_default, {
+      sx: { flex: 1, flexWrap: "wrap" }
+    }, /* @__PURE__ */ React.createElement(flex_default, {
+      "data-input-wrapper": true,
+      sx: {
+        flexDirection: "column",
+        width: "100%",
+        "& > div": { gridTemplateColumns: ["1fr 1fr", "150px 150px"], paddingY: 2 }
+      }
+    }, /* @__PURE__ */ React.createElement(grid_default, null, /* @__PURE__ */ React.createElement(InputRow, {
       label: "Opacity",
       onChange: onOpacityChange,
       placeholder: "opacity",
@@ -31263,9 +31362,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       step: 0.01,
       type: "number",
       value: scale
-    })), /* @__PURE__ */ React.createElement(grid_default, {
-      columns: "1fr 1fr"
-    }, /* @__PURE__ */ React.createElement(InputRow, {
+    })), /* @__PURE__ */ React.createElement(grid_default, null, /* @__PURE__ */ React.createElement(InputRow, {
       label: "X",
       onChange: onXChange,
       placeholder: "x offset",
@@ -31279,10 +31376,40 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       step: 1,
       type: "number",
       value: y2
-    })), /* @__PURE__ */ React.createElement(grid_default, {
+    })), /* @__PURE__ */ React.createElement(box_default, {
+      sx: { flex: 1 }
+    }))), /* @__PURE__ */ React.createElement(flex_default, {
+      sx: { alignItems: "center", justifyContent: "flex-end" }
+    }, /* @__PURE__ */ React.createElement(flex_default, {
+      sx: { justifyContent: "flex-end" }
+    }, /* @__PURE__ */ React.createElement(box_default, null, isCompact ? /* @__PURE__ */ React.createElement(Menu, {
+      position: "top-left" /* TopLeft */,
+      sx: { display: "inline-block" },
+      trigger: /* @__PURE__ */ React.createElement(button_default, {
+        variant: "circle-tertiary"
+      }, /* @__PURE__ */ React.createElement(settings_default, null))
+    }, /* @__PURE__ */ React.createElement(Settings, {
+      sx: { width: 175 },
+      useStorage: useStorage2
+    })) : /* @__PURE__ */ React.createElement(Settings, {
+      useStorage: useStorage2
+    }))), children));
+  }
+  function Settings({
+    sx: sx2 = {},
+    useStorage: useStorage2
+  }) {
+    const { clear: clearSettings } = useSettings({ useStorage: useStorage2 });
+    const {
+      controls: { isCommandActive, isScrollPinned },
+      isDraggable,
+      toggleIsCommandActive,
+      toggleIsScrollPinned
+    } = useControls({ useStorage: useStorage2 });
+    return /* @__PURE__ */ React.createElement(grid_default, {
       "data-overlay-buttons": true,
       columns: "2rem 2rem 1fr",
-      sx: { flex: 1, alignItems: "flex-end" }
+      sx: __spreadValues({ flex: 1, alignItems: "center" }, sx2)
     }, /* @__PURE__ */ React.createElement(Tooltip, {
       text: "Hold CMD to move overlay with arrow keys and mouse"
     }, /* @__PURE__ */ React.createElement(button_default, {
@@ -31302,7 +31429,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       variant: "pill-tertiary",
       onClick: clearSettings,
       sx: { backgroundColor: "transparent" }
-    }, "Reset"))), children);
+    }, "Reset")));
   }
 
   // ../../packages/command-k/plugins/mocks/floating-controls.tsx
@@ -31328,8 +31455,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     }, /* @__PURE__ */ React.createElement(OverlayControls, {
       useStorage: useStorage2,
       sx: {
-        flexDirection: "row",
+        flexDirection: ["column-reverse", "column-reverse", "column-reverse", "row"],
         gridTemplateColumns: "3rem 1fr 1fr 1fr",
+        "[data-input-wrapper]": {
+          flexDirection: ["column", "column", "row"],
+          "& > div:last-of-type": {
+            display: ["none", "none", "block"]
+          }
+        },
         "& [data-input-row]": { width: "9rem" },
         "[data-overlay-buttons]": { alignItems: "center", marginLeft: 3 },
         "[data-reset-button]": { justifyContent: "flex-start", paddingLeft: 0 }
@@ -31349,7 +31482,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const { data, update } = useStorage2();
     const position3 = data[CONTROLS_POSITION_KEY] || "bottom" /* bottom */;
     const isTop = position3 === "top" /* top */;
-    const togglePosition = (0, import_react51.useCallback)(() => update(CONTROLS_POSITION_KEY, isTop ? "bottom" /* bottom */ : "top" /* top */), [update, isTop]);
+    const togglePosition = (0, import_react52.useCallback)(() => update(CONTROLS_POSITION_KEY, isTop ? "bottom" /* bottom */ : "top" /* top */), [update, isTop]);
     return useValue({ isTop, togglePosition });
   }
 
@@ -31358,7 +31491,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function MocksOverlayPortal(context) {
     const { overlayContainer, unmountOverlay, useStorage: useStorage2 } = context;
     const { clear } = useSelectedImage({ useStorage: useStorage2 });
-    const unmount2 = (0, import_react52.useCallback)(() => __async(this, null, function* () {
+    const unmount2 = (0, import_react53.useCallback)(() => __async(this, null, function* () {
       yield clear();
       setTimeout(unmountOverlay, 1e3);
     }), [clear]);
@@ -31380,7 +31513,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     })) : null;
   }
   function ImageWrapper({ useStorage: useStorage2 }) {
-    const draggableRef = (0, import_react52.useRef)(null);
+    const draggableRef = (0, import_react53.useRef)(null);
     const { image } = useSelectedImage({ useStorage: useStorage2 });
     const {
       controls: { isScrollPinned },
@@ -31392,10 +31525,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       onChange: () => ({ x: 0, y: 0 }),
       value: settings
     });
-    const onDrag = (0, import_react52.useCallback)(({ changeX, changeY, startX, startY }) => {
+    const onDrag = (0, import_react53.useCallback)(({ changeX, changeY, startX, startY }) => {
       updateXYState(() => ({ x: startX + changeX, y: startY + changeY }));
     }, [updateXYState]);
-    const { width: width2, height: height2 } = (0, import_react52.useMemo)(() => ({ width: ((image == null ? void 0 : image.width) || 0) * settings.scale, height: ((image == null ? void 0 : image.height) || 0) * settings.scale }), [image, settings]);
+    const { width: width2, height: height2 } = (0, import_react53.useMemo)(() => ({ width: ((image == null ? void 0 : image.width) || 0) * settings.scale, height: ((image == null ? void 0 : image.height) || 0) * settings.scale }), [image, settings]);
     const { isDragging, onMouseDown, onMouseUp, onMouseMove, onMouseOut } = useDrag({
       ref: draggableRef,
       onDrag,
@@ -31419,6 +31552,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       onMouseMove,
       onMouseOut,
       "data-is-dragging": isDragging,
+      draggable: false,
       src: image == null ? void 0 : image.base64,
       width: `${width2}px`,
       height: `${height2}px`,
@@ -31475,7 +31609,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const isUnloaded = storage2.data.isUnloaded;
     const [isUploading, setIsUploading, toggleUploading] = useFlag();
     const { image, clear: clearImage } = useSelectedImage({ useStorage: useStorage2 });
-    (0, import_react53.useEffect)(() => {
+    (0, import_react54.useEffect)(() => {
       if (!isUnloaded) {
         setIsUploading(!hasHandles);
       }
@@ -31551,7 +31685,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/theme/theme-plugin.tsx
   init_react_shim();
-  var import_react54 = __toESM(require_react());
+  var import_react55 = __toESM(require_react());
   var import_react_dom3 = __toESM(require_react_dom());
   var themePlugin = {
     id: "theme",
@@ -31570,16 +31704,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function ThemePlugin({
     setColorMode: setParentColorMode
   }) {
-    const buttonWrapperRef = (0, import_react54.useRef)(null);
+    const buttonWrapperRef = (0, import_react55.useRef)(null);
     const [colorMode, setLocalColorMode] = useColorMode();
     const isLight = colorMode === "default" /* light */;
-    const toggleColorMode = (0, import_react54.useCallback)(() => {
+    const toggleColorMode = (0, import_react55.useCallback)(() => {
       const updatedColorMode = isLight ? "dark" /* dark */ : "default" /* light */;
       focusOnActiveButton(buttonWrapperRef);
       setLocalColorMode(updatedColorMode);
       setParentColorMode(updatedColorMode);
     }, [isLight, setLocalColorMode, setParentColorMode]);
-    (0, import_react54.useLayoutEffect)(() => {
+    (0, import_react55.useLayoutEffect)(() => {
       focusOnActiveButton(buttonWrapperRef);
     }, []);
     return /* @__PURE__ */ React.createElement(flex_default, {
@@ -31623,7 +31757,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   init_react_shim();
 
   // index.tsx
-  var import_react55 = __toESM(require_react());
+  var import_react56 = __toESM(require_react());
   var import_react_dom4 = __toESM(require_react_dom());
   var ID = "cmdk";
   var PLUGINS = defaultPlugins;
@@ -31634,14 +31768,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     };
   }
   function useScriptCmdk(isActive = !constants_exports.IS_SERVER) {
-    (0, import_react55.useEffect)(() => {
+    (0, import_react56.useEffect)(() => {
       const unmount2 = mount(isActive);
       return unmount2;
     }, []);
   }
   function ThemedCommandK() {
-    const [cache, setCache] = (0, import_react55.useState)(emotion_cache_browser_esm_default({ container: document.body, key: "command-k" }));
-    const onRender = (0, import_react55.useCallback)((ref) => {
+    const [cache, setCache] = (0, import_react56.useState)(emotion_cache_browser_esm_default({ container: document.body, key: "command-k" }));
+    const onRender = (0, import_react56.useCallback)((ref) => {
       const container = ref.current.parentElement;
       const key = "command-k";
       setCache(emotion_cache_browser_esm_default({
