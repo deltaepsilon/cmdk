@@ -1,11 +1,11 @@
 ## To Do
 
-- [ ] Mobile `floating-controls`
 - [ ] Start gridlines plugin
 
 ## 2/16
 
-- 6am start time
+- 2.5 hours
+- [x] Mobile `floating-controls`
 - [x] Repair mobile `header.tsx`. Consider creating a hamburger menu.
 
 
