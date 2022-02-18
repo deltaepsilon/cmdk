@@ -47,7 +47,7 @@ const boxes: ThemeUIStyleObject = {
     left: 0,
   },
   raised: {
-    boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.1)',
+    boxShadow: (theme) => `0px 6px 20px ${theme?.colors?.dark100}`,
     borderRadius: 'xxl',
   },
   square: {
