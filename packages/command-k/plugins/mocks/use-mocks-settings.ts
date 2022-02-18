@@ -1,4 +1,4 @@
-import { CONTROLS_KEY, Controls, DEFAULT_CONTROLS } from './use-controls';
+import { CONTROLS_KEY, Controls, DEFAULT_CONTROLS } from './use-mocks-controls';
 
 import { MountContext } from 'command-k';
 import produce from 'immer';

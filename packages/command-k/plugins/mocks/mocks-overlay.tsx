@@ -4,9 +4,9 @@ import { useCallback, useMemo, useRef } from 'react';
 import FloatingControls from './floating-controls';
 import { MountContext } from 'command-k';
 import ReactDOM from 'react-dom';
-import useControls from './use-controls';
+import useControls from './use-mocks-controls';
 import useSelectedImage from './use-selected-image';
-import useSettings from './use-settings';
+import useSettings from './use-mocks-settings';
 
 export default function MocksOverlayPortal(context: MountContext) {
   const { overlayContainer, unmountOverlay, useStorage } = context;

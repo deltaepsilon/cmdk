@@ -5,7 +5,7 @@ const uninstallPlugin: CommandKPlugin = {
   id: 'uninstall',
   title: 'Uninstall plugin',
   description: 'Uninstall a plugin',
-  url: 'https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/uninstall-plugin',
+  url: 'https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/uninstall',
   version: '0.0.1',
   mount,
   unmount: NOOP,

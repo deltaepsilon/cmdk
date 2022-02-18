@@ -66,7 +66,8 @@ export default function useLayers({
       layer.overlayContainer.childNodes.forEach((child) => {
         layer.overlayContainer.removeChild(child);
       });
-      overlayWrapper?.removeChild(layer.overlayContainer);
+
+      overlayWrapper?.contains(layer.overlayContainer) && overlayWrapper.removeChild(layer.overlayContainer);
     },
     [],
   );

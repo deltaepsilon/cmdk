@@ -9,7 +9,7 @@ const themePlugin: CommandKPlugin = {
   id: 'theme',
   title: 'Theme',
   description: 'Switch between themes',
-  url: 'https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/theme-plugin',
+  url: 'https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/theme',
   version: '0.0.1',
   mount: ({ mountPoint, setColorMode, PaneThemeProvider }) => {
     ReactDOM.render(

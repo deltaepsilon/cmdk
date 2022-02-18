@@ -5,7 +5,7 @@ const installPlugin: CommandKPlugin = {
   id: 'install',
   title: 'Install plugin',
   description: 'Install a new plugin',
-  url: 'https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/install-plugin',
+  url: 'https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/install',
   version: '0.0.1',
   mount,
   unmount: NOOP,

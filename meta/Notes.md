@@ -1,6 +1,13 @@
 ## To Do
 
-- [ ] Start gridlines plugin
+- [ ] Decide on keyboard controls
+- [ ] Create lines
+- [ ] Line control
+
+## 2/18 
+
+- 1.5 hours
+- [x] Start gridlines plugin
 
 ## 2/16
 

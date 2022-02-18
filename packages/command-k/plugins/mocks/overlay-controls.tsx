@@ -18,9 +18,9 @@ import {
 import { MountContext } from 'command-k';
 import { ThemeUIStyleObject } from 'theme-ui';
 import { useCallback } from 'react';
-import useControls from './use-controls';
+import useControls from './use-mocks-controls';
 import { useResponsiveValue } from '@theme-ui/match-media';
-import useSettings from './use-settings';
+import useSettings from './use-mocks-settings';
 
 const INPUT_MILLIS = 250;
 

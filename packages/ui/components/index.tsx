@@ -4,6 +4,7 @@ export { default as Flex } from './flex';
 export { default as Fonts, href as fontsHref } from './fonts';
 export { default as Grid } from './grid';
 export { default as Image } from './image';
+export { default as Keycap } from './keycap';
 export { default as Label } from './label';
 export { default as Link } from './link';
 export { default as Menu, MenuPosition } from './menu';

@@ -1,4 +1,8 @@
 
+export { default as ArrowDownIcon } from './components/arrow-down';
+export { default as ArrowLeftIcon } from './components/arrow-left';
+export { default as ArrowRightIcon } from './components/arrow-right';
+export { default as ArrowUpIcon } from './components/arrow-up';
 export { default as ChevronsDownIcon } from './components/chevrons-down';
 export { default as ChevronsUpIcon } from './components/chevrons-up';
 export { default as CommandIcon } from './components/command';
