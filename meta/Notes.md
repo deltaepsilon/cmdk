@@ -1,10 +1,14 @@
 ## To Do
 
-- [ ] Decide on keyboard controls
-- [ ] Create lines
 - [ ] Line control
+- [ ] Draw lines
 
-## 2/18 
+## 2/22
+
+- 1.5 hours
+- [x] Decide on keyboard controls
+
+## 2/18
 
 - 1.5 hours
 - [x] Start gridlines plugin
@@ -14,7 +18,6 @@
 - 2.5 hours
 - [x] Mobile `floating-controls`
 - [x] Repair mobile `header.tsx`. Consider creating a hamburger menu.
-
 
 ## 2/14
 

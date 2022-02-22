@@ -1,5 +1,5 @@
-import { Text } from 'ui';
+import LinesDocs from 'command-k/plugins/lines/lines.docs';
 
-export default function Lines() {
-  return <Text variant="headline1">Lines</Text>;
+export default function LinesPage() {
+  return <LinesDocs />;
 }

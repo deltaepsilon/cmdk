@@ -1,5 +1,5 @@
-import { ArrowUpIcon, Box, Button, CommandIcon, Flex, Grid, Keycap, NOOP, Text } from 'ui';
-import { CommandKPlugin, MountContext } from 'command-k';
+import { ArrowUpIcon, Box, Button, CommandIcon, Flex, Grid, Keycap, NOOP, Text, Toggle } from 'ui';
+import { CommandKPlugin, Mount, MountContext } from 'command-k';
 import { useCallback, useLayoutEffect, useRef } from 'react';
 
 import LinesOverlay from './lines-overlay';
@@ -16,6 +16,10 @@ const linesPlugin: CommandKPlugin = {
   mount: (context) => ReactDOM.render(<LinesPluginConnected {...context} />, context.mountPoint),
   unmount: NOOP,
 };
+
+interface Props {
+  useStorage: MountContext['useStorage'];
+}
 
 export default linesPlugin;
 
@@ -46,7 +50,7 @@ function OverlayWrapper(context: MountContext) {
   );
 }
 
-function LinesPlugin({ useStorage }: MountContext) {
+export function LinesPlugin({ useStorage }: Props) {
   const {
     clear,
     controls: { isCommandActive },
@@ -56,10 +60,35 @@ function LinesPlugin({ useStorage }: MountContext) {
   const { settings, toggleIsActive } = useLinesSettings({ useStorage });
 
   return (
-    <Grid sx={{ padding: 2 }}>
-      <Text variant="headline3" sx={{ textAlign: 'center' }}>
+    <Grid
+      sx={{
+        variant: 'styles.hiddenScroll',
+        padding: 2,
+        paddingTop: 4,
+        maxHeight: '100%',
+        overflow: 'auto',
+      }}
+    >
+      <Text
+        variant="headline3"
+        sx={{
+          position: 'absolute',
+          top: 2,
+          left: 0,
+          textAlign: 'center',
+          width: '100%',
+        }}
+      >
         Lines
       </Text>
+
+      <Toggle
+        ballPx={16}
+        value={settings.isActive}
+        onClick={toggleIsActive}
+        sx={{ position: 'absolute', top: 9, left: 24 }}
+      />
+
       <Grid
         columns="1fr 1fr"
         sx={{
@@ -84,7 +113,39 @@ function LinesPlugin({ useStorage }: MountContext) {
         <Keycap>
           <CommandIcon />
         </Keycap>
-        <Text>hold to drag</Text>
+        <Text>Drag</Text>
+
+        <Flex>
+          <Keycap>
+            <CommandIcon />
+          </Keycap>
+          <Keycap variant="shift">
+            <ArrowUpIcon />
+          </Keycap>
+          <Keycap>Arrows</Keycap>
+        </Flex>
+        <Text>Move</Text>
+
+        <Flex>
+          <Keycap>
+            <CommandIcon />
+          </Keycap>
+          <Keycap variant="shift">
+            <ArrowUpIcon />
+          </Keycap>
+        </Flex>
+        <Text>Select</Text>
+
+        <Flex>
+          <Keycap sx={{ marginLeft: '0px !important' }}>
+            <CommandIcon />
+          </Keycap>
+          <Keycap variant="shift">
+            <ArrowUpIcon />
+          </Keycap>
+          <Keycap variant="action">Esc</Keycap>
+        </Flex>
+        <Text>Deselect all</Text>
 
         <Flex>
           <Keycap>
@@ -95,8 +156,8 @@ function LinesPlugin({ useStorage }: MountContext) {
           </Keycap>
           <Keycap>v</Keycap>
         </Flex>
-        <Text>vertical line</Text>
-        
+        <Text>+ Vertical</Text>
+
         <Flex>
           <Keycap>
             <CommandIcon />
@@ -106,13 +167,8 @@ function LinesPlugin({ useStorage }: MountContext) {
           </Keycap>
           <Keycap>h</Keycap>
         </Flex>
-        <Text>horizontal line</Text>
+        <Text>+ Horizontal</Text>
       </Grid>
-      <Flex>
-        <Button onClick={toggleIsActive} sx={{ width: '100%' }}>
-          {settings.isActive ? 'Deactivate' : 'Activate'}
-        </Button>
-      </Flex>
     </Grid>
   );
 }

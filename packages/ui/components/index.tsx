@@ -10,6 +10,7 @@ export { default as Link } from './link';
 export { default as Menu, MenuPosition } from './menu';
 export { default as Modal } from './modal';
 export { default as Text } from './text';
+export { default as Toggle } from './toggle';
 export { default as Tooltip } from './tooltip';
 export { default as ThemeSwitcher, ColorMode } from './theme-switcher';
 export { List, ListItem } from './list';

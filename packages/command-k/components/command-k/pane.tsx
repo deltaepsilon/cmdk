@@ -88,6 +88,7 @@ export default function Pane({
       }}
     >
       <Box
+        data-pane-mount-point
         ref={mountPointWrapperRef}
         sx={{
           variant: 'boxes.pinned',

@@ -1,18 +1,22 @@
+import { ThemeUIStyleObject } from 'theme-ui';
 import Box from './box';
+import Flex from './flex';
 
 interface Props {
   children: React.ReactNode;
-  variant?: 'default' | 'shift';
+  sx?: ThemeUIStyleObject;
+  variant?: 'default' | 'action' | 'shift';
 }
 
 const WIDTHS = {
   default: '2rem',
+  action: '3rem',
   shift: '4rem',
 };
 
-export default function Keycap({ children, variant = 'default' }: Props) {
+export default function Keycap({ children, sx = {}, variant = 'default' }: Props) {
   return (
-    <Box data-keycap>
+    <Flex data-keycap sx={{ ...sx }}>
       <Box
         sx={{
           border: '1px solid',
@@ -24,22 +28,29 @@ export default function Keycap({ children, variant = 'default' }: Props) {
           width: WIDTHS[variant],
         }}
       >
-        <Box
+        <Flex
           sx={{
+            alignItems: 'center',
             border: '1px solid',
             borderColor: 'inputBorder',
             borderRadius: 'lg',
             padding: '6px',
+            justifyContent: 'center',
             position: 'relative',
             top: '-1px',
             left: '-1px',
             width: 'calc(100% + 2px)',
-            textAlign: 'center',
+            height: 29,
+            svg: {
+              position: 'absolute',
+              top: '6px',
+              margin: '0 !important',
+            },
           }}
         >
           {children}
-        </Box>
+        </Flex>
       </Box>
-    </Box>
+    </Flex>
   );
 }
