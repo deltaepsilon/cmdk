@@ -563,7 +563,7 @@
             }
             return element;
           };
-          function createElement20(type, config10, children) {
+          function createElement24(type, config10, children) {
             var propName;
             var props2 = {};
             var key = null;
@@ -1117,11 +1117,11 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useReducer(reducer, initialArg, init);
           }
-          function useRef13(initialValue) {
+          function useRef15(initialValue) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect19(create, deps) {
+          function useEffect21(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1129,11 +1129,11 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useLayoutEffect(create, deps);
           }
-          function useCallback28(callback, deps) {
+          function useCallback33(callback, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useCallback(callback, deps);
           }
-          function useMemo9(create, deps) {
+          function useMemo10(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useMemo(create, deps);
           }
@@ -1611,7 +1611,7 @@
                 error("React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
               }
             }
-            var element = createElement20.apply(this, arguments);
+            var element = createElement24.apply(this, arguments);
             if (element == null) {
               return element;
             }
@@ -1688,15 +1688,15 @@
           exports.isValidElement = isValidElement;
           exports.lazy = lazy;
           exports.memo = memo;
-          exports.useCallback = useCallback28;
+          exports.useCallback = useCallback33;
           exports.useContext = useContext7;
           exports.useDebugValue = useDebugValue;
-          exports.useEffect = useEffect19;
+          exports.useEffect = useEffect21;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useLayoutEffect = useLayoutEffect4;
-          exports.useMemo = useMemo9;
+          exports.useMemo = useMemo10;
           exports.useReducer = useReducer;
-          exports.useRef = useRef13;
+          exports.useRef = useRef15;
           exports.useState = useState18;
           exports.version = ReactVersion;
         })();
@@ -5018,11 +5018,11 @@
       if (true) {
         (function() {
           "use strict";
-          var React22 = require_react();
+          var React26 = require_react();
           var _assign = require_object_assign();
           var Scheduler = require_scheduler();
           var tracing = require_tracing();
-          var ReactSharedInternals = React22.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React26.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function warn(format2) {
             {
               for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -5054,7 +5054,7 @@
               Function.prototype.apply.call(console[level], console, argsWithFormat);
             }
           }
-          if (!React22) {
+          if (!React26) {
             {
               throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
             }
@@ -6270,7 +6270,7 @@
           var didWarnInvalidChild = false;
           function flattenChildren(children) {
             var content = "";
-            React22.Children.forEach(children, function(child) {
+            React26.Children.forEach(children, function(child) {
               if (child == null) {
                 return;
               }
@@ -6281,7 +6281,7 @@
           function validateProps(element, props2) {
             {
               if (typeof props2.children === "object" && props2.children !== null) {
-                React22.Children.forEach(props2.children, function(child) {
+                React26.Children.forEach(props2.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -11035,7 +11035,7 @@
               }
             }
           }
-          function createElement20(type, props2, rootContainerElement, parentNamespace) {
+          function createElement24(type, props2, rootContainerElement, parentNamespace) {
             var isCustomComponentTag;
             var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
             var domElement;
@@ -11912,7 +11912,7 @@
               }
               parentNamespace = hostContextDev.namespace;
             }
-            var domElement = createElement20(type, props2, rootContainerInstance, parentNamespace);
+            var domElement = createElement24(type, props2, rootContainerInstance, parentNamespace);
             precacheFiberNode(internalInstanceHandle, domElement);
             updateFiberProps(domElement, props2);
             return domElement;
@@ -13474,7 +13474,7 @@
           }
           var fakeInternalInstance = {};
           var isArray2 = Array.isArray;
-          var emptyRefsObject = new React22.Component().refs;
+          var emptyRefsObject = new React26.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -27200,6 +27200,49 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   init_react_shim();
   var image_default = Image;
 
+  // ../../packages/ui/components/keycap.tsx
+  init_react_shim();
+  var WIDTHS = {
+    default: "2rem",
+    action: "3rem",
+    shift: "4rem"
+  };
+  function Keycap({ children, sx: sx2 = {}, variant: variant4 = "default" }) {
+    return /* @__PURE__ */ React.createElement(flex_default, {
+      "data-keycap": true,
+      sx: __spreadValues({}, sx2)
+    }, /* @__PURE__ */ React.createElement(box_default, {
+      sx: {
+        border: "1px solid",
+        borderColor: "inputBorder",
+        borderRadius: "lg",
+        display: "inline-block",
+        paddingBottom: 1,
+        lineHeight: 1,
+        width: WIDTHS[variant4]
+      }
+    }, /* @__PURE__ */ React.createElement(flex_default, {
+      sx: {
+        alignItems: "center",
+        border: "1px solid",
+        borderColor: "inputBorder",
+        borderRadius: "lg",
+        padding: "6px",
+        justifyContent: "center",
+        position: "relative",
+        top: "-1px",
+        left: "-1px",
+        width: "calc(100% + 2px)",
+        height: 29,
+        svg: {
+          position: "absolute",
+          top: "6px",
+          margin: "0 !important"
+        }
+      }
+    }, children)));
+  }
+
   // ../../packages/ui/components/label.tsx
   init_react_shim();
 
@@ -27260,34 +27303,51 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }
 
   // ../../packages/ui/components/menu.tsx
-  var import_react31 = __toESM(require_react());
+  var import_react32 = __toESM(require_react());
 
   // ../../packages/ui/hooks/index.ts
   init_react_shim();
 
-  // ../../packages/ui/hooks/use-debounced-input-state.ts
+  // ../../packages/ui/hooks/use-cursor-position.ts
   init_react_shim();
   var import_react18 = __toESM(require_react());
+  function useCursorPosition({ isActive }) {
+    const positionRef = (0, import_react18.useRef)([0, 0]);
+    const onMouseMove = (0, import_react18.useCallback)((e) => {
+      positionRef.current = [e.clientX, e.clientY];
+    }, []);
+    (0, import_react18.useEffect)(() => {
+      if (isActive) {
+        window.addEventListener("mousemove", onMouseMove);
+        return () => window.removeEventListener("mousemove", onMouseMove);
+      }
+    }, [isActive]);
+    return positionRef;
+  }
+
+  // ../../packages/ui/hooks/use-debounced-input-state.ts
+  init_react_shim();
+  var import_react19 = __toESM(require_react());
   function useDebouncedInputState({
     callback,
     onChange,
     millis = 300,
     value: incomingValue
   }) {
-    const [value, setValue] = (0, import_react18.useState)(incomingValue);
+    const [value, setValue] = (0, import_react19.useState)(incomingValue);
     const debouncedIncomingValue = useDebouncedValue(incomingValue, { millis });
-    const debouncedCallback = (0, import_react18.useMemo)(() => debounce(callback, { millis }), [callback, millis]);
-    const changeEventHandler = (0, import_react18.useCallback)((e) => {
+    const debouncedCallback = (0, import_react19.useMemo)(() => debounce(callback, { millis }), [callback, millis]);
+    const changeEventHandler = (0, import_react19.useCallback)((e) => {
       const v2 = onChange(e);
       setValue(v2);
       debouncedCallback(v2);
     }, [debouncedCallback, onChange, value]);
-    const updateState = (0, import_react18.useCallback)((getState) => {
+    const updateState = (0, import_react19.useCallback)((getState) => {
       const v2 = getState(value);
       setValue(v2);
       debouncedCallback(v2);
     }, [value]);
-    (0, import_react18.useEffect)(() => {
+    (0, import_react19.useEffect)(() => {
       setValue(debouncedIncomingValue);
     }, [debouncedIncomingValue]);
     return [value, changeEventHandler, updateState];
@@ -27298,14 +27358,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-debounced-value.ts
   init_react_shim();
-  var import_react20 = __toESM(require_react());
+  var import_react21 = __toESM(require_react());
 
   // ../../packages/ui/hooks/use-safe-effect.ts
   init_react_shim();
-  var import_react19 = __toESM(require_react());
+  var import_react20 = __toESM(require_react());
   function useSafeEffect(callback, memoArray) {
-    const isMountedRef = (0, import_react19.useRef)(true);
-    (0, import_react19.useEffect)(() => {
+    const isMountedRef = (0, import_react20.useRef)(true);
+    (0, import_react20.useEffect)(() => {
       const unmount2 = callback(isMountedRef);
       isMountedRef.current = true;
       return () => {
@@ -27320,8 +27380,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return leading ? useLeadingDebounce(value, { millis }) : useTrailingDebounce(value, { initializeValue, millis });
   }
   function useLeadingDebounce(value, { millis }) {
-    const blockedRef = (0, import_react20.useRef)();
-    const [debouncedValue, setDebouncedValue] = (0, import_react20.useState)(value);
+    const blockedRef = (0, import_react21.useRef)();
+    const [debouncedValue, setDebouncedValue] = (0, import_react21.useState)(value);
     useSafeEffect((isMountedRef) => {
       if (isMountedRef.current && !blockedRef.current) {
         blockedRef.current = true;
@@ -27334,8 +27394,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return debouncedValue;
   }
   function useTrailingDebounce(value, { initializeValue, millis }) {
-    const timerRef = (0, import_react20.useRef)();
-    const [debouncedValue, setDebouncedValue] = (0, import_react20.useState)(initializeValue ? value : void 0);
+    const timerRef = (0, import_react21.useRef)();
+    const [debouncedValue, setDebouncedValue] = (0, import_react21.useState)(initializeValue ? value : void 0);
     useSafeEffect((isMountedRef) => {
       timerRef.current && clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => isMountedRef.current && setDebouncedValue(value), millis);
@@ -27345,7 +27405,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-drag.ts
   init_react_shim();
-  var import_react21 = __toESM(require_react());
+  var import_react22 = __toESM(require_react());
   var DEFAULT_DRAG_START_COORDINATES = {
     x: 0,
     y: 0,
@@ -27353,16 +27413,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     clientY: 0
   };
   function useDrag({ onDrag, ref, x: x2, y: y2 }) {
-    const [dragStartCoordinates, setDragStartCoordinates] = (0, import_react21.useState)(DEFAULT_DRAG_START_COORDINATES);
-    const [isDragging, setIsDragging] = (0, import_react21.useState)(false);
-    const onMouseDown = (0, import_react21.useCallback)((e) => {
+    const [dragStartCoordinates, setDragStartCoordinates] = (0, import_react22.useState)(DEFAULT_DRAG_START_COORDINATES);
+    const [isDragging, setIsDragging] = (0, import_react22.useState)(false);
+    const onMouseDown = (0, import_react22.useCallback)((e) => {
       const { clientX, clientY } = e;
       setDragStartCoordinates({ clientX, clientY, x: x2, y: y2 });
       setIsDragging(true);
     }, [x2, y2]);
-    const onMouseUp = (0, import_react21.useCallback)(() => setIsDragging(false), []);
-    const onMouseOut = (0, import_react21.useCallback)(() => setIsDragging(false), []);
-    const onMouseMove = (0, import_react21.useCallback)((e) => {
+    const onMouseUp = (0, import_react22.useCallback)(() => setIsDragging(false), []);
+    const onMouseOut = (0, import_react22.useCallback)(() => setIsDragging(false), []);
+    const onMouseMove = (0, import_react22.useCallback)((e) => {
       if (isDragging) {
         const { clientX, clientY, x: x3, y: y3 } = dragStartCoordinates;
         const changeX = e.clientX - clientX;
@@ -27370,7 +27430,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         onDrag({ changeX, changeY, startX: x3, startY: y3 });
       }
     }, [dragStartCoordinates, isDragging, onDrag]);
-    (0, import_react21.useEffect)(() => {
+    (0, import_react22.useEffect)(() => {
       !isDragging && setDragStartCoordinates(DEFAULT_DRAG_START_COORDINATES);
     }, [isDragging, setDragStartCoordinates]);
     return useValue({ isDragging, onMouseDown, onMouseUp, onMouseMove, onMouseOut });
@@ -27378,30 +27438,30 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-event-bus.ts
   init_react_shim();
-  var import_react23 = __toESM(require_react());
+  var import_react24 = __toESM(require_react());
 
   // ../../packages/ui/hooks/use-value.ts
   init_react_shim();
-  var import_react22 = __toESM(require_react());
+  var import_react23 = __toESM(require_react());
   function useValue(map) {
-    return (0, import_react22.useMemo)(() => map, Object.values(map));
+    return (0, import_react23.useMemo)(() => map, Object.values(map));
   }
 
   // ../../packages/ui/hooks/use-event-bus.ts
   function useEventBus() {
-    const listeners = (0, import_react23.useRef)([]);
-    const dispatch = (0, import_react23.useCallback)((event, data = {}) => {
+    const listeners = (0, import_react24.useRef)([]);
+    const dispatch = (0, import_react24.useCallback)((event, data = {}) => {
       document.dispatchEvent(new CustomEvent(event, { detail: data }));
     }, []);
-    const remove = (0, import_react23.useCallback)((event, callback) => {
+    const remove = (0, import_react24.useCallback)((event, callback) => {
       document.removeEventListener(event, callback);
     }, []);
-    const on2 = (0, import_react23.useCallback)((event, callback) => {
+    const on2 = (0, import_react24.useCallback)((event, callback) => {
       listeners.current.push({ event, callback });
       document.addEventListener(event, callback);
       return () => remove(event, callback);
     }, [remove]);
-    (0, import_react23.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       return () => {
         listeners.current.forEach(({ event, callback }) => remove(event, callback));
         listeners.current = [];
@@ -27412,27 +27472,27 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-flag.ts
   init_react_shim();
-  var import_react24 = __toESM(require_react());
+  var import_react25 = __toESM(require_react());
   function useFlag(initialValue = false) {
-    const [flag, setFlag] = (0, import_react24.useState)(initialValue);
-    const toggle = (0, import_react24.useCallback)(() => setFlag((f2) => !f2), []);
+    const [flag, setFlag] = (0, import_react25.useState)(initialValue);
+    const toggle = (0, import_react25.useCallback)(() => setFlag((f2) => !f2), []);
     return [flag, setFlag, toggle];
   }
 
   // ../../packages/ui/hooks/use-has-switched.ts
   init_react_shim();
-  var import_react25 = __toESM(require_react());
+  var import_react26 = __toESM(require_react());
 
   // ../../packages/ui/hooks/use-is-key-active.ts
   init_react_shim();
-  var import_react28 = __toESM(require_react());
+  var import_react29 = __toESM(require_react());
 
   // ../../packages/ui/hooks/use-keydown.ts
   init_react_shim();
-  var import_react26 = __toESM(require_react());
+  var import_react27 = __toESM(require_react());
   function useKeydown({ enableRepeat = false, isActive = true, el, callback }, memoArray = []) {
-    const localCallback = (0, import_react26.useCallback)((e) => (enableRepeat || !e.repeat) && callback(e), [callback]);
-    (0, import_react26.useEffect)(() => {
+    const localCallback = (0, import_react27.useCallback)((e) => (enableRepeat || !e.repeat) && callback(e), [callback]);
+    (0, import_react27.useEffect)(() => {
       if (isActive) {
         const target = el || window.document;
         target.addEventListener("keydown", localCallback);
@@ -27444,9 +27504,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-keyup.ts
   init_react_shim();
-  var import_react27 = __toESM(require_react());
+  var import_react28 = __toESM(require_react());
   function useKeyup({ isActive = true, el, callback }, memoArray = []) {
-    (0, import_react27.useEffect)(() => {
+    (0, import_react28.useEffect)(() => {
       if (isActive) {
         const target = el || window.document;
         target.addEventListener("keyup", callback);
@@ -27458,13 +27518,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-is-key-active.ts
   function useIsKeyActive({ isActive = true, keys }) {
-    const [isKeyActive, setIsKeyActive] = (0, import_react28.useState)(false);
-    const onKeydown = (0, import_react28.useCallback)((e) => {
+    const [isKeyActive, setIsKeyActive] = (0, import_react29.useState)(false);
+    const onKeydown = (0, import_react29.useCallback)((e) => {
       if (keys.has(e.code)) {
         setIsKeyActive(true);
       }
     }, []);
-    const onKeyup = (0, import_react28.useCallback)((e) => {
+    const onKeyup = (0, import_react29.useCallback)((e) => {
       if (keys.has(e.code)) {
         setIsKeyActive(false);
       }
@@ -27476,21 +27536,21 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-modal-state.ts
   init_react_shim();
-  var import_react29 = __toESM(require_react());
+  var import_react30 = __toESM(require_react());
   function useModalState({ debounceOptions = { millis: 0 }, dismissOnEscape = false, startOpen = false } = {
     startOpen: false,
     dismissOnEscape: false
   }) {
-    const [rawIsOpen, setIsOpen] = (0, import_react29.useState)(startOpen);
-    const [scrollPosition, setScrollPosition] = (0, import_react29.useState)(null);
+    const [rawIsOpen, setIsOpen] = (0, import_react30.useState)(startOpen);
+    const [scrollPosition, setScrollPosition] = (0, import_react30.useState)(null);
     const isOpen = useDebouncedValue(rawIsOpen, debounceOptions);
-    const onOpen = (0, import_react29.useCallback)(() => {
+    const onOpen = (0, import_react30.useCallback)(() => {
       if (!constants_exports.IS_SERVER) {
         setScrollPosition(window.pageYOffset);
       }
       setIsOpen(true);
     }, [setIsOpen]);
-    const onDismiss = (0, import_react29.useCallback)((e) => {
+    const onDismiss = (0, import_react30.useCallback)((e) => {
       stopClick(e);
       setIsOpen(false);
       if (!constants_exports.IS_SERVER && scrollPosition !== null) {
@@ -27500,11 +27560,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }, 200);
       }
     }, [scrollPosition, setIsOpen]);
-    const toggle = (0, import_react29.useCallback)((e) => {
+    const toggle = (0, import_react30.useCallback)((e) => {
       stopClick(e);
       rawIsOpen ? onDismiss() : onOpen();
     }, [onDismiss, onOpen, rawIsOpen]);
-    const onKeydown = (0, import_react29.useCallback)((e) => {
+    const onKeydown = (0, import_react30.useCallback)((e) => {
       switch (e.key) {
         case "Escape":
           return onDismiss();
@@ -27516,15 +27576,15 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/hooks/use-scroll.ts
   init_react_shim();
-  var import_react30 = __toESM(require_react());
+  var import_react31 = __toESM(require_react());
   var DEFAULT_SCROLL = { scrollLeft: 0, scrollTop: 0 };
   function useScroll({ isActive = true }, memoArray = []) {
-    const [scroll, setScroll] = (0, import_react30.useState)(DEFAULT_SCROLL);
-    const callback = (0, import_react30.useCallback)(() => {
+    const [scroll, setScroll] = (0, import_react31.useState)(DEFAULT_SCROLL);
+    const callback = (0, import_react31.useCallback)(() => {
       const { scrollLeft, scrollTop } = document.scrollingElement || DEFAULT_SCROLL;
       setScroll({ scrollLeft, scrollTop });
     }, []);
-    (0, import_react30.useEffect)(() => {
+    (0, import_react31.useEffect)(() => {
       if (isActive) {
         const target = window.document;
         target.addEventListener("scroll", callback);
@@ -27537,7 +27597,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   // ../../packages/ui/components/menu.tsx
   function Menu({ children, trigger, position: position3, sx: sx2 = {} }) {
     const { isOpen, toggle } = useModalState({ dismissOnEscape: true, startOpen: false });
-    const positionSx = (0, import_react31.useMemo)(() => {
+    const positionSx = (0, import_react32.useMemo)(() => {
       const isTop = position3 === "top-left" /* TopLeft */ || position3 === "top-right" /* TopRight */;
       const isLeft = position3 === "top-left" /* TopLeft */ || position3 === "bottom-left" /* BottomLeft */;
       const result = {};
@@ -27574,7 +27634,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/components/modal.tsx
   init_react_shim();
-  var import_react32 = __toESM(require_react());
+  var import_react33 = __toESM(require_react());
   function Modal({
     children,
     dismissOnEscape = true,
@@ -27585,9 +27645,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     startOpen = false,
     sx: sx2 = {}
   }) {
-    const ref = (0, import_react32.useRef)(null);
+    const ref = (0, import_react33.useRef)(null);
     const { isOpen, setIsOpen, toggle } = useModalState({ startOpen });
-    const keydownCallback = (0, import_react32.useCallback)((e) => {
+    const keydownCallback = (0, import_react33.useCallback)((e) => {
       switch (true) {
         case (e.code === "Escape" && dismissOnEscape):
           setIsOpen(false);
@@ -27599,7 +27659,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
     }, [dismissOnEscape, keyboardTrigger2, setIsOpen]);
     useKeydown({ isActive, callback: keydownCallback });
-    (0, import_react32.useEffect)(() => {
+    (0, import_react33.useEffect)(() => {
       onRender(ref);
     }, []);
     return /* @__PURE__ */ React.createElement(flex_default, {
@@ -27624,6 +27684,36 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   init_react_shim();
   var text_default = Text;
 
+  // ../../packages/ui/components/toggle.tsx
+  init_react_shim();
+  var import_react34 = __toESM(require_react());
+  function Toggle({ ballPx = 16, children, value, onClick: parentOnClick, sx: sx2 = {} }) {
+    const onClick = (0, import_react34.useCallback)(() => parentOnClick(!value), [parentOnClick, value]);
+    return /* @__PURE__ */ React.createElement(flex_default, {
+      sx: __spreadValues({ cursor: "pointer" }, sx2),
+      onClick
+    }, children && /* @__PURE__ */ React.createElement(text_default, {
+      sx: { paddingRight: 3 }
+    }, children), /* @__PURE__ */ React.createElement(flex_default, {
+      sx: {
+        alignItems: "center",
+        border: "1px solid",
+        borderColor: "inputBorder",
+        borderRadius: "full",
+        justifyContent: value ? "flex-end" : "flex-start",
+        padding: "2px",
+        width: `calc(2.5 * ${ballPx}px)`
+      }
+    }, /* @__PURE__ */ React.createElement(box_default, {
+      sx: {
+        backgroundColor: value ? "secondary" : "inputBorder",
+        borderRadius: "full",
+        width: ballPx,
+        height: ballPx
+      }
+    })));
+  }
+
   // ../../packages/ui/components/tooltip.tsx
   init_react_shim();
   function Tooltip({ children, text }) {
@@ -27645,7 +27735,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/components/theme-switcher.tsx
   init_react_shim();
-  var import_react33 = __toESM(require_react());
+  var import_react35 = __toESM(require_react());
 
   // ../../packages/ui/components/list/index.tsx
   init_react_shim();
@@ -27688,10 +27778,46 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   // ../../packages/ui/icons/index.tsx
   init_react_shim();
 
-  // ../../packages/ui/icons/components/chevrons-down.tsx
+  // ../../packages/ui/icons/components/arrow-down.tsx
   init_react_shim();
   var React7 = __toESM(require_react());
-  var ChevronsDownIcon = (props2) => /* @__PURE__ */ React7.createElement("svg", __spreadValues({
+
+  // ../../packages/ui/icons/components/arrow-left.tsx
+  init_react_shim();
+  var React8 = __toESM(require_react());
+
+  // ../../packages/ui/icons/components/arrow-right.tsx
+  init_react_shim();
+  var React9 = __toESM(require_react());
+
+  // ../../packages/ui/icons/components/arrow-up.tsx
+  init_react_shim();
+  var React10 = __toESM(require_react());
+  var ArrowUpIcon = (props2) => /* @__PURE__ */ React10.createElement("svg", __spreadValues({
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "feather feather-arrow-up"
+  }, props2), /* @__PURE__ */ React10.createElement("line", {
+    x1: 12,
+    y1: 19,
+    x2: 12,
+    y2: 5
+  }), /* @__PURE__ */ React10.createElement("polyline", {
+    points: "5 12 12 5 19 12"
+  }));
+  var arrow_up_default = ArrowUpIcon;
+
+  // ../../packages/ui/icons/components/chevrons-down.tsx
+  init_react_shim();
+  var React11 = __toESM(require_react());
+  var ChevronsDownIcon = (props2) => /* @__PURE__ */ React11.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27702,17 +27828,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-chevrons-down"
-  }, props2), /* @__PURE__ */ React7.createElement("polyline", {
+  }, props2), /* @__PURE__ */ React11.createElement("polyline", {
     points: "7 13 12 18 17 13"
-  }), /* @__PURE__ */ React7.createElement("polyline", {
+  }), /* @__PURE__ */ React11.createElement("polyline", {
     points: "7 6 12 11 17 6"
   }));
   var chevrons_down_default = ChevronsDownIcon;
 
   // ../../packages/ui/icons/components/chevrons-up.tsx
   init_react_shim();
-  var React8 = __toESM(require_react());
-  var ChevronsUpIcon = (props2) => /* @__PURE__ */ React8.createElement("svg", __spreadValues({
+  var React12 = __toESM(require_react());
+  var ChevronsUpIcon = (props2) => /* @__PURE__ */ React12.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27723,17 +27849,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-chevrons-up"
-  }, props2), /* @__PURE__ */ React8.createElement("polyline", {
+  }, props2), /* @__PURE__ */ React12.createElement("polyline", {
     points: "17 11 12 6 7 11"
-  }), /* @__PURE__ */ React8.createElement("polyline", {
+  }), /* @__PURE__ */ React12.createElement("polyline", {
     points: "17 18 12 13 7 18"
   }));
   var chevrons_up_default = ChevronsUpIcon;
 
   // ../../packages/ui/icons/components/command.tsx
   init_react_shim();
-  var React9 = __toESM(require_react());
-  var CommandIcon = (props2) => /* @__PURE__ */ React9.createElement("svg", __spreadValues({
+  var React13 = __toESM(require_react());
+  var CommandIcon = (props2) => /* @__PURE__ */ React13.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27744,19 +27870,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-command"
-  }, props2), /* @__PURE__ */ React9.createElement("path", {
+  }, props2), /* @__PURE__ */ React13.createElement("path", {
     d: "M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"
   }));
   var command_default = CommandIcon;
 
   // ../../packages/ui/icons/components/feather.tsx
   init_react_shim();
-  var React10 = __toESM(require_react());
+  var React14 = __toESM(require_react());
 
   // ../../packages/ui/icons/components/image.tsx
   init_react_shim();
-  var React11 = __toESM(require_react());
-  var ImageIcon = (props2) => /* @__PURE__ */ React11.createElement("svg", __spreadValues({
+  var React15 = __toESM(require_react());
+  var ImageIcon = (props2) => /* @__PURE__ */ React15.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27767,26 +27893,26 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-image"
-  }, props2), /* @__PURE__ */ React11.createElement("rect", {
+  }, props2), /* @__PURE__ */ React15.createElement("rect", {
     x: 3,
     y: 3,
     width: 18,
     height: 18,
     rx: 2,
     ry: 2
-  }), /* @__PURE__ */ React11.createElement("circle", {
+  }), /* @__PURE__ */ React15.createElement("circle", {
     cx: 8.5,
     cy: 8.5,
     r: 1.5
-  }), /* @__PURE__ */ React11.createElement("polyline", {
+  }), /* @__PURE__ */ React15.createElement("polyline", {
     points: "21 15 16 10 5 21"
   }));
   var image_default2 = ImageIcon;
 
   // ../../packages/ui/icons/components/lock.tsx
   init_react_shim();
-  var React12 = __toESM(require_react());
-  var LockIcon = (props2) => /* @__PURE__ */ React12.createElement("svg", __spreadValues({
+  var React16 = __toESM(require_react());
+  var LockIcon = (props2) => /* @__PURE__ */ React16.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27797,26 +27923,26 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-lock"
-  }, props2), /* @__PURE__ */ React12.createElement("rect", {
+  }, props2), /* @__PURE__ */ React16.createElement("rect", {
     x: 3,
     y: 11,
     width: 18,
     height: 11,
     rx: 2,
     ry: 2
-  }), /* @__PURE__ */ React12.createElement("path", {
+  }), /* @__PURE__ */ React16.createElement("path", {
     d: "M7 11V7a5 5 0 0 1 10 0v4"
   }));
   var lock_default = LockIcon;
 
   // ../../packages/ui/icons/components/menu.tsx
   init_react_shim();
-  var React13 = __toESM(require_react());
+  var React17 = __toESM(require_react());
 
   // ../../packages/ui/icons/components/moon.tsx
   init_react_shim();
-  var React14 = __toESM(require_react());
-  var MoonIcon = (props2) => /* @__PURE__ */ React14.createElement("svg", __spreadValues({
+  var React18 = __toESM(require_react());
+  var MoonIcon = (props2) => /* @__PURE__ */ React18.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27827,19 +27953,50 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-moon"
-  }, props2), /* @__PURE__ */ React14.createElement("path", {
+  }, props2), /* @__PURE__ */ React18.createElement("path", {
     d: "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
   }));
   var moon_default = MoonIcon;
 
   // ../../packages/ui/icons/components/move.tsx
   init_react_shim();
-  var React15 = __toESM(require_react());
+  var React19 = __toESM(require_react());
+  var MoveIcon = (props2) => /* @__PURE__ */ React19.createElement("svg", __spreadValues({
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "feather feather-move"
+  }, props2), /* @__PURE__ */ React19.createElement("polyline", {
+    points: "5 9 2 12 5 15"
+  }), /* @__PURE__ */ React19.createElement("polyline", {
+    points: "9 5 12 2 15 5"
+  }), /* @__PURE__ */ React19.createElement("polyline", {
+    points: "15 19 12 22 9 19"
+  }), /* @__PURE__ */ React19.createElement("polyline", {
+    points: "19 9 22 12 19 15"
+  }), /* @__PURE__ */ React19.createElement("line", {
+    x1: 2,
+    y1: 12,
+    x2: 22,
+    y2: 12
+  }), /* @__PURE__ */ React19.createElement("line", {
+    x1: 12,
+    y1: 2,
+    x2: 12,
+    y2: 22
+  }));
+  var move_default = MoveIcon;
 
   // ../../packages/ui/icons/components/refresh-cw.tsx
   init_react_shim();
-  var React16 = __toESM(require_react());
-  var RefreshCwIcon = (props2) => /* @__PURE__ */ React16.createElement("svg", __spreadValues({
+  var React20 = __toESM(require_react());
+  var RefreshCwIcon = (props2) => /* @__PURE__ */ React20.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27850,19 +28007,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-refresh-cw"
-  }, props2), /* @__PURE__ */ React16.createElement("polyline", {
+  }, props2), /* @__PURE__ */ React20.createElement("polyline", {
     points: "23 4 23 10 17 10"
-  }), /* @__PURE__ */ React16.createElement("polyline", {
+  }), /* @__PURE__ */ React20.createElement("polyline", {
     points: "1 20 1 14 7 14"
-  }), /* @__PURE__ */ React16.createElement("path", {
+  }), /* @__PURE__ */ React20.createElement("path", {
     d: "M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"
   }));
   var refresh_cw_default = RefreshCwIcon;
 
   // ../../packages/ui/icons/components/settings.tsx
   init_react_shim();
-  var React17 = __toESM(require_react());
-  var SettingsIcon = (props2) => /* @__PURE__ */ React17.createElement("svg", __spreadValues({
+  var React21 = __toESM(require_react());
+  var SettingsIcon = (props2) => /* @__PURE__ */ React21.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27873,19 +28030,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-settings"
-  }, props2), /* @__PURE__ */ React17.createElement("circle", {
+  }, props2), /* @__PURE__ */ React21.createElement("circle", {
     cx: 12,
     cy: 12,
     r: 3
-  }), /* @__PURE__ */ React17.createElement("path", {
+  }), /* @__PURE__ */ React21.createElement("path", {
     d: "M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
   }));
   var settings_default = SettingsIcon;
 
   // ../../packages/ui/icons/components/sun.tsx
   init_react_shim();
-  var React18 = __toESM(require_react());
-  var SunIcon = (props2) => /* @__PURE__ */ React18.createElement("svg", __spreadValues({
+  var React22 = __toESM(require_react());
+  var SunIcon = (props2) => /* @__PURE__ */ React22.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27896,46 +28053,46 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-sun"
-  }, props2), /* @__PURE__ */ React18.createElement("circle", {
+  }, props2), /* @__PURE__ */ React22.createElement("circle", {
     cx: 12,
     cy: 12,
     r: 5
-  }), /* @__PURE__ */ React18.createElement("line", {
+  }), /* @__PURE__ */ React22.createElement("line", {
     x1: 12,
     y1: 1,
     x2: 12,
     y2: 3
-  }), /* @__PURE__ */ React18.createElement("line", {
+  }), /* @__PURE__ */ React22.createElement("line", {
     x1: 12,
     y1: 21,
     x2: 12,
     y2: 23
-  }), /* @__PURE__ */ React18.createElement("line", {
+  }), /* @__PURE__ */ React22.createElement("line", {
     x1: 4.22,
     y1: 4.22,
     x2: 5.64,
     y2: 5.64
-  }), /* @__PURE__ */ React18.createElement("line", {
+  }), /* @__PURE__ */ React22.createElement("line", {
     x1: 18.36,
     y1: 18.36,
     x2: 19.78,
     y2: 19.78
-  }), /* @__PURE__ */ React18.createElement("line", {
+  }), /* @__PURE__ */ React22.createElement("line", {
     x1: 1,
     y1: 12,
     x2: 3,
     y2: 12
-  }), /* @__PURE__ */ React18.createElement("line", {
+  }), /* @__PURE__ */ React22.createElement("line", {
     x1: 21,
     y1: 12,
     x2: 23,
     y2: 12
-  }), /* @__PURE__ */ React18.createElement("line", {
+  }), /* @__PURE__ */ React22.createElement("line", {
     x1: 4.22,
     y1: 19.78,
     x2: 5.64,
     y2: 18.36
-  }), /* @__PURE__ */ React18.createElement("line", {
+  }), /* @__PURE__ */ React22.createElement("line", {
     x1: 18.36,
     y1: 5.64,
     x2: 19.78,
@@ -27945,8 +28102,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/icons/components/trash.tsx
   init_react_shim();
-  var React19 = __toESM(require_react());
-  var TrashIcon = (props2) => /* @__PURE__ */ React19.createElement("svg", __spreadValues({
+  var React23 = __toESM(require_react());
+  var TrashIcon = (props2) => /* @__PURE__ */ React23.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27957,17 +28114,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-trash"
-  }, props2), /* @__PURE__ */ React19.createElement("polyline", {
+  }, props2), /* @__PURE__ */ React23.createElement("polyline", {
     points: "3 6 5 6 21 6"
-  }), /* @__PURE__ */ React19.createElement("path", {
+  }), /* @__PURE__ */ React23.createElement("path", {
     d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
   }));
   var trash_default = TrashIcon;
 
   // ../../packages/ui/icons/components/upload.tsx
   init_react_shim();
-  var React20 = __toESM(require_react());
-  var UploadIcon = (props2) => /* @__PURE__ */ React20.createElement("svg", __spreadValues({
+  var React24 = __toESM(require_react());
+  var UploadIcon = (props2) => /* @__PURE__ */ React24.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -27978,11 +28135,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-upload"
-  }, props2), /* @__PURE__ */ React20.createElement("path", {
+  }, props2), /* @__PURE__ */ React24.createElement("path", {
     d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
-  }), /* @__PURE__ */ React20.createElement("polyline", {
+  }), /* @__PURE__ */ React24.createElement("polyline", {
     points: "17 8 12 3 7 8"
-  }), /* @__PURE__ */ React20.createElement("line", {
+  }), /* @__PURE__ */ React24.createElement("line", {
     x1: 12,
     y1: 3,
     x2: 12,
@@ -27992,8 +28149,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/icons/components/x.tsx
   init_react_shim();
-  var React21 = __toESM(require_react());
-  var XIcon = (props2) => /* @__PURE__ */ React21.createElement("svg", __spreadValues({
+  var React25 = __toESM(require_react());
+  var XIcon = (props2) => /* @__PURE__ */ React25.createElement("svg", __spreadValues({
     xmlns: "http://www.w3.org/2000/svg",
     width: "1em",
     height: "1em",
@@ -28004,12 +28161,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: "feather feather-x"
-  }, props2), /* @__PURE__ */ React21.createElement("line", {
+  }, props2), /* @__PURE__ */ React25.createElement("line", {
     x1: 18,
     y1: 6,
     x2: 6,
     y2: 18
-  }), /* @__PURE__ */ React21.createElement("line", {
+  }), /* @__PURE__ */ React25.createElement("line", {
     x1: 6,
     y1: 6,
     x2: 18,
@@ -28022,8 +28179,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/providers/flag-provider.tsx
   init_react_shim();
-  var import_react34 = __toESM(require_react());
-  var FlagContext = (0, import_react34.createContext)({
+  var import_react36 = __toESM(require_react());
+  var FlagContext = (0, import_react36.createContext)({
     flag: false,
     setFlag: NOOP,
     toggle: NOOP
@@ -28510,7 +28667,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       left: 0
     },
     raised: {
-      boxShadow: "0px 6px 20px rgba(0, 0, 0, 0.1)",
+      boxShadow: (theme2) => {
+        var _a;
+        return `0px 6px 20px ${(_a = theme2 == null ? void 0 : theme2.colors) == null ? void 0 : _a.dark100}`;
+      },
       borderRadius: "xxl"
     },
     square: {
@@ -28549,6 +28709,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     boxShadowFocus: porshe.rubystoneRed,
     selected: porshe.pastelBlue,
     hover: "rgba(0, 0, 0, 0.05)",
+    background900: "rgba(255, 255, 255, 0.9)",
     dark000: "rgba(0, 0, 0, 0)",
     dark100: "rgba(0, 0, 0, 0.1)",
     dark200: "rgba(0, 0, 0, 0.2)",
@@ -28575,6 +28736,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     boxShadowFocus: porshe.acidGreen,
     selected: porshe.gentianBlueMetallic,
     hover: "rgba(255, 255, 255, 0.3)",
+    background900: "rgba(34, 34, 34, 0.9)",
     dark000: "rgba(255, 255, 255, 0)",
     dark100: "rgba(255, 255, 255, 0.1)",
     dark200: "rgba(255, 255, 255, 0.2)",
@@ -28707,7 +28869,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/ui/theme/zIndices.ts
   init_react_shim();
-  var zIndices_default = ["Toast", "Menu", "Modal", "Header", "Tooltip"].reduce((acc, name3, i2, layers) => (acc[name3] = layers.length - i2, acc), {});
+  var zIndices_default = ["Overlay", "Toast", "Menu", "Modal", "Header", "Tooltip"].reduce((acc, name3, i2, layers) => (acc[name3] = layers.length - i2, acc), {});
 
   // ../../packages/ui/theme/index.ts
   var theme = __spreadProps(__spreadValues({}, base_default), {
@@ -28742,22 +28904,22 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/components/command-k/command-k.tsx
   init_react_shim();
-  var import_react44 = __toESM(require_react());
+  var import_react46 = __toESM(require_react());
 
   // ../../packages/command-k/components/command-k/command-k-input.tsx
   init_react_shim();
-  var import_react42 = __toESM(require_react());
+  var import_react44 = __toESM(require_react());
 
   // ../../packages/command-k/components/command-k/pane.tsx
   init_react_shim();
-  var import_react40 = __toESM(require_react());
+  var import_react42 = __toESM(require_react());
 
   // ../../packages/command-k/hooks/index.ts
   init_react_shim();
 
   // ../../packages/command-k/hooks/use-files.ts
   init_react_shim();
-  var import_react35 = __toESM(require_react());
+  var import_react37 = __toESM(require_react());
 
   // ../../packages/command-k/utils/index.ts
   init_react_shim();
@@ -28778,10 +28940,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     options = { multiple: false },
     storage: storage2
   }) {
-    const handles = (0, import_react35.useMemo)(() => storage2.data[HANDLES_KEY] || [], [storage2.data]);
-    const thumbnails = (0, import_react35.useMemo)(() => storage2.data[THUMBNAILS_KEY] || {}, [storage2.data]);
+    const handles = (0, import_react37.useMemo)(() => storage2.data[HANDLES_KEY] || [], [storage2.data]);
+    const thumbnails = (0, import_react37.useMemo)(() => storage2.data[THUMBNAILS_KEY] || {}, [storage2.data]);
     const [isDropping, setIsDropping] = useFlag(false);
-    const refreshThumbnails = (0, import_react35.useCallback)((overrideHandles) => __async(this, null, function* () {
+    const refreshThumbnails = (0, import_react37.useCallback)((overrideHandles) => __async(this, null, function* () {
       const localHandles = overrideHandles || handles;
       const thumbnails2 = {};
       let i2 = localHandles.length;
@@ -28796,7 +28958,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       yield storage2.update(THUMBNAILS_KEY, thumbnails2);
     }), [handles]);
-    const getFileHandles = (0, import_react35.useCallback)(() => __async(this, null, function* () {
+    const getFileHandles = (0, import_react37.useCallback)(() => __async(this, null, function* () {
       if (window.isSecureContext) {
         const items = yield window.showOpenFilePicker(options);
         const handles2 = items.filter((item) => item.kind === "file" /* file */);
@@ -28807,7 +28969,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         throw Error("Insecure context. Must use HTTPS or localhost");
       }
     }), [refreshThumbnails]);
-    const handleFileDrop = (0, import_react35.useCallback)((e) => __async(this, null, function* () {
+    const handleFileDrop = (0, import_react37.useCallback)((e) => __async(this, null, function* () {
       e.preventDefault();
       setIsDropping(false);
       const items = [...e.dataTransfer.items];
@@ -28819,11 +28981,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       yield refreshThumbnails(handles2);
       onFileSelect(handles2);
     }), [refreshThumbnails]);
-    const handleFileDragOver = (0, import_react35.useCallback)((e) => {
+    const handleFileDragOver = (0, import_react37.useCallback)((e) => {
       e.preventDefault();
       setIsDropping(true);
     }, [setIsDropping]);
-    const handleFileDragLeave = (0, import_react35.useCallback)((e) => {
+    const handleFileDragLeave = (0, import_react37.useCallback)((e) => {
       e.preventDefault();
       setIsDropping(false);
     }, [setIsDropping]);
@@ -28904,14 +29066,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/hooks/use-layers.ts
   init_react_shim();
-  var import_react36 = __toESM(require_react());
+  var import_react38 = __toESM(require_react());
   var MOUNT_POINT_ID = "cmdk-mount-point";
   function useLayers({
     mountPointWrapper,
     overlayWrapper
   }) {
-    const layersMapRef = (0, import_react36.useRef)({});
-    const getLayer = (0, import_react36.useCallback)((pluginId) => {
+    const layersMapRef = (0, import_react38.useRef)({});
+    const getLayer = (0, import_react38.useCallback)((pluginId) => {
       let layer = layersMapRef.current[pluginId];
       if (!layer) {
         layer = {
@@ -28928,7 +29090,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       return layer;
     }, []);
-    const getMountPoint = (0, import_react36.useCallback)((pluginId) => {
+    const getMountPoint = (0, import_react38.useCallback)((pluginId) => {
       var _a;
       const layer = getLayer(pluginId);
       const iframeDocument = (_a = layer.mountPoint.contentWindow) == null ? void 0 : _a.document;
@@ -28941,17 +29103,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
       return (iframeDocument == null ? void 0 : iframeDocument.getElementById(MOUNT_POINT_ID)) || null;
     }, []);
-    const getOverlayContainer = (0, import_react36.useCallback)((pluginId) => {
+    const getOverlayContainer = (0, import_react38.useCallback)((pluginId) => {
       const layer = getLayer(pluginId);
       return layer.overlayContainer;
     }, []);
-    const getUnmountOverlay = (0, import_react36.useCallback)((layer) => () => {
+    const getUnmountOverlay = (0, import_react38.useCallback)((layer) => () => {
       layer.overlayContainer.childNodes.forEach((child) => {
         layer.overlayContainer.removeChild(child);
       });
-      overlayWrapper == null ? void 0 : overlayWrapper.removeChild(layer.overlayContainer);
+      (overlayWrapper == null ? void 0 : overlayWrapper.contains(layer.overlayContainer)) && overlayWrapper.removeChild(layer.overlayContainer);
     }, []);
-    const mountLayer = (0, import_react36.useCallback)((pluginId) => {
+    const mountLayer = (0, import_react38.useCallback)((pluginId) => {
       const layer = getLayer(pluginId);
       mountPointWrapper == null ? void 0 : mountPointWrapper.appendChild(layer.mountPoint);
       overlayWrapper == null ? void 0 : overlayWrapper.appendChild(layer.overlayContainer);
@@ -30240,10 +30402,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }
 
   // ../../packages/command-k/hooks/use-search.ts
-  var import_react37 = __toESM(require_react());
+  var import_react39 = __toESM(require_react());
   function useSearch({ query, plugins }) {
-    const fuse = (0, import_react37.useMemo)(() => new Fuse(plugins, { keys: ["id", "title", "description"], shouldSort: true }), [plugins]);
-    return (0, import_react37.useMemo)(() => {
+    const fuse = (0, import_react39.useMemo)(() => new Fuse(plugins, { keys: ["id", "title", "description"], shouldSort: true }), [plugins]);
+    return (0, import_react39.useMemo)(() => {
       return query ? fuse.search(query) : plugins.map((item, index2) => ({
         item,
         refIndex: index2,
@@ -30258,7 +30420,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/providers/storage-provider.tsx
   init_react_shim();
-  var import_react38 = __toESM(require_react());
+  var import_react40 = __toESM(require_react());
   var import_localforage = __toESM(require_localforage());
 
   // ../../node_modules/immer/dist/immer.esm.js
@@ -30648,7 +30810,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   // ../../packages/command-k/providers/storage-provider.tsx
   var INITIAL_DATA = { isUnloaded: true };
   var DEFAULT_DATA = { isUnloaded: false };
-  var StorageContext = (0, import_react38.createContext)({
+  var StorageContext = (0, import_react40.createContext)({
     data: INITIAL_DATA,
     clear: () => __async(void 0, null, function* () {
     }),
@@ -30665,20 +30827,20 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     storageKey
   }) {
     const { dispatch, on: on2 } = useEventBus();
-    const [pluginData, setPluginData] = (0, import_react38.useState)(INITIAL_DATA);
-    const get7 = (0, import_react38.useCallback)(() => __async(this, null, function* () {
+    const [pluginData, setPluginData] = (0, import_react40.useState)(INITIAL_DATA);
+    const get7 = (0, import_react40.useCallback)(() => __async(this, null, function* () {
       const data = (yield import_localforage.default.getItem(storageKey)) || DEFAULT_DATA;
       setPluginData(data);
       return data;
     }), []);
-    const set = (0, import_react38.useCallback)((data) => __async(this, null, function* () {
+    const set = (0, import_react40.useCallback)((data) => __async(this, null, function* () {
       dispatch(getStorageUpdateEventName(storageKey), data);
     }), [storageKey]);
-    const clear = (0, import_react38.useCallback)(() => __async(this, null, function* () {
+    const clear = (0, import_react40.useCallback)(() => __async(this, null, function* () {
       yield import_localforage.default.removeItem(storageKey);
       yield get7();
     }), [get7]);
-    const update = (0, import_react38.useCallback)((key, data) => __async(this, null, function* () {
+    const update = (0, import_react40.useCallback)((key, data) => __async(this, null, function* () {
       const existing = yield get7();
       const updated = immer_esm_default(existing, (draft) => {
         draft[key] = data;
@@ -30686,10 +30848,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       set(updated);
     }), [set]);
     const value = useValue({ data: pluginData, clear, get: get7, set, update });
-    (0, import_react38.useEffect)(() => {
+    (0, import_react40.useEffect)(() => {
       get7();
     }, []);
-    (0, import_react38.useEffect)(() => {
+    (0, import_react40.useEffect)(() => {
       on2(getStorageUpdateEventName(storageKey), (e) => __async(this, null, function* () {
         const data = e.detail;
         yield import_localforage.default.setItem(storageKey, data);
@@ -30705,9 +30867,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }
 
   // ../../packages/command-k/hooks/use-storage.ts
-  var import_react39 = __toESM(require_react());
+  var import_react41 = __toESM(require_react());
   function useStorage() {
-    return (0, import_react39.useContext)(StorageContext);
+    return (0, import_react41.useContext)(StorageContext);
   }
 
   // ../../packages/command-k/components/command-k/search-result.tsx
@@ -30738,18 +30900,18 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     plugins,
     query
   }) {
-    const resultsRef = (0, import_react40.useRef)(null);
-    const mountPointWrapperRef = (0, import_react40.useRef)(null);
-    const [refIndex, setRefIndex] = (0, import_react40.useState)(0);
-    const getOnClick = (0, import_react40.useCallback)((i2) => () => {
+    const resultsRef = (0, import_react42.useRef)(null);
+    const mountPointWrapperRef = (0, import_react42.useRef)(null);
+    const [refIndex, setRefIndex] = (0, import_react42.useState)(0);
+    const getOnClick = (0, import_react42.useCallback)((i2) => () => {
       const plugin = plugins[i2];
       setRefIndex(i2);
       setActivePlugin(plugin);
     }, []);
-    const selectActive = (0, import_react40.useCallback)(() => {
+    const selectActive = (0, import_react42.useCallback)(() => {
       setActivePlugin(plugins[refIndex]);
     }, [refIndex, plugins]);
-    const onClose = (0, import_react40.useCallback)(() => {
+    const onClose = (0, import_react42.useCallback)(() => {
       setActivePlugin(null);
     }, [setActivePlugin]);
     const searchResults = useSearch({ query, plugins });
@@ -30764,11 +30926,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       setRefIndex,
       searchResults
     });
-    (0, import_react40.useEffect)(() => {
+    (0, import_react42.useEffect)(() => {
       const firstPlugin = searchResults[0];
       firstPlugin && setRefIndex(firstPlugin.refIndex);
     }, [query]);
-    (0, import_react40.useEffect)(() => {
+    (0, import_react42.useEffect)(() => {
       onIsActiveChanged && onIsActiveChanged(!!activePlugin);
     }, [activePlugin]);
     return /* @__PURE__ */ React.createElement(box_default, {
@@ -30780,6 +30942,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         position: "relative"
       }
     }, /* @__PURE__ */ React.createElement(box_default, {
+      "data-pane-mount-point": true,
       ref: mountPointWrapperRef,
       sx: {
         variant: "boxes.pinned",
@@ -30817,7 +30980,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       overlayWrapper: overlayWrapperRef.current
     });
     const [, setColorMode] = useColorMode();
-    (0, import_react40.useEffect)(() => {
+    (0, import_react42.useEffect)(() => {
       var _a;
       if (activePlugin) {
         const layer = getLayer(activePlugin.id);
@@ -30853,7 +31016,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }
   function getThemeProvider(mountPoint, key) {
     return ({ children }) => {
-      const cache = (0, import_react40.useRef)(emotion_cache_browser_esm_default({ container: mountPoint.parentElement, key }));
+      const cache = (0, import_react42.useRef)(emotion_cache_browser_esm_default({ container: mountPoint.parentElement, key }));
       return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Fonts, null), /* @__PURE__ */ React.createElement(CacheProvider, {
         value: cache.current
       }, /* @__PURE__ */ React.createElement(CmdkThemeProvider, {
@@ -30883,11 +31046,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     overlayWrapperRef,
     plugins
   }) {
-    const [query, setQuery] = (0, import_react42.useState)("");
-    const [activePlugin, setActivePlugin] = (0, import_react42.useState)(null);
-    const [isPaneActive, setIsPaneActive] = (0, import_react42.useState)(false);
-    const onChange = (0, import_react42.useCallback)((e) => setQuery(e.target.value), []);
-    const onClose = (0, import_react42.useCallback)(() => setActivePlugin(null), []);
+    const [query, setQuery] = (0, import_react44.useState)("");
+    const [activePlugin, setActivePlugin] = (0, import_react44.useState)(null);
+    const [isPaneActive, setIsPaneActive] = (0, import_react44.useState)(false);
+    const onChange = (0, import_react44.useCallback)((e) => setQuery(e.target.value), []);
+    const onClose = (0, import_react44.useCallback)(() => setActivePlugin(null), []);
     useKeydown({
       isActive: !isPaneActive,
       callback: (e) => {
@@ -30896,11 +31059,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         }
       }
     });
-    (0, import_react42.useEffect)(() => {
+    (0, import_react44.useEffect)(() => {
       onIsActiveChanged(!!query || !!isPaneActive);
     }, [isPaneActive, query]);
     return isActive ? /* @__PURE__ */ React.createElement(box_default, {
       sx: {
+        variant: "boxes.raised",
         borderRadius: "sm",
         position: "relative",
         width: 360,
@@ -30916,7 +31080,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       sx: {
         background: "background",
         borderWidth: "0px 0px 3px 0px",
-        borderColor: "modalScrim",
+        borderColor: "inputBorder",
         borderRadius: "none",
         paddingY: 3,
         paddingX: 2,
@@ -30936,8 +31100,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/components/command-k/overlay-wrapper.tsx
   init_react_shim();
-  var import_react43 = __toESM(require_react());
-  var overlay_wrapper_default = (0, import_react43.forwardRef)((props2, ref) => /* @__PURE__ */ React.createElement(box_default, __spreadValues({
+  var import_react45 = __toESM(require_react());
+  var overlay_wrapper_default = (0, import_react45.forwardRef)((props2, ref) => /* @__PURE__ */ React.createElement(box_default, __spreadValues({
     "data-overlays-wrapper": true,
     ref,
     sx: {
@@ -30956,10 +31120,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     plugins = [],
     startOpen = false
   }) {
-    const overlayWrapperRef = (0, import_react44.useRef)(null);
-    const [isActive, setIsActive] = (0, import_react44.useState)(false);
-    const [isInputActive, setIsInputActive] = (0, import_react44.useState)(true);
-    const onRender = (0, import_react44.useCallback)((ref) => {
+    const overlayWrapperRef = (0, import_react46.useRef)(null);
+    const [isActive, setIsActive] = (0, import_react46.useState)(false);
+    const [isInputActive, setIsInputActive] = (0, import_react46.useState)(true);
+    const onRender = (0, import_react46.useCallback)((ref) => {
       const modals = document.querySelectorAll('[data-modal-id^="cmdk"]');
       const isRedundant = !!modals[0] && modals[0] !== ref.current;
       if (!isRedundant) {
@@ -31002,31 +31166,390 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   // ../../packages/command-k/plugins/install/install-plugin.tsx
   init_react_shim();
 
+  // ../../packages/command-k/plugins/lines/index.tsx
+  init_react_shim();
+
+  // ../../packages/command-k/plugins/lines/lines-plugin.tsx
+  init_react_shim();
+
+  // ../../packages/command-k/plugins/lines/lines-overlay.tsx
+  init_react_shim();
+  var import_react49 = __toESM(require_react());
+  var import_react_dom = __toESM(require_react_dom());
+
+  // ../../packages/command-k/plugins/lines/use-lines-settings.ts
+  init_react_shim();
+
+  // ../../packages/command-k/plugins/lines/use-lines-controls.ts
+  init_react_shim();
+  var import_react47 = __toESM(require_react());
+  var CONTROLS_KEY = "controls";
+  var DEFAULT_CONTROLS = {
+    isCommandActive: true
+  };
+  function useLinesControls({
+    useStorage: useStorage2
+  }) {
+    const storage2 = useStorage2();
+    const controls = storage2.data[CONTROLS_KEY] || DEFAULT_CONTROLS;
+    const clear = (0, import_react47.useCallback)(() => storage2.update(CONTROLS_KEY, null), []);
+    const updateIsCommandActive = (0, import_react47.useCallback)((isCommandActive) => {
+      storage2.update(CONTROLS_KEY, immer_esm_default(controls, (draft) => {
+        draft.isCommandActive = isCommandActive;
+      }));
+    }, [controls, storage2]);
+    const toggleIsCommandActive = (0, import_react47.useCallback)(() => updateIsCommandActive(!controls.isCommandActive), [controls.isCommandActive, updateIsCommandActive]);
+    const isControlPressed = useIsKeyActive({
+      isActive: controls.isCommandActive,
+      keys: /* @__PURE__ */ new Set(["ControlLeft", "ControlRight"])
+    });
+    const isShiftPressed = useIsKeyActive({
+      isActive: controls.isCommandActive,
+      keys: /* @__PURE__ */ new Set(["ShiftLeft", "ShiftRight"])
+    });
+    const isDraggable = controls.isCommandActive && isControlPressed;
+    const isMoveable = isDraggable && isShiftPressed;
+    return useValue({
+      clear,
+      controls,
+      isDraggable,
+      isMoveable,
+      toggleIsCommandActive,
+      updateIsCommandActive
+    });
+  }
+
+  // ../../packages/command-k/plugins/lines/use-lines-settings.ts
+  var import_react48 = __toESM(require_react());
+
+  // ../../node_modules/uuid/dist/esm-browser/index.js
+  init_react_shim();
+
+  // ../../node_modules/uuid/dist/esm-browser/rng.js
+  init_react_shim();
+  var getRandomValues;
+  var rnds8 = new Uint8Array(16);
+  function rng() {
+    if (!getRandomValues) {
+      getRandomValues = typeof crypto !== "undefined" && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== "undefined" && typeof msCrypto.getRandomValues === "function" && msCrypto.getRandomValues.bind(msCrypto);
+      if (!getRandomValues) {
+        throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
+      }
+    }
+    return getRandomValues(rnds8);
+  }
+
+  // ../../node_modules/uuid/dist/esm-browser/stringify.js
+  init_react_shim();
+
+  // ../../node_modules/uuid/dist/esm-browser/validate.js
+  init_react_shim();
+
+  // ../../node_modules/uuid/dist/esm-browser/regex.js
+  init_react_shim();
+  var regex_default = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
+
+  // ../../node_modules/uuid/dist/esm-browser/validate.js
+  function validate(uuid) {
+    return typeof uuid === "string" && regex_default.test(uuid);
+  }
+  var validate_default = validate;
+
+  // ../../node_modules/uuid/dist/esm-browser/stringify.js
+  var byteToHex = [];
+  for (i2 = 0; i2 < 256; ++i2) {
+    byteToHex.push((i2 + 256).toString(16).substr(1));
+  }
+  var i2;
+  function stringify2(arr) {
+    var offset = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
+    var uuid = (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + "-" + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + "-" + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + "-" + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + "-" + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase();
+    if (!validate_default(uuid)) {
+      throw TypeError("Stringified UUID is invalid");
+    }
+    return uuid;
+  }
+  var stringify_default = stringify2;
+
+  // ../../node_modules/uuid/dist/esm-browser/v4.js
+  init_react_shim();
+  function v4(options, buf, offset) {
+    options = options || {};
+    var rnds = options.random || (options.rng || rng)();
+    rnds[6] = rnds[6] & 15 | 64;
+    rnds[8] = rnds[8] & 63 | 128;
+    if (buf) {
+      offset = offset || 0;
+      for (var i2 = 0; i2 < 16; ++i2) {
+        buf[offset + i2] = rnds[i2];
+      }
+      return buf;
+    }
+    return stringify_default(rnds);
+  }
+  var v4_default = v4;
+
+  // ../../packages/command-k/plugins/lines/use-lines-settings.ts
+  var SETTINGS_KEY = "settings";
+  var LINES_KEY = "lines";
+  var DEFAULT_SETTINGS = {
+    isActive: false,
+    topControls: true,
+    leftControls: true
+  };
+  var DEFAULT_LINES = {};
+  function useLinesSettings({
+    useStorage: useStorage2
+  }) {
+    const storage2 = useStorage2();
+    const lines = storage2.data[LINES_KEY] || DEFAULT_LINES;
+    const settings = storage2.data[SETTINGS_KEY] || DEFAULT_SETTINGS;
+    const clear = (0, import_react48.useCallback)(() => {
+      storage2.update(SETTINGS_KEY, null);
+      storage2.update(CONTROLS_KEY, null);
+    }, []);
+    const updateIsActive = (0, import_react48.useCallback)((isActive) => {
+      storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
+        draft.isActive = isActive;
+      }));
+    }, [settings, storage2]);
+    const addLine = (0, import_react48.useCallback)(({ type, value }) => {
+      const line2 = {
+        id: v4_default(),
+        color: "secondary"
+      };
+      if (type === "x") {
+        line2.x = value;
+      } else if (type === "y") {
+        line2.y = value;
+      }
+      storage2.update(LINES_KEY, immer_esm_default(lines, (draft) => {
+        draft[line2.id] = line2;
+      }));
+    }, [lines, storage2]);
+    const removeLine = (0, import_react48.useCallback)((id) => {
+      storage2.update(LINES_KEY, immer_esm_default(lines, (draft) => {
+        delete draft[id];
+      }));
+    }, [lines, storage2]);
+    const removeAllLines = (0, import_react48.useCallback)(() => storage2.update(LINES_KEY, null), [storage2]);
+    const toggleIsActive = (0, import_react48.useCallback)(() => updateIsActive(!settings.isActive), [settings]);
+    return useValue({
+      addLine,
+      clear,
+      lines,
+      removeAllLines,
+      removeLine,
+      settings,
+      toggleIsActive,
+      updateIsActive
+    });
+  }
+
+  // ../../packages/command-k/plugins/lines/lines-overlay.tsx
+  function LinesOverlayPortal(context) {
+    const { overlayContainer, useStorage: useStorage2, unmountOverlay } = context;
+    const { settings } = useLinesSettings({ useStorage: useStorage2 });
+    const unmount2 = (0, import_react49.useCallback)(() => __async(this, null, function* () {
+    }), []);
+    (0, import_react49.useEffect)(() => {
+      overlayContainer.innerHTML = "";
+    }, []);
+    return settings.isActive ? import_react_dom.default.createPortal(/* @__PURE__ */ React.createElement(LinesOverlay, {
+      unmount: unmount2,
+      useStorage: useStorage2
+    }), overlayContainer) : null;
+  }
+  function LinesOverlay({
+    unmount: unmount2 = NOOP,
+    useStorage: useStorage2
+  }) {
+    const { addLine, lines, removeLine, removeAllLines, settings } = useLinesSettings({ useStorage: useStorage2 });
+    const { controls, isDraggable, isMoveable } = useLinesControls({ useStorage: useStorage2 });
+    const cursorPositionRef = useCursorPosition({ isActive: true });
+    (0, import_react49.useEffect)(() => unmount2, [unmount2]);
+    useKeydown({
+      isActive: isMoveable,
+      callback: (e) => {
+        e.preventDefault();
+        const [clientX, clientY] = cursorPositionRef.current;
+        console.log(e.code);
+        switch (e.code) {
+          case "Backspace":
+          case "Delete":
+            return removeAllLines();
+          case "ArrowUp":
+            console.log("up");
+            break;
+          case "ArrowDown":
+            console.log("down");
+            break;
+          case "ArrowLeft":
+            console.log("left");
+            break;
+          case "ArrowRight":
+            console.log("right");
+            break;
+          case "KeyV":
+            return addLine({ type: "x", value: clientX });
+          case "KeyH":
+            return addLine({ type: "y", value: clientY });
+        }
+      }
+    }, [addLine, removeAllLines]);
+    return /* @__PURE__ */ React.createElement(flex_default, {
+      sx: {
+        variant: "boxes.pinned",
+        pointerEvents: isDraggable ? "auto" : "none",
+        alignItems: "center",
+        justifyContent: "center"
+      }
+    }, /* @__PURE__ */ React.createElement(flex_default, {
+      sx: { position: "absolute", bottom: 1, right: 1, "[data-keycap]": { marginLeft: 1 } }
+    }, isDraggable && /* @__PURE__ */ React.createElement(Keycap, null, /* @__PURE__ */ React.createElement(command_default, null)), isMoveable && /* @__PURE__ */ React.createElement(Keycap, null, /* @__PURE__ */ React.createElement(arrow_up_default, null))), Object.values(lines).map((line2) => /* @__PURE__ */ React.createElement(RenderedLine, {
+      line: line2,
+      isDraggable,
+      isMoveable
+    })));
+  }
+  function RenderedLine({
+    line: line2,
+    isDraggable,
+    isMoveable
+  }) {
+    var _a;
+    const isX = typeof line2.x !== "undefined";
+    const valuePx = `${(_a = line2.x) != null ? _a : line2.y}px`;
+    return /* @__PURE__ */ React.createElement(box_default, {
+      sx: {
+        border: "1px dashed",
+        borderColor: line2.color,
+        borderWidth: isX ? "0 1px 0 0" : "1px 0 0 0",
+        position: "absolute",
+        top: isX ? 0 : valuePx,
+        right: isX ? null : 0,
+        bottom: isX ? 0 : valuePx,
+        left: isX ? valuePx : 0,
+        width: isX ? "1px" : null,
+        height: isX ? null : "1px"
+      }
+    }, /* @__PURE__ */ React.createElement(box_default, {
+      sx: {
+        position: "absolute",
+        inset: "-5px",
+        cursor: isMoveable ? "crosshair" : isDraggable ? "grab" : "default",
+        background: isDraggable ? "light300" : "transparent"
+      }
+    }));
+  }
+
+  // ../../packages/command-k/plugins/lines/lines-plugin.tsx
+  var import_react_dom2 = __toESM(require_react_dom());
+  var linesPlugin = {
+    id: "lines",
+    title: "Lines",
+    description: "Guidelines for your layout",
+    url: "https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/lines",
+    version: "0.0.1",
+    mount: (context) => import_react_dom2.default.render(/* @__PURE__ */ React.createElement(LinesPluginConnected, __spreadValues({}, context)), context.mountPoint),
+    unmount: NOOP
+  };
+  var lines_plugin_default = linesPlugin;
+  function LinesPluginConnected(context) {
+    const { StorageProvider: StorageProvider2, PaneThemeProvider, OverlayThemeProvider } = context;
+    return /* @__PURE__ */ React.createElement(StorageProvider2, null, /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(OverlayThemeProvider, null, /* @__PURE__ */ React.createElement(OverlayWrapper, __spreadValues({}, context))), /* @__PURE__ */ React.createElement(PaneThemeProvider, null, /* @__PURE__ */ React.createElement(LinesPlugin, __spreadValues({}, context)))));
+  }
+  function OverlayWrapper(context) {
+    const { OverlayThemeProvider } = context;
+    return /* @__PURE__ */ React.createElement(OverlayThemeProvider, null, /* @__PURE__ */ React.createElement(LinesOverlayPortal, __spreadValues({}, context)));
+  }
+  function LinesPlugin({ useStorage: useStorage2 }) {
+    const {
+      clear,
+      controls: { isCommandActive },
+      isDraggable,
+      toggleIsCommandActive
+    } = useLinesControls({ useStorage: useStorage2 });
+    const { settings, toggleIsActive } = useLinesSettings({ useStorage: useStorage2 });
+    return /* @__PURE__ */ React.createElement(grid_default, {
+      sx: {
+        variant: "styles.hiddenScroll",
+        padding: 2,
+        paddingTop: 4,
+        maxHeight: "100%",
+        overflow: "auto"
+      }
+    }, /* @__PURE__ */ React.createElement(text_default, {
+      variant: "headline3",
+      sx: {
+        backgroundColor: "background900",
+        padding: 2,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        textAlign: "center",
+        width: "100%",
+        zIndex: 1
+      }
+    }, "Lines"), /* @__PURE__ */ React.createElement(Toggle, {
+      ballPx: 16,
+      value: settings.isActive,
+      onClick: toggleIsActive,
+      sx: { position: "absolute", top: 9, left: 24, zIndex: 1 }
+    }), /* @__PURE__ */ React.createElement(grid_default, {
+      columns: "1fr 1fr",
+      sx: {
+        alignItems: "center",
+        padding: 3,
+        "[data-keycap]": {
+          marginRight: 1
+        }
+      }
+    }, /* @__PURE__ */ React.createElement(Keycap, null, /* @__PURE__ */ React.createElement(command_default, null)), /* @__PURE__ */ React.createElement(text_default, null, "Drag"), /* @__PURE__ */ React.createElement(flex_default, null, /* @__PURE__ */ React.createElement(Keycap, null, /* @__PURE__ */ React.createElement(command_default, null)), /* @__PURE__ */ React.createElement(Keycap, {
+      variant: "shift"
+    }, /* @__PURE__ */ React.createElement(arrow_up_default, null)), /* @__PURE__ */ React.createElement(Keycap, null, /* @__PURE__ */ React.createElement(move_default, null))), /* @__PURE__ */ React.createElement(text_default, null, "Move"), /* @__PURE__ */ React.createElement(flex_default, null, /* @__PURE__ */ React.createElement(Keycap, null, /* @__PURE__ */ React.createElement(command_default, null)), /* @__PURE__ */ React.createElement(Keycap, {
+      variant: "shift"
+    }, /* @__PURE__ */ React.createElement(arrow_up_default, null))), /* @__PURE__ */ React.createElement(text_default, null, "Select"), /* @__PURE__ */ React.createElement(flex_default, null, /* @__PURE__ */ React.createElement(Keycap, {
+      sx: { marginLeft: "0px !important" }
+    }, /* @__PURE__ */ React.createElement(command_default, null)), /* @__PURE__ */ React.createElement(Keycap, {
+      variant: "shift"
+    }, /* @__PURE__ */ React.createElement(arrow_up_default, null)), /* @__PURE__ */ React.createElement(Keycap, {
+      variant: "action"
+    }, "Esc")), /* @__PURE__ */ React.createElement(text_default, null, "Deselect all"), /* @__PURE__ */ React.createElement(flex_default, null, /* @__PURE__ */ React.createElement(Keycap, null, /* @__PURE__ */ React.createElement(command_default, null)), /* @__PURE__ */ React.createElement(Keycap, {
+      variant: "shift"
+    }, /* @__PURE__ */ React.createElement(arrow_up_default, null)), /* @__PURE__ */ React.createElement(Keycap, null, "v")), /* @__PURE__ */ React.createElement(text_default, null, "+ Vertical"), /* @__PURE__ */ React.createElement(flex_default, null, /* @__PURE__ */ React.createElement(Keycap, null, /* @__PURE__ */ React.createElement(command_default, null)), /* @__PURE__ */ React.createElement(Keycap, {
+      variant: "shift"
+    }, /* @__PURE__ */ React.createElement(arrow_up_default, null)), /* @__PURE__ */ React.createElement(Keycap, null, "h")), /* @__PURE__ */ React.createElement(text_default, null, "+ Horizontal")));
+  }
+
+  // ../../packages/command-k/plugins/lines/lines.docs.tsx
+  init_react_shim();
+
   // ../../packages/command-k/plugins/mocks/index.tsx
   init_react_shim();
 
   // ../../packages/command-k/plugins/mocks/mocks-plugin.tsx
   init_react_shim();
-  var import_react54 = __toESM(require_react());
+  var import_react59 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/file-selector.tsx
   init_react_shim();
 
   // ../../packages/command-k/plugins/mocks/use-selected-image.ts
   init_react_shim();
-  var import_react45 = __toESM(require_react());
+  var import_react50 = __toESM(require_react());
   var SELECTED_HANDLE_KEY = "selected-handle";
   function useSelectedImage({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
     const { thumbnails } = useFiles({ storage: storage2 });
     const selectedHandleKey = storage2.data[SELECTED_HANDLE_KEY];
-    const image = (0, import_react45.useMemo)(() => thumbnails[selectedHandleKey], [selectedHandleKey, storage2]);
-    const clear = (0, import_react45.useCallback)(() => storage2.update(SELECTED_HANDLE_KEY, null), []);
+    const image = (0, import_react50.useMemo)(() => thumbnails[selectedHandleKey], [selectedHandleKey, storage2]);
+    const clear = (0, import_react50.useCallback)(() => storage2.update(SELECTED_HANDLE_KEY, null), []);
     return useValue({ clear, image });
   }
 
   // ../../packages/command-k/plugins/mocks/file-selector.tsx
-  var import_react46 = __toESM(require_react());
+  var import_react51 = __toESM(require_react());
   function FileSelector({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
     const { handles, refreshThumbnails, thumbnails } = useFiles({ storage: storage2 });
@@ -31051,7 +31574,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     useStorage: useStorage2
   }) {
     const storage2 = useStorage2();
-    const onClick = (0, import_react46.useCallback)(() => storage2.update(SELECTED_HANDLE_KEY, handle.name), [handle, useStorage2]);
+    const onClick = (0, import_react51.useCallback)(() => storage2.update(SELECTED_HANDLE_KEY, handle.name), [handle, useStorage2]);
     return /* @__PURE__ */ React.createElement(box_default, {
       sx: { variant: "boxes.square", position: "relative" }
     }, /* @__PURE__ */ React.createElement(flex_default, {
@@ -31087,19 +31610,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/mocks/file-upload.tsx
   init_react_shim();
-  var import_react47 = __toESM(require_react());
+  var import_react52 = __toESM(require_react());
   function FileUpload({
     onFileSelect,
     useStorage: useStorage2
   }) {
     const storage2 = useStorage2();
-    const wrapperRef = (0, import_react47.useRef)(null);
+    const wrapperRef = (0, import_react52.useRef)(null);
     const { getFileHandles, handleFileDragLeave, handleFileDragOver, handleFileDrop, isDropping } = useFiles({
       onFileSelect,
       options: { multiple: true },
       storage: storage2
     });
-    (0, import_react47.useEffect)(() => {
+    (0, import_react52.useEffect)(() => {
       focusOnActiveButton(wrapperRef);
     }, []);
     return /* @__PURE__ */ React.createElement(flex_default, {
@@ -31133,40 +31656,40 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/mocks/mocks-overlay.tsx
   init_react_shim();
-  var import_react53 = __toESM(require_react());
+  var import_react58 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/floating-controls.tsx
   init_react_shim();
-  var import_react52 = __toESM(require_react());
+  var import_react57 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/mocks/overlay-controls.tsx
   init_react_shim();
-  var import_react51 = __toESM(require_react());
+  var import_react56 = __toESM(require_react());
 
-  // ../../packages/command-k/plugins/mocks/use-controls.ts
+  // ../../packages/command-k/plugins/mocks/use-mocks-controls.ts
   init_react_shim();
-  var import_react48 = __toESM(require_react());
-  var CONTROLS_KEY = "controls";
-  var DEFAULT_CONTROLS = {
+  var import_react53 = __toESM(require_react());
+  var CONTROLS_KEY2 = "controls";
+  var DEFAULT_CONTROLS2 = {
     isCommandActive: true,
     isScrollPinned: true
   };
   function useControls({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
-    const controls = storage2.data[CONTROLS_KEY] || DEFAULT_CONTROLS;
-    const clear = (0, import_react48.useCallback)(() => storage2.update(CONTROLS_KEY, null), []);
-    const updateIsCommandActive = (0, import_react48.useCallback)((isCommandActive) => {
-      storage2.update(CONTROLS_KEY, immer_esm_default(controls, (draft) => {
+    const controls = storage2.data[CONTROLS_KEY2] || DEFAULT_CONTROLS2;
+    const clear = (0, import_react53.useCallback)(() => storage2.update(CONTROLS_KEY2, null), []);
+    const updateIsCommandActive = (0, import_react53.useCallback)((isCommandActive) => {
+      storage2.update(CONTROLS_KEY2, immer_esm_default(controls, (draft) => {
         draft.isCommandActive = isCommandActive;
       }));
     }, [controls, storage2]);
-    const updateIsScrollPinned = (0, import_react48.useCallback)((isScrollPinned) => {
-      storage2.update(CONTROLS_KEY, immer_esm_default(controls, (draft) => {
+    const updateIsScrollPinned = (0, import_react53.useCallback)((isScrollPinned) => {
+      storage2.update(CONTROLS_KEY2, immer_esm_default(controls, (draft) => {
         draft.isScrollPinned = isScrollPinned;
       }));
     }, [controls, storage2]);
-    const toggleIsCommandActive = (0, import_react48.useCallback)(() => updateIsCommandActive(!controls.isCommandActive), [controls.isCommandActive, updateIsCommandActive]);
-    const toggleIsScrollPinned = (0, import_react48.useCallback)(() => updateIsScrollPinned(!controls.isScrollPinned), [controls.isScrollPinned, updateIsScrollPinned]);
+    const toggleIsCommandActive = (0, import_react53.useCallback)(() => updateIsCommandActive(!controls.isCommandActive), [controls.isCommandActive, updateIsCommandActive]);
+    const toggleIsScrollPinned = (0, import_react53.useCallback)(() => updateIsScrollPinned(!controls.isScrollPinned), [controls.isScrollPinned, updateIsScrollPinned]);
     const isControlPressed = useIsKeyActive({
       isActive: controls.isCommandActive,
       keys: /* @__PURE__ */ new Set(["ControlLeft", "ControlRight"])
@@ -31185,7 +31708,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../node_modules/@theme-ui/match-media/dist/theme-ui-match-media.esm.js
   init_react_shim();
-  var import_react49 = __toESM(require_react());
+  var import_react54 = __toESM(require_react());
   var useBreakpointIndex = (options = {}) => {
     const context = useThemeUI();
     const {
@@ -31197,8 +31720,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     } else if (defaultIndex < 0 || defaultIndex > breakpoints2.length - 1) {
       throw new RangeError(`Default breakpoint index out of range. Theme has ${breakpoints2.length} breakpoints, got index ${defaultIndex}`);
     }
-    const [value, setValue] = (0, import_react49.useState)(defaultIndex);
-    (0, import_react49.useEffect)(() => {
+    const [value, setValue] = (0, import_react54.useState)(defaultIndex);
+    (0, import_react54.useEffect)(() => {
       const getIndex = () => breakpoints2.filter((bp) => window.matchMedia(`screen and (min-width: ${bp})`).matches).length;
       const onResize = () => {
         const newValue = getIndex();
@@ -31221,11 +31744,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return array[index2 >= array.length ? array.length - 1 : index2];
   }
 
-  // ../../packages/command-k/plugins/mocks/use-settings.ts
+  // ../../packages/command-k/plugins/mocks/use-mocks-settings.ts
   init_react_shim();
-  var import_react50 = __toESM(require_react());
-  var SETTINGS_KEY = "settings";
-  var DEFAULT_SETTINGS = {
+  var import_react55 = __toESM(require_react());
+  var SETTINGS_KEY2 = "settings";
+  var DEFAULT_SETTINGS2 = {
     opacity: 0.25,
     scale: 1,
     x: 0,
@@ -31233,36 +31756,36 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   };
   function useSettings({ useStorage: useStorage2 }) {
     const storage2 = useStorage2();
-    const settings = storage2.data[SETTINGS_KEY] || DEFAULT_SETTINGS;
-    const clear = (0, import_react50.useCallback)(() => {
-      storage2.update(SETTINGS_KEY, null);
-      storage2.update(CONTROLS_KEY, null);
+    const settings = storage2.data[SETTINGS_KEY2] || DEFAULT_SETTINGS2;
+    const clear = (0, import_react55.useCallback)(() => {
+      storage2.update(SETTINGS_KEY2, null);
+      storage2.update(CONTROLS_KEY2, null);
     }, []);
-    const updateOpacity = (0, import_react50.useCallback)((opacity2) => {
+    const updateOpacity = (0, import_react55.useCallback)((opacity2) => {
       const standardizedOpacity = opacity2 > 1 ? opacity2 / 10 : opacity2;
-      storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
+      storage2.update(SETTINGS_KEY2, immer_esm_default(settings, (draft) => {
         draft.opacity = Math.min(Math.max(standardizedOpacity, 0), 1);
       }));
     }, [settings, storage2]);
-    const updateScale = (0, import_react50.useCallback)((scale) => {
+    const updateScale = (0, import_react55.useCallback)((scale) => {
       const standardizedScale = scale > 10 ? scale / 10 : scale;
-      storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
+      storage2.update(SETTINGS_KEY2, immer_esm_default(settings, (draft) => {
         draft.scale = Math.min(Math.max(standardizedScale, 0), 10);
       }));
     }, [settings, storage2]);
-    const updateX = (0, import_react50.useCallback)((x2) => {
-      storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
+    const updateX = (0, import_react55.useCallback)((x2) => {
+      storage2.update(SETTINGS_KEY2, immer_esm_default(settings, (draft) => {
         draft.x = x2;
       }));
     }, [settings, storage2]);
-    const updateXY = (0, import_react50.useCallback)(({ x: x2, y: y2 }) => {
-      storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
+    const updateXY = (0, import_react55.useCallback)(({ x: x2, y: y2 }) => {
+      storage2.update(SETTINGS_KEY2, immer_esm_default(settings, (draft) => {
         draft.x = x2;
         draft.y = y2;
       }));
     }, [settings, storage2]);
-    const updateY = (0, import_react50.useCallback)((y2) => {
-      storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
+    const updateY = (0, import_react55.useCallback)((y2) => {
+      storage2.update(SETTINGS_KEY2, immer_esm_default(settings, (draft) => {
         draft.y = y2;
       }));
     }, [settings, storage2]);
@@ -31303,7 +31826,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       millis: INPUT_MILLIS,
       value: settings.y
     });
-    const handleArrowKeys = (0, import_react51.useCallback)((e) => {
+    const handleArrowKeys = (0, import_react56.useCallback)((e) => {
       if (e.ctrlKey) {
         switch (e.code) {
           case "ControlLeft":
@@ -31482,20 +32005,20 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const { data, update } = useStorage2();
     const position3 = data[CONTROLS_POSITION_KEY] || "bottom" /* bottom */;
     const isTop = position3 === "top" /* top */;
-    const togglePosition = (0, import_react52.useCallback)(() => update(CONTROLS_POSITION_KEY, isTop ? "bottom" /* bottom */ : "top" /* top */), [update, isTop]);
+    const togglePosition = (0, import_react57.useCallback)(() => update(CONTROLS_POSITION_KEY, isTop ? "bottom" /* bottom */ : "top" /* top */), [update, isTop]);
     return useValue({ isTop, togglePosition });
   }
 
   // ../../packages/command-k/plugins/mocks/mocks-overlay.tsx
-  var import_react_dom = __toESM(require_react_dom());
+  var import_react_dom3 = __toESM(require_react_dom());
   function MocksOverlayPortal(context) {
     const { overlayContainer, unmountOverlay, useStorage: useStorage2 } = context;
     const { clear } = useSelectedImage({ useStorage: useStorage2 });
-    const unmount2 = (0, import_react53.useCallback)(() => __async(this, null, function* () {
+    const unmount2 = (0, import_react58.useCallback)(() => __async(this, null, function* () {
       yield clear();
       setTimeout(unmountOverlay, 1e3);
     }), [clear]);
-    return import_react_dom.default.createPortal(/* @__PURE__ */ React.createElement(MocksOverlay, {
+    return import_react_dom3.default.createPortal(/* @__PURE__ */ React.createElement(MocksOverlay, {
       useStorage: useStorage2,
       unmount: unmount2
     }), overlayContainer);
@@ -31513,7 +32036,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     })) : null;
   }
   function ImageWrapper({ useStorage: useStorage2 }) {
-    const draggableRef = (0, import_react53.useRef)(null);
+    const draggableRef = (0, import_react58.useRef)(null);
     const { image } = useSelectedImage({ useStorage: useStorage2 });
     const {
       controls: { isScrollPinned },
@@ -31525,10 +32048,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       onChange: () => ({ x: 0, y: 0 }),
       value: settings
     });
-    const onDrag = (0, import_react53.useCallback)(({ changeX, changeY, startX, startY }) => {
+    const onDrag = (0, import_react58.useCallback)(({ changeX, changeY, startX, startY }) => {
       updateXYState(() => ({ x: startX + changeX, y: startY + changeY }));
     }, [updateXYState]);
-    const { width: width2, height: height2 } = (0, import_react53.useMemo)(() => ({ width: ((image == null ? void 0 : image.width) || 0) * settings.scale, height: ((image == null ? void 0 : image.height) || 0) * settings.scale }), [image, settings]);
+    const { width: width2, height: height2 } = (0, import_react58.useMemo)(() => ({ width: ((image == null ? void 0 : image.width) || 0) * settings.scale, height: ((image == null ? void 0 : image.height) || 0) * settings.scale }), [image, settings]);
     const { isDragging, onMouseDown, onMouseUp, onMouseMove, onMouseOut } = useDrag({
       ref: draggableRef,
       onDrag,
@@ -31580,24 +32103,24 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }
 
   // ../../packages/command-k/plugins/mocks/mocks-plugin.tsx
-  var import_react_dom2 = __toESM(require_react_dom());
+  var import_react_dom4 = __toESM(require_react_dom());
   var mocksPlugin = {
     id: "mock-overlay",
     title: "Mocks",
     description: "CMD-K mocks",
     url: "https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/mocks",
     version: "0.0.1",
-    mount: (context) => import_react_dom2.default.render(/* @__PURE__ */ React.createElement(MocksPluginConnected, __spreadValues({}, context)), context.mountPoint),
+    mount: (context) => import_react_dom4.default.render(/* @__PURE__ */ React.createElement(MocksPluginConnected, __spreadValues({}, context)), context.mountPoint),
     unmount: NOOP
   };
   var mocks_plugin_default = mocksPlugin;
   function MocksPluginConnected(context) {
     const { StorageProvider: StorageProvider2, PaneThemeProvider, OverlayThemeProvider } = context;
-    return /* @__PURE__ */ React.createElement(StorageProvider2, null, /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(OverlayThemeProvider, null, /* @__PURE__ */ React.createElement(OverlayWrapper, __spreadValues({}, context))), /* @__PURE__ */ React.createElement(PaneThemeProvider, null, /* @__PURE__ */ React.createElement(MocksPlugin, {
+    return /* @__PURE__ */ React.createElement(StorageProvider2, null, /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(OverlayThemeProvider, null, /* @__PURE__ */ React.createElement(OverlayWrapper2, __spreadValues({}, context))), /* @__PURE__ */ React.createElement(PaneThemeProvider, null, /* @__PURE__ */ React.createElement(MocksPlugin, {
       useStorage: context.useStorage
     }))));
   }
-  function OverlayWrapper(context) {
+  function OverlayWrapper2(context) {
     const { OverlayThemeProvider, useStorage: useStorage2 } = context;
     const { image } = useSelectedImage({ useStorage: useStorage2 });
     return (image == null ? void 0 : image.base64) ? /* @__PURE__ */ React.createElement(OverlayThemeProvider, null, /* @__PURE__ */ React.createElement(MocksOverlayPortal, __spreadValues({}, context))) : null;
@@ -31609,7 +32132,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const isUnloaded = storage2.data.isUnloaded;
     const [isUploading, setIsUploading, toggleUploading] = useFlag();
     const { image, clear: clearImage } = useSelectedImage({ useStorage: useStorage2 });
-    (0, import_react54.useEffect)(() => {
+    (0, import_react59.useEffect)(() => {
       if (!isUnloaded) {
         setIsUploading(!hasHandles);
       }
@@ -31685,16 +32208,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/theme/theme-plugin.tsx
   init_react_shim();
-  var import_react55 = __toESM(require_react());
-  var import_react_dom3 = __toESM(require_react_dom());
+  var import_react60 = __toESM(require_react());
+  var import_react_dom5 = __toESM(require_react_dom());
   var themePlugin = {
     id: "theme",
     title: "Theme",
     description: "Switch between themes",
-    url: "https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/theme-plugin",
+    url: "https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/theme",
     version: "0.0.1",
     mount: ({ mountPoint, setColorMode, PaneThemeProvider }) => {
-      import_react_dom3.default.render(/* @__PURE__ */ React.createElement(PaneThemeProvider, null, /* @__PURE__ */ React.createElement(ThemePlugin, {
+      import_react_dom5.default.render(/* @__PURE__ */ React.createElement(PaneThemeProvider, null, /* @__PURE__ */ React.createElement(ThemePlugin, {
         setColorMode
       })), mountPoint);
     },
@@ -31704,16 +32227,16 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function ThemePlugin({
     setColorMode: setParentColorMode
   }) {
-    const buttonWrapperRef = (0, import_react55.useRef)(null);
+    const buttonWrapperRef = (0, import_react60.useRef)(null);
     const [colorMode, setLocalColorMode] = useColorMode();
     const isLight = colorMode === "default" /* light */;
-    const toggleColorMode = (0, import_react55.useCallback)(() => {
+    const toggleColorMode = (0, import_react60.useCallback)(() => {
       const updatedColorMode = isLight ? "dark" /* dark */ : "default" /* light */;
       focusOnActiveButton(buttonWrapperRef);
       setLocalColorMode(updatedColorMode);
       setParentColorMode(updatedColorMode);
     }, [isLight, setLocalColorMode, setParentColorMode]);
-    (0, import_react55.useLayoutEffect)(() => {
+    (0, import_react60.useLayoutEffect)(() => {
       focusOnActiveButton(buttonWrapperRef);
     }, []);
     return /* @__PURE__ */ React.createElement(flex_default, {
@@ -31748,7 +32271,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   init_react_shim();
 
   // ../../packages/command-k/plugins/index.tsx
-  var defaultPlugins = [mocks_plugin_default, theme_plugin_default];
+  var defaultPlugins = [lines_plugin_default, mocks_plugin_default, theme_plugin_default];
 
   // ../../packages/command-k/providers/index.ts
   init_react_shim();
@@ -31757,8 +32280,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   init_react_shim();
 
   // index.tsx
-  var import_react56 = __toESM(require_react());
-  var import_react_dom4 = __toESM(require_react_dom());
+  var import_react61 = __toESM(require_react());
+  var import_react_dom6 = __toESM(require_react_dom());
   var ID = "cmdk";
   var PLUGINS = defaultPlugins;
   if (!constants_exports.IS_SERVER) {
@@ -31768,14 +32291,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     };
   }
   function useScriptCmdk(isActive = !constants_exports.IS_SERVER) {
-    (0, import_react56.useEffect)(() => {
+    (0, import_react61.useEffect)(() => {
       const unmount2 = mount(isActive);
       return unmount2;
     }, []);
   }
   function ThemedCommandK() {
-    const [cache, setCache] = (0, import_react56.useState)(emotion_cache_browser_esm_default({ container: document.body, key: "command-k" }));
-    const onRender = (0, import_react56.useCallback)((ref) => {
+    const [cache, setCache] = (0, import_react61.useState)(emotion_cache_browser_esm_default({ container: document.body, key: "command-k" }));
+    const onRender = (0, import_react61.useCallback)((ref) => {
       const container = ref.current.parentElement;
       const key = "command-k";
       setCache(emotion_cache_browser_esm_default({
@@ -31807,11 +32330,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       let shadowRoot = getShadowRoot();
       unmount();
       if (shadowRoot) {
-        import_react_dom4.default.render(/* @__PURE__ */ React.createElement(ThemedCommandK, null), shadowRoot);
+        import_react_dom6.default.render(/* @__PURE__ */ React.createElement(ThemedCommandK, null), shadowRoot);
         return NOOP;
       } else {
         shadowRoot = createShadowRoot();
-        import_react_dom4.default.render(/* @__PURE__ */ React.createElement(ThemedCommandK, null), shadowRoot);
+        import_react_dom6.default.render(/* @__PURE__ */ React.createElement(ThemedCommandK, null), shadowRoot);
         unmountReturn = unmount;
       }
     }
@@ -31820,7 +32343,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   function unmount() {
     const el = document.getElementById(ID);
     if (el) {
-      import_react_dom4.default.unmountComponentAtNode(el);
+      import_react_dom6.default.unmountComponentAtNode(el);
       document.body.removeChild(el);
     }
   }
