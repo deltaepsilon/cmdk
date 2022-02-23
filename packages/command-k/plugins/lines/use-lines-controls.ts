@@ -14,6 +14,7 @@ interface UseControls {
   clear: () => void;
   controls: Controls;
   isDraggable: boolean;
+  isMoveable: boolean;
   toggleIsCommandActive: () => void;
   updateIsCommandActive: (isCommandActive: boolean) => void;
 }
@@ -49,12 +50,18 @@ export default function useLinesControls({
     isActive: controls.isCommandActive,
     keys: new Set(['ControlLeft', 'ControlRight']),
   });
+  const isShiftPressed = useIsKeyActive({
+    isActive: controls.isCommandActive,
+    keys: new Set(['ShiftLeft', 'ShiftRight']),
+  });
   const isDraggable = controls.isCommandActive && isControlPressed;
+  const isMoveable = isDraggable && isShiftPressed;
 
   return useValue({
     clear,
     controls,
     isDraggable,
+    isMoveable,
     toggleIsCommandActive,
     updateIsCommandActive,
   });

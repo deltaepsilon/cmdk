@@ -1,4 +1,4 @@
-import { ArrowUpIcon, Box, Button, CommandIcon, Flex, Grid, Keycap, NOOP, Text, Toggle } from 'ui';
+import { ArrowUpIcon, MoveIcon, Box, Button, CommandIcon, Flex, Grid, Keycap, NOOP, Text, Toggle } from 'ui';
 import { CommandKPlugin, Mount, MountContext } from 'command-k';
 import { useCallback, useLayoutEffect, useRef } from 'react';
 
@@ -72,11 +72,14 @@ export function LinesPlugin({ useStorage }: Props) {
       <Text
         variant="headline3"
         sx={{
+          backgroundColor: 'background900',
+          padding: 2,
           position: 'absolute',
-          top: 2,
+          top: 0,
           left: 0,
           textAlign: 'center',
           width: '100%',
+          zIndex: 1,
         }}
       >
         Lines
@@ -86,7 +89,7 @@ export function LinesPlugin({ useStorage }: Props) {
         ballPx={16}
         value={settings.isActive}
         onClick={toggleIsActive}
-        sx={{ position: 'absolute', top: 9, left: 24 }}
+        sx={{ position: 'absolute', top: 9, left: 24, zIndex: 1 }}
       />
 
       <Grid
@@ -96,17 +99,6 @@ export function LinesPlugin({ useStorage }: Props) {
           padding: 3,
           '[data-keycap]': {
             marginRight: 1,
-          },
-          '& > svg': {
-            color: 'secondary',
-          },
-          '& > span': {
-            paddingTop: '2px',
-            '& > svg': {
-              position: 'relative',
-              top: '2px',
-              marginX: 1,
-            },
           },
         }}
       >
@@ -122,7 +114,9 @@ export function LinesPlugin({ useStorage }: Props) {
           <Keycap variant="shift">
             <ArrowUpIcon />
           </Keycap>
-          <Keycap>Arrows</Keycap>
+          <Keycap>
+            <MoveIcon />
+          </Keycap>
         </Flex>
         <Text>Move</Text>
 

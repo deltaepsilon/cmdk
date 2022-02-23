@@ -12,9 +12,11 @@ import {
   UploadIcon,
 } from 'ui';
 import { StorageProvider, useStorage } from 'command-k';
+import { LinesOverlay } from './lines-overlay';
 
 import { LinesPlugin } from './lines-plugin';
 import { ThemeUIStyleObject } from 'theme-ui';
+import useLinesSettings from './use-lines-settings';
 
 export default function LinesDocsConnected() {
   return (
@@ -25,8 +27,14 @@ export default function LinesDocsConnected() {
 }
 
 function MockDocs() {
+  const { settings } = useLinesSettings({ useStorage });
   return (
     <>
+      {settings.isActive && (
+        <Box sx={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 'Overlay' }}>
+          <LinesOverlay useStorage={useStorage} />
+        </Box>
+      )}
       <Grid gap="5">
         <Text as="h1" variant="headline1">
           Lines
@@ -51,7 +59,18 @@ function MockDocs() {
             </PaneBox>
 
             <RowText>
-              <List variant="ordered" sx={{ '[data-keycap]': { marginX: 1 } }}>
+              <List
+                variant="ordered"
+                sx={{
+                  '[data-keycap]': {
+                    marginX: 1,
+                    svg: {
+                      position: 'relative',
+                      top: '1px',
+                    },
+                  },
+                }}
+              >
                 <ListItem>
                   <Flex sx={{ alignItems: 'center' }}>
                     <Text>Hold</Text>

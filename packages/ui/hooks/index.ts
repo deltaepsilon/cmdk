@@ -1,3 +1,4 @@
+export { default as useCursorPosition } from './use-cursor-position';
 export { default as useDebouncedInputState, inputToNumber } from './use-debounced-input-state';
 export { default as useDebouncedValue } from './use-debounced-value';
 export { default as useDrag } from './use-drag';
