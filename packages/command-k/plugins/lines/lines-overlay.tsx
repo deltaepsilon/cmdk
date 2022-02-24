@@ -1,23 +1,23 @@
 import {
-  useKeydown,
-  Flex,
-  NOOP,
-  Box,
-  Image,
-  Text,
-  CommandIcon,
   ArrowUpIcon,
-  useDebouncedInputState,
+  Box,
+  CommandIcon,
+  Flex,
+  Image,
   Keycap,
-  useDrag,
-  useScroll,
+  NOOP,
+  Text,
   useCursorPosition,
+  useDebouncedInputState,
+  useDrag,
+  useKeydown,
+  useScroll,
 } from 'ui';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
+import useLinesSettings, { Line, LinesSettings } from './use-lines-settings';
 
 import { MountContext } from 'command-k';
 import ReactDOM from 'react-dom';
-import useLinesSettings, { Line, LinesSettings } from './use-lines-settings';
 import useLinesControls from './use-lines-controls';
 
 export default function LinesOverlayPortal(context: MountContext) {
@@ -56,7 +56,6 @@ export function LinesOverlay({
         e.preventDefault();
 
         const [clientX, clientY] = cursorPositionRef.current;
-        console.log(e.code);
 
         switch (e.code) {
           case 'Backspace':
@@ -121,8 +120,23 @@ function RenderedLine({
   isDraggable: boolean;
   isMoveable: boolean;
 }) {
+  const ref = useRef(null);
   const isX = typeof line.x !== 'undefined';
   const valuePx = `${line.x ?? line.y}px`;
+  const onDrag = useCallback(
+    ({ startX, startY, changeX, changeY }) => {
+      console.log({ isX, startX, startY, changeX, changeY });
+    },
+    [isX],
+  );
+  const { isDragging, onMouseMove, onMouseUp, onMouseDown, onMouseOut } = useDrag({
+    onDrag,
+    ref,
+    x: line.x ?? 0,
+    y: line.y ?? 0,
+  });
+
+  // TODO: Update X or Y value to make draggable
 
   return (
     <Box
@@ -140,11 +154,16 @@ function RenderedLine({
       }}
     >
       <Box
+        ref={ref}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseDown={onMouseDown}
+        onMouseOut={onMouseOut}
         sx={{
           position: 'absolute',
           inset: '-5px',
           cursor: isMoveable ? 'crosshair' : isDraggable ? 'grab' : 'default',
-          background: isDraggable ? 'light300' : 'transparent',
+          background: isDragging ? 'dark500' : isDraggable ? 'light300' : 'transparent',
         }}
       />
     </Box>
