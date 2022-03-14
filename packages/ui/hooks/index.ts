@@ -8,6 +8,7 @@ export { default as useHasSwitched } from './use-has-switched';
 export { default as useIsKeyActive } from './use-is-key-active';
 export { default as useKeydown } from './use-keydown';
 export { default as useKeyup } from './use-keyup';
+export { default as useLaggedValue } from './use-lagged-value';
 export { default as useModalState } from './use-modal-state';
 export { default as useSafeEffect } from './use-safe-effect';
 export { default as useScroll } from './use-scroll';

@@ -1,9 +1,9 @@
 import { CONTROLS_KEY } from './use-lines-controls';
 import { MountContext } from 'command-k';
+import produce from 'immer';
 import { useCallback } from 'react';
 import { useValue } from 'ui';
 import { v4 as uuid } from 'uuid';
-import produce from 'immer';
 
 const SETTINGS_KEY = 'settings';
 const LINES_KEY = 'lines';
@@ -16,6 +16,9 @@ export interface LinesSettings {
 
 export interface Line {
   id: string;
+  initialX?: number;
+  initialY?: number;
+  isX: boolean;
   x?: number;
   y?: number;
   isSelected?: boolean;
@@ -26,11 +29,14 @@ type AddLineArgs = { type: 'x' | 'y'; value: number };
 
 interface UseLineSettings {
   addLine: (args: AddLineArgs) => void;
+  activateLine: (args: { id: string; isSelected?: boolean }) => void;
   clear: () => void;
   settings: LinesSettings;
   lines: Lines;
+  moveSelected: (args: { x: number; y: number }) => void;
   removeAllLines: () => void;
   removeLine: (id: string) => void;
+  resetInitialPositions: () => void;
   toggleIsActive: () => void;
   updateIsActive: (isActive: boolean) => void;
 }
@@ -70,13 +76,16 @@ export default function useLinesSettings({
     ({ type, value }: AddLineArgs) => {
       const line: Line = {
         id: uuid(),
+        isX: type === 'x',
         color: 'secondary',
       };
 
       if (type === 'x') {
         line.x = value;
+        line.initialX = value;
       } else if (type === 'y') {
         line.y = value;
+        line.initialY = value;
       }
 
       storage.update(
@@ -101,13 +110,72 @@ export default function useLinesSettings({
   );
   const removeAllLines = useCallback(() => storage.update(LINES_KEY, null), [storage]);
   const toggleIsActive = useCallback(() => updateIsActive(!settings.isActive), [settings]);
+  const activateLine = useCallback(
+    ({ id, isSelected = true }: { id: string; isSelected?: boolean }) => {
+      storage.update(
+        LINES_KEY,
+        produce(lines, (draft: Lines) => {
+          draft[id].isSelected = isSelected;
+
+          if (isSelected) {
+            Object.keys(draft).forEach((key) => {
+              if (draft[id].isX !== draft[key].isX) {
+                draft[key].isSelected = false;
+              }
+            });
+          }
+        }),
+      );
+    },
+    [lines, settings, storage],
+  );
+  const moveSelected = useCallback(
+    ({ x = 0, y = 0 }: { x: number; y: number }) => {
+      storage.update(
+        LINES_KEY,
+        produce(lines, (draft: Lines) => {
+          Object.keys(draft).forEach((key) => {
+            const { isSelected, isX, initialX = 0, initialY = 0 } = draft[key];
+
+            if (isSelected) {
+              if (isX) {
+                draft[key].x = initialX + x;
+                // console.log({ initialX, x, result: draft[key].x });
+              } else {
+                draft[key].y = initialY + y;
+                // console.log({ initialY, y, result: draft[key].y });
+              }
+            }
+          });
+        }),
+      );
+    },
+    [lines, storage],
+  );
+  const resetInitialPositions = useCallback(() => {
+    console.log('resetting...');
+    storage.update(
+      LINES_KEY,
+      produce(lines, (draft: Lines) => {
+        Object.keys(draft).forEach((key) => {
+          draft[key].initialX = draft[key].x;
+          draft[key].initialY = draft[key].y;
+        });
+      }),
+    );
+
+    console.log('reset');
+  }, [lines, storage]);
 
   return useValue({
+    activateLine,
     addLine,
     clear,
     lines,
+    moveSelected,
     removeAllLines,
     removeLine,
+    resetInitialPositions,
     settings,
     toggleIsActive,
     updateIsActive,

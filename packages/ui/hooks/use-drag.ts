@@ -1,6 +1,7 @@
+import { NOOP, useValue } from 'ui';
 import { useCallback, useEffect, useState } from 'react';
 
-import { useValue } from 'ui';
+import useLaggedValue from './use-lagged-value';
 
 export interface Coordinates {
   x: number;
@@ -9,8 +10,9 @@ export interface Coordinates {
   clientY: number;
 }
 interface Args {
+  isActive: boolean;
   onDrag: (coordinates: { changeX: number; changeY: number; startX: number; startY: number }) => void;
-  ref: React.RefObject<HTMLElement>;
+  onDragEnd: () => void;
   x: number;
   y: number;
 }
@@ -22,11 +24,12 @@ const DEFAULT_DRAG_START_COORDINATES: Coordinates = {
   clientY: 0,
 };
 
-export default function useDrag({ onDrag, ref, x, y }: Args) {
+export default function useDrag({ isActive, onDrag, onDragEnd, x, y }: Args) {
   const [dragStartCoordinates, setDragStartCoordinates] = useState<Coordinates>(
     DEFAULT_DRAG_START_COORDINATES,
   );
   const [isDragging, setIsDragging] = useState(false);
+  const laggedIsDragging = useLaggedValue(false, isDragging);
   const onMouseDown = useCallback(
     (e) => {
       const { clientX, clientY } = e;
@@ -52,8 +55,27 @@ export default function useDrag({ onDrag, ref, x, y }: Args) {
   );
 
   useEffect(() => {
+    if (!isActive) {
+      setIsDragging(false);
+    }
+  }, [isActive, setIsDragging]);
+
+  useEffect(() => {
     !isDragging && setDragStartCoordinates(DEFAULT_DRAG_START_COORDINATES);
   }, [isDragging, setDragStartCoordinates]);
 
-  return useValue({ isDragging, onMouseDown, onMouseUp, onMouseMove, onMouseOut });
+  useEffect(() => {
+    console.log({ isDragging, laggedIsDragging });
+    if (laggedIsDragging && !isDragging) {
+      onDragEnd && onDragEnd();
+    }
+  }, [isDragging, laggedIsDragging]);
+
+  return useValue({
+    isDragging,
+    onMouseDown: isActive ? onMouseDown : NOOP,
+    onMouseUp: isActive ? onMouseUp : NOOP,
+    onMouseMove: isActive ? onMouseMove : NOOP,
+    onMouseOut: isActive ? onMouseOut : NOOP,
+  });
 }

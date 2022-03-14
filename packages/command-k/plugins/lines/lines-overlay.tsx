@@ -105,7 +105,13 @@ export function LinesOverlay({
         )}
       </Flex>
       {Object.values(lines).map((line) => (
-        <RenderedLine line={line} isDraggable={isDraggable} isMoveable={isMoveable} />
+        <RenderedLine
+          key={line.id}
+          line={line}
+          isDraggable={isDraggable}
+          isMoveable={isMoveable}
+          useStorage={useStorage}
+        />
       ))}
     </Flex>
   );
@@ -115,23 +121,35 @@ function RenderedLine({
   line,
   isDraggable,
   isMoveable,
+  useStorage,
 }: {
   line: Line;
   isDraggable: boolean;
   isMoveable: boolean;
+  useStorage: MountContext['useStorage'];
 }) {
-  const ref = useRef(null);
   const isX = typeof line.x !== 'undefined';
   const valuePx = `${line.x ?? line.y}px`;
+  const { activateLine, moveSelected, resetInitialPositions } = useLinesSettings({ useStorage });
   const onDrag = useCallback(
     ({ startX, startY, changeX, changeY }) => {
+      // if (isMoveable) {
+      //   !line.isSelected && activateLine({ id: line.id, isSelected: true });
+      // }
+
+      moveSelected({ x: changeX, y: changeY });
+
       console.log({ isX, startX, startY, changeX, changeY });
     },
-    [isX],
+    [activateLine, isDraggable, isMoveable, isX, line, moveSelected],
   );
+  const onClick = useCallback(() => {
+    isDraggable && activateLine({ id: line.id, isSelected: !line.isSelected });
+  }, [activateLine, isMoveable, line]);
   const { isDragging, onMouseMove, onMouseUp, onMouseDown, onMouseOut } = useDrag({
+    isActive: isDraggable && !isMoveable,
     onDrag,
-    ref,
+    onDragEnd: resetInitialPositions,
     x: line.x ?? 0,
     y: line.y ?? 0,
   });
@@ -154,16 +172,27 @@ function RenderedLine({
       }}
     >
       <Box
-        ref={ref}
+        onMouseMove={onMouseMove}
+        // onMouseUp={onMouseUp}
+        // onMouseOut={onMouseOut}
+        sx={{
+          position: 'absolute',
+          inset: '-50px',
+          // background: 'dark300',
+          zIndex: 1,
+        }}
+      />
+      <Box
+        onClick={onClick}
+        onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
-        onMouseDown={onMouseDown}
-        onMouseOut={onMouseOut}
         sx={{
           position: 'absolute',
           inset: '-5px',
           cursor: isMoveable ? 'crosshair' : isDraggable ? 'grab' : 'default',
-          background: isDragging ? 'dark500' : isDraggable ? 'light300' : 'transparent',
+          background: isDragging || line.isSelected ? 'dark500' : isDraggable ? 'light300' : 'transparent',
+          zIndex: 2,
         }}
       />
     </Box>
