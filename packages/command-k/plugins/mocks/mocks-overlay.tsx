@@ -61,10 +61,9 @@ export function ImageWrapper({ useStorage }: { useStorage: MountContext['useStor
     [image, settings],
   );
   const { isDragging, onMouseDown, onMouseUp, onMouseMove, onMouseOut } = useDrag({
-    ref: draggableRef,
     onDrag,
     x,
-    y,
+    y
   });
   const { scrollTop, scrollLeft } = useScroll({ isActive: isScrollPinned });
   const adjustedX = x - scrollLeft;
@@ -80,7 +79,6 @@ export function ImageWrapper({ useStorage }: { useStorage: MountContext['useStor
       }}
     >
       <Image
-        ref={draggableRef}
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
         onMouseMove={onMouseMove}

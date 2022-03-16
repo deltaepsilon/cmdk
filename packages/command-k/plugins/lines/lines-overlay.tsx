@@ -46,6 +46,16 @@ export function LinesOverlay({
   const { addLine, lines, removeLine, removeAllLines, settings } = useLinesSettings({ useStorage });
   const { controls, isDraggable, isMoveable } = useLinesControls({ useStorage });
   const cursorPositionRef = useCursorPosition({ isActive: true });
+  const { moveSelected, resetInitialPositions } = useLinesSettings({ useStorage });
+  const onDrag = useCallback(({ changeX, changeY }) => {
+    console.log({ changeX, changeY });
+    moveSelected({ x: changeX, y: changeY });
+  }, []);
+  const { onMouseMove, onMouseUp, onMouseDown } = useDrag({
+    isActive: isDraggable && !isMoveable,
+    onDrag,
+    onDragEnd: resetInitialPositions,
+  });
 
   useEffect(() => unmount, [unmount]);
 
@@ -85,6 +95,9 @@ export function LinesOverlay({
 
   return (
     <Flex
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
+      onMouseMove={onMouseMove}
       sx={{
         variant: 'boxes.pinned',
         pointerEvents: isDraggable ? 'auto' : 'none',
@@ -130,23 +143,10 @@ function RenderedLine({
 }) {
   const isX = typeof line.x !== 'undefined';
   const valuePx = `${line.x ?? line.y}px`;
-  const { activateLine, moveSelected, resetInitialPositions } = useLinesSettings({ useStorage });
-  const onDrag = useCallback(
-    ({ startX, startY, changeX, changeY, clientX, clientY }) => {
-      moveSelected({ x: changeX, y: changeY });
-    },
-    [activateLine, isDraggable, isMoveable, isX, line, moveSelected],
-  );
+  const { activateLine } = useLinesSettings({ useStorage });
   const onClick = useCallback(() => {
     isDraggable && activateLine({ id: line.id, isSelected: !line.isSelected });
   }, [activateLine, isMoveable, line]);
-  const { isDragging, onMouseMove, onMouseUp, onMouseDown, onMouseOut } = useDrag({
-    isActive: isDraggable && !isMoveable,
-    onDrag,
-    onDragEnd: resetInitialPositions,
-    x: line.x ?? 0,
-    y: line.y ?? 0,
-  });
 
   return (
     <Box
@@ -161,29 +161,16 @@ function RenderedLine({
         left: isX ? valuePx : 0,
         width: isX ? '1px' : null,
         height: isX ? null : '1px',
+        background: 'gold',
       }}
     >
       <Box
-        onMouseMove={onMouseMove}
-        // onMouseUp={onMouseUp}
-        // onMouseOut={onMouseOut}
-        sx={{
-          position: 'absolute',
-          inset: isDragging ? '-100rem' : 0,
-          background: 'dark300',
-          zIndex: 1,
-        }}
-      />
-      <Box
         onClick={onClick}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
         sx={{
           position: 'absolute',
           inset: '-5px',
           cursor: isMoveable ? 'crosshair' : isDraggable ? 'grab' : 'default',
-          background: isDragging || line.isSelected ? 'dark500' : isDraggable ? 'light300' : 'transparent',
+          background: line.isSelected ? 'dark500' : isDraggable ? 'light300' : 'transparent',
           zIndex: 2,
         }}
       />

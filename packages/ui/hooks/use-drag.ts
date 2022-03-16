@@ -4,13 +4,13 @@ import { useCallback, useEffect, useState } from 'react';
 import useLaggedValue from './use-lagged-value';
 
 export interface Coordinates {
-  x: number;
-  y: number;
   clientX: number;
   clientY: number;
+  x: number;
+  y: number;
 }
 interface Args {
-  isActive: boolean;
+  isActive?: boolean;
   onDrag: (coordinates: {
     changeX: number;
     changeY: number;
@@ -19,19 +19,19 @@ interface Args {
     startX: number;
     startY: number;
   }) => void;
-  onDragEnd: () => void;
-  x: number;
-  y: number;
+  onDragEnd?: () => void;
+  x?: number;
+  y?: number;
 }
 
 const DEFAULT_DRAG_START_COORDINATES: Coordinates = {
-  x: 0,
-  y: 0,
   clientX: 0,
   clientY: 0,
+  x: 0,
+  y: 0,
 };
 
-export default function useDrag({ isActive, onDrag, onDragEnd, x, y }: Args) {
+export default function useDrag({ isActive = true, onDrag, onDragEnd = NOOP, x = 0, y = 0 }: Args) {
   const [dragStartCoordinates, setDragStartCoordinates] = useState<Coordinates>(
     DEFAULT_DRAG_START_COORDINATES,
   );
@@ -51,19 +51,17 @@ export default function useDrag({ isActive, onDrag, onDragEnd, x, y }: Args) {
   const onMouseMove = useCallback(
     (e) => {
       if (isDragging) {
-        const { clientX, clientY } = dragStartCoordinates;
+        const { clientX, clientY, x, y } = dragStartCoordinates;
         const changeX = e.clientX - clientX;
         const changeY = e.clientY - clientY;
-
-        console.log({ clientX, eClientX: e.clientX });
 
         onDrag({
           changeX,
           changeY,
           clientX: e.clientX,
           clientY: e.clientY,
-          startX: clientX,
-          startY: clientY,
+          startX: x,
+          startY: y,
         });
       }
     },

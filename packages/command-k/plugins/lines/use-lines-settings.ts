@@ -140,12 +140,9 @@ export default function useLinesSettings({
               const { isSelected, isX, initialX = 0, initialY = 0 } = draft[key];
 
               if (isSelected) {
-                console.log({ x, y });
                 if (isX) {
-                  console.log({ x });
                   draft[key].x = Math.max(0, initialX + x);
                 } else {
-                  console.log({ y });
                   draft[key].y = Math.max(0, initialY + y);
                 }
               }
@@ -153,7 +150,7 @@ export default function useLinesSettings({
           }),
         );
       },
-      { millis: 3 },
+      { millis: 0 },
     ),
     [lines, storage],
   );
