@@ -132,14 +132,8 @@ function RenderedLine({
   const valuePx = `${line.x ?? line.y}px`;
   const { activateLine, moveSelected, resetInitialPositions } = useLinesSettings({ useStorage });
   const onDrag = useCallback(
-    ({ startX, startY, changeX, changeY }) => {
-      // if (isMoveable) {
-      //   !line.isSelected && activateLine({ id: line.id, isSelected: true });
-      // }
-
+    ({ startX, startY, changeX, changeY, clientX, clientY }) => {
       moveSelected({ x: changeX, y: changeY });
-
-      console.log({ isX, startX, startY, changeX, changeY });
     },
     [activateLine, isDraggable, isMoveable, isX, line, moveSelected],
   );
@@ -153,8 +147,6 @@ function RenderedLine({
     x: line.x ?? 0,
     y: line.y ?? 0,
   });
-
-  // TODO: Update X or Y value to make draggable
 
   return (
     <Box
@@ -177,8 +169,8 @@ function RenderedLine({
         // onMouseOut={onMouseOut}
         sx={{
           position: 'absolute',
-          inset: '-50px',
-          // background: 'dark300',
+          inset: isDragging ? '-100rem' : 0,
+          background: 'dark300',
           zIndex: 1,
         }}
       />

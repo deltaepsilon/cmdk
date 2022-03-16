@@ -11,7 +11,14 @@ export interface Coordinates {
 }
 interface Args {
   isActive: boolean;
-  onDrag: (coordinates: { changeX: number; changeY: number; startX: number; startY: number }) => void;
+  onDrag: (coordinates: {
+    changeX: number;
+    changeY: number;
+    clientX: number;
+    clientY: number;
+    startX: number;
+    startY: number;
+  }) => void;
   onDragEnd: () => void;
   x: number;
   y: number;
@@ -44,11 +51,20 @@ export default function useDrag({ isActive, onDrag, onDragEnd, x, y }: Args) {
   const onMouseMove = useCallback(
     (e) => {
       if (isDragging) {
-        const { clientX, clientY, x, y } = dragStartCoordinates;
+        const { clientX, clientY } = dragStartCoordinates;
         const changeX = e.clientX - clientX;
         const changeY = e.clientY - clientY;
 
-        onDrag({ changeX, changeY, startX: x, startY: y });
+        console.log({ clientX, eClientX: e.clientX });
+
+        onDrag({
+          changeX,
+          changeY,
+          clientX: e.clientX,
+          clientY: e.clientY,
+          startX: clientX,
+          startY: clientY,
+        });
       }
     },
     [dragStartCoordinates, isDragging, onDrag],

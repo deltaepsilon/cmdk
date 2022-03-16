@@ -1,8 +1,9 @@
+import { debounce, useValue } from 'ui';
+
 import { CONTROLS_KEY } from './use-lines-controls';
 import { MountContext } from 'command-k';
 import produce from 'immer';
 import { useCallback } from 'react';
-import { useValue } from 'ui';
 import { v4 as uuid } from 'uuid';
 
 const SETTINGS_KEY = 'settings';
@@ -130,26 +131,30 @@ export default function useLinesSettings({
     [lines, settings, storage],
   );
   const moveSelected = useCallback(
-    ({ x = 0, y = 0 }: { x: number; y: number }) => {
-      storage.update(
-        LINES_KEY,
-        produce(lines, (draft: Lines) => {
-          Object.keys(draft).forEach((key) => {
-            const { isSelected, isX, initialX = 0, initialY = 0 } = draft[key];
+    debounce(
+      ({ x = 0, y = 0 }: { x: number; y: number }) => {
+        storage.update(
+          LINES_KEY,
+          produce(lines, (draft: Lines) => {
+            Object.keys(draft).forEach((key) => {
+              const { isSelected, isX, initialX = 0, initialY = 0 } = draft[key];
 
-            if (isSelected) {
-              if (isX) {
-                draft[key].x = initialX + x;
-                // console.log({ initialX, x, result: draft[key].x });
-              } else {
-                draft[key].y = initialY + y;
-                // console.log({ initialY, y, result: draft[key].y });
+              if (isSelected) {
+                console.log({ x, y });
+                if (isX) {
+                  console.log({ x });
+                  draft[key].x = Math.max(0, initialX + x);
+                } else {
+                  console.log({ y });
+                  draft[key].y = Math.max(0, initialY + y);
+                }
               }
-            }
-          });
-        }),
-      );
-    },
+            });
+          }),
+        );
+      },
+      { millis: 3 },
+    ),
     [lines, storage],
   );
   const resetInitialPositions = useCallback(() => {
