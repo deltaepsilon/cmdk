@@ -1,6 +1,5 @@
-import { ArrowUpIcon, MoveIcon, Box, Button, CommandIcon, Flex, Grid, Keycap, NOOP, Text, Toggle } from 'ui';
-import { CommandKPlugin, Mount, MountContext } from 'command-k';
-import { useCallback, useLayoutEffect, useRef } from 'react';
+import { ArrowUpIcon, CommandIcon, Flex, Grid, Keycap, MoveIcon, NOOP, Text, Toggle } from 'ui';
+import { CommandKPlugin, MountContext } from 'command-k';
 
 import LinesOverlay from './lines-overlay';
 import ReactDOM from 'react-dom';
@@ -13,7 +12,9 @@ const linesPlugin: CommandKPlugin = {
   description: 'Guidelines for your layout',
   url: 'https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/lines',
   version: '0.0.1',
-  mount: (context) => ReactDOM.render(<LinesPluginConnected {...context} />, context.mountPoint),
+  mount: (context) => {
+    ReactDOM.render(<LinesPluginConnected {...context} />, context.mountPoint);
+  },
   unmount: NOOP,
 };
 
@@ -137,9 +138,9 @@ export function LinesPlugin({ useStorage }: Props) {
           <Keycap variant="shift">
             <ArrowUpIcon />
           </Keycap>
-          <Keycap variant="action">Esc</Keycap>
+          <Keycap>D</Keycap>
         </Flex>
-        <Text>Deselect all</Text>
+        <Text>Remove all</Text>
 
         <Flex>
           <Keycap>

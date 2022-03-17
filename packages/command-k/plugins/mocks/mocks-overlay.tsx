@@ -1,5 +1,5 @@
 import { Box, Image, useDebouncedInputState, useDrag, useScroll } from 'ui';
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import FloatingControls from './floating-controls';
 import { MountContext } from 'command-k';
@@ -38,7 +38,6 @@ function MocksOverlay({
 }
 
 export function ImageWrapper({ useStorage }: { useStorage: MountContext['useStorage'] }) {
-  const draggableRef = useRef<HTMLImageElement>(null);
   const { image } = useSelectedImage({ useStorage });
   const {
     controls: { isScrollPinned },
@@ -63,7 +62,7 @@ export function ImageWrapper({ useStorage }: { useStorage: MountContext['useStor
   const { isDragging, onMouseDown, onMouseUp, onMouseMove, onMouseOut } = useDrag({
     onDrag,
     x,
-    y
+    y,
   });
   const { scrollTop, scrollLeft } = useScroll({ isActive: isScrollPinned });
   const adjustedX = x - scrollLeft;

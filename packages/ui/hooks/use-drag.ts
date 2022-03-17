@@ -79,7 +79,6 @@ export default function useDrag({ isActive = true, onDrag, onDragEnd = NOOP, x =
   }, [isDragging, setDragStartCoordinates]);
 
   useEffect(() => {
-    console.log({ isDragging, laggedIsDragging });
     if (laggedIsDragging && !isDragging) {
       onDragEnd && onDragEnd();
     }

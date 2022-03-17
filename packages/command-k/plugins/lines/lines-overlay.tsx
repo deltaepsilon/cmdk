@@ -3,19 +3,18 @@ import {
   Box,
   CommandIcon,
   Flex,
-  Image,
   Keycap,
   NOOP,
-  Text,
+  XIcon,
+  stopPropagation,
   useCursorPosition,
-  useDebouncedInputState,
   useDrag,
   useKeydown,
-  useScroll,
 } from 'ui';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import useLinesSettings, { Line, LinesSettings } from './use-lines-settings';
 
+import { Button } from 'theme-ui';
 import { MountContext } from 'command-k';
 import ReactDOM from 'react-dom';
 import useLinesControls from './use-lines-controls';
@@ -29,7 +28,7 @@ export default function LinesOverlayPortal(context: MountContext) {
 
   useEffect(() => {
     overlayContainer.innerHTML = '';
-  }, []);
+  }, [overlayContainer]);
 
   return settings.isActive
     ? ReactDOM.createPortal(<LinesOverlay unmount={unmount} useStorage={useStorage} />, overlayContainer)
@@ -43,14 +42,16 @@ export function LinesOverlay({
   unmount?: () => void;
   useStorage: MountContext['useStorage'];
 }) {
-  const { addLine, lines, removeLine, removeAllLines, settings } = useLinesSettings({ useStorage });
-  const { controls, isDraggable, isMoveable } = useLinesControls({ useStorage });
+  const { addLine, lines, removeLine, removeAllLines } = useLinesSettings({ useStorage });
+  const { isDraggable, isMoveable } = useLinesControls({ useStorage });
   const cursorPositionRef = useCursorPosition({ isActive: true });
   const { moveSelected, resetInitialPositions } = useLinesSettings({ useStorage });
-  const onDrag = useCallback(({ changeX, changeY }) => {
-    console.log({ changeX, changeY });
-    moveSelected({ x: changeX, y: changeY });
-  }, []);
+  const onDrag = useCallback(
+    ({ changeX, changeY }) => {
+      moveSelected({ x: changeX, y: changeY });
+    },
+    [moveSelected],
+  );
   const { onMouseMove, onMouseUp, onMouseDown } = useDrag({
     isActive: isDraggable && !isMoveable,
     onDrag,
@@ -66,10 +67,12 @@ export function LinesOverlay({
         e.preventDefault();
 
         const [clientX, clientY] = cursorPositionRef.current;
+        console.log(e.code);
 
         switch (e.code) {
           case 'Backspace':
           case 'Delete':
+          case 'KeyD':
             return removeAllLines();
           case 'ArrowUp':
             console.log('up');
@@ -95,11 +98,13 @@ export function LinesOverlay({
 
   return (
     <Flex
+      onClick={stopPropagation}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onMouseMove={onMouseMove}
       sx={{
         variant: 'boxes.pinned',
+        cursor: isDraggable ? 'grab' : 'default',
         pointerEvents: isDraggable ? 'auto' : 'none',
         alignItems: 'center',
         justifyContent: 'center',
@@ -143,10 +148,12 @@ function RenderedLine({
 }) {
   const isX = typeof line.x !== 'undefined';
   const valuePx = `${line.x ?? line.y}px`;
-  const { activateLine } = useLinesSettings({ useStorage });
+  const { activateLine, removeLine } = useLinesSettings({ useStorage });
   const onClick = useCallback(() => {
-    isDraggable && activateLine({ id: line.id, isSelected: !line.isSelected });
+    console.log('line.isSelected', line.isSelected);
+    isMoveable && activateLine({ id: line.id, isSelected: !line.isSelected });
   }, [activateLine, isMoveable, line]);
+  const onRemoveClick = useCallback(() => removeLine(line.id), [line.id, removeLine]);
 
   return (
     <Box
@@ -164,6 +171,15 @@ function RenderedLine({
         background: 'gold',
       }}
     >
+      {isDraggable && (
+        <Button
+          variant="circle-tertiary"
+          sx={{ position: 'relative', top: isX ? 0 : '-10px', left: isX ? '-7.25px' : 0, zIndex: 3 }}
+          onClick={onRemoveClick}
+        >
+          <XIcon />
+        </Button>
+      )}
       <Box
         onClick={onClick}
         sx={{

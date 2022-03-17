@@ -1,10 +1,10 @@
 import {
-  Box,
-  Flex,
   ArrowUpIcon,
-  Keycap,
+  Box,
   CommandIcon,
+  Flex,
   Grid,
+  Keycap,
   List,
   ListItem,
   Text,
@@ -12,8 +12,8 @@ import {
   UploadIcon,
 } from 'ui';
 import { StorageProvider, useStorage } from 'command-k';
-import { LinesOverlay } from './lines-overlay';
 
+import { LinesOverlay } from './lines-overlay';
 import { LinesPlugin } from './lines-plugin';
 import { ThemeUIStyleObject } from 'theme-ui';
 import useLinesSettings from './use-lines-settings';
@@ -86,14 +86,14 @@ function MockDocs() {
                 </ListItem>
                 <ListItem>
                   <Flex sx={{ alignItems: 'center' }}>
-                    <Text>Deselect all with &nbsp;</Text>
+                    <Text>Remove all with &nbsp;</Text>
                     <Keycap variant="action" sx={{ marginLeft: '0px !important' }}>
                       <CommandIcon />
                     </Keycap>
                     <Keycap>
                       <ArrowUpIcon />
                     </Keycap>
-                    <Keycap variant="action">Esc</Keycap>
+                    <Keycap>D</Keycap>
                   </Flex>
                 </ListItem>
               </List>

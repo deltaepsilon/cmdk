@@ -1,9 +1,9 @@
 import { debounce, useValue } from 'ui';
+import { useCallback, useMemo } from 'react';
 
 import { CONTROLS_KEY } from './use-lines-controls';
 import { MountContext } from 'command-k';
 import produce from 'immer';
-import { useCallback } from 'react';
 import { v4 as uuid } from 'uuid';
 
 const SETTINGS_KEY = 'settings';
@@ -61,7 +61,7 @@ export default function useLinesSettings({
   const clear = useCallback(() => {
     storage.update(SETTINGS_KEY, null);
     storage.update(CONTROLS_KEY, null);
-  }, []);
+  }, [storage]);
   const updateIsActive = useCallback(
     (isActive: LinesSettings['isActive']) => {
       storage.update(
@@ -110,7 +110,10 @@ export default function useLinesSettings({
     [lines, storage],
   );
   const removeAllLines = useCallback(() => storage.update(LINES_KEY, null), [storage]);
-  const toggleIsActive = useCallback(() => updateIsActive(!settings.isActive), [settings]);
+  const toggleIsActive = useCallback(
+    () => updateIsActive(!settings.isActive),
+    [settings.isActive, updateIsActive],
+  );
   const activateLine = useCallback(
     ({ id, isSelected = true }: { id: string; isSelected?: boolean }) => {
       storage.update(
@@ -128,34 +131,35 @@ export default function useLinesSettings({
         }),
       );
     },
-    [lines, settings, storage],
+    [lines, storage],
   );
-  const moveSelected = useCallback(
-    debounce(
-      ({ x = 0, y = 0 }: { x: number; y: number }) => {
-        storage.update(
-          LINES_KEY,
-          produce(lines, (draft: Lines) => {
-            Object.keys(draft).forEach((key) => {
-              const { isSelected, isX, initialX = 0, initialY = 0 } = draft[key];
+  const moveSelected = useMemo(
+    () =>
+      debounce(
+        ({ x = 0, y = 0 }: { x: number; y: number }) => {
+          storage.update(
+            LINES_KEY,
+            produce(lines, (draft: Lines) => {
+              Object.keys(draft).forEach((key) => {
+                const { isSelected, isX, initialX = 0, initialY = 0 } = draft[key];
 
-              if (isSelected) {
-                if (isX) {
-                  draft[key].x = Math.max(0, initialX + x);
-                } else {
-                  draft[key].y = Math.max(0, initialY + y);
+                if (isSelected) {
+                  if (isX) {
+                    draft[key].x = Math.max(0, initialX + x);
+                  } else {
+                    draft[key].y = Math.max(0, initialY + y);
+                  }
                 }
-              }
-            });
-          }),
-        );
-      },
-      { millis: 0 },
-    ),
+              });
+            }),
+          );
+        },
+        { millis: 5 },
+      ),
+
     [lines, storage],
   );
   const resetInitialPositions = useCallback(() => {
-    console.log('resetting...');
     storage.update(
       LINES_KEY,
       produce(lines, (draft: Lines) => {
@@ -165,8 +169,6 @@ export default function useLinesSettings({
         });
       }),
     );
-
-    console.log('reset');
   }, [lines, storage]);
 
   return useValue({
