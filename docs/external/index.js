@@ -1117,7 +1117,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useReducer(reducer, initialArg, init);
           }
-          function useRef15(initialValue) {
+          function useRef14(initialValue) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
@@ -1133,7 +1133,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useCallback(callback, deps);
           }
-          function useMemo10(create, deps) {
+          function useMemo11(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useMemo(create, deps);
           }
@@ -1694,9 +1694,9 @@
           exports.useEffect = useEffect22;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useLayoutEffect = useLayoutEffect4;
-          exports.useMemo = useMemo10;
+          exports.useMemo = useMemo11;
           exports.useReducer = useReducer;
-          exports.useRef = useRef15;
+          exports.useRef = useRef14;
           exports.useState = useState19;
           exports.version = ReactVersion;
         })();
@@ -27460,7 +27460,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       !isDragging && setDragStartCoordinates(DEFAULT_DRAG_START_COORDINATES);
     }, [isDragging, setDragStartCoordinates]);
     (0, import_react23.useEffect)(() => {
-      console.log({ isDragging, laggedIsDragging });
       if (laggedIsDragging && !isDragging) {
         onDragEnd && onDragEnd();
       }
@@ -30850,15 +30849,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   var DEFAULT_DATA = { isUnloaded: false };
   var StorageContext = (0, import_react41.createContext)({
     data: INITIAL_DATA,
-    clear: () => __async(void 0, null, function* () {
-    }),
-    get: () => __async(void 0, null, function* () {
-      return INITIAL_DATA;
-    }),
-    set: () => __async(void 0, null, function* () {
-    }),
-    update: () => __async(void 0, null, function* () {
-    })
+    clear: async () => {
+    },
+    get: async () => INITIAL_DATA,
+    set: async () => {
+    },
+    update: async () => {
+    }
   });
   function StorageProvider({
     children,
@@ -30866,35 +30863,35 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }) {
     const { dispatch, on: on2 } = useEventBus();
     const [pluginData, setPluginData] = (0, import_react41.useState)(INITIAL_DATA);
-    const get7 = (0, import_react41.useCallback)(() => __async(this, null, function* () {
-      const data = (yield import_localforage.default.getItem(storageKey)) || DEFAULT_DATA;
+    const get7 = (0, import_react41.useCallback)(async () => {
+      const data = await import_localforage.default.getItem(storageKey) || DEFAULT_DATA;
       setPluginData(data);
       return data;
-    }), []);
-    const set = (0, import_react41.useCallback)((data) => __async(this, null, function* () {
+    }, []);
+    const set = (0, import_react41.useCallback)(async (data) => {
       dispatch(getStorageUpdateEventName(storageKey), data);
-    }), [storageKey]);
-    const clear = (0, import_react41.useCallback)(() => __async(this, null, function* () {
-      yield import_localforage.default.removeItem(storageKey);
-      yield get7();
-    }), [get7]);
-    const update = (0, import_react41.useCallback)((key, data) => __async(this, null, function* () {
-      const existing = yield get7();
+    }, [storageKey]);
+    const clear = (0, import_react41.useCallback)(async () => {
+      await import_localforage.default.removeItem(storageKey);
+      await get7();
+    }, [get7]);
+    const update = (0, import_react41.useCallback)(async (key, data) => {
+      const existing = await get7();
       const updated = immer_esm_default(existing, (draft) => {
         draft[key] = data;
       });
       set(updated);
-    }), [set]);
+    }, [set]);
     const value = useValue({ data: pluginData, clear, get: get7, set, update });
     (0, import_react41.useEffect)(() => {
       get7();
     }, []);
     (0, import_react41.useEffect)(() => {
-      on2(getStorageUpdateEventName(storageKey), (e) => __async(this, null, function* () {
+      on2(getStorageUpdateEventName(storageKey), async (e) => {
         const data = e.detail;
-        yield import_localforage.default.setItem(storageKey, data);
+        await import_localforage.default.setItem(storageKey, data);
         setPluginData(data || DEFAULT_DATA);
-      }));
+      });
     }, [set, storageKey]);
     return /* @__PURE__ */ React.createElement(StorageContext.Provider, {
       value
@@ -31216,6 +31213,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
 
   // ../../packages/command-k/plugins/lines/use-lines-settings.ts
   init_react_shim();
+  var import_react49 = __toESM(require_react());
 
   // ../../packages/command-k/plugins/lines/use-lines-controls.ts
   init_react_shim();
@@ -31255,9 +31253,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       updateIsCommandActive
     });
   }
-
-  // ../../packages/command-k/plugins/lines/use-lines-settings.ts
-  var import_react49 = __toESM(require_react());
 
   // ../../node_modules/uuid/dist/esm-browser/index.js
   init_react_shim();
@@ -31344,7 +31339,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const clear = (0, import_react49.useCallback)(() => {
       storage2.update(SETTINGS_KEY, null);
       storage2.update(CONTROLS_KEY, null);
-    }, []);
+    }, [storage2]);
     const updateIsActive = (0, import_react49.useCallback)((isActive) => {
       storage2.update(SETTINGS_KEY, immer_esm_default(settings, (draft) => {
         draft.isActive = isActive;
@@ -31373,7 +31368,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }));
     }, [lines, storage2]);
     const removeAllLines = (0, import_react49.useCallback)(() => storage2.update(LINES_KEY, null), [storage2]);
-    const toggleIsActive = (0, import_react49.useCallback)(() => updateIsActive(!settings.isActive), [settings]);
+    const toggleIsActive = (0, import_react49.useCallback)(() => updateIsActive(!settings.isActive), [settings.isActive, updateIsActive]);
     const activateLine = (0, import_react49.useCallback)(({ id, isSelected = true }) => {
       storage2.update(LINES_KEY, immer_esm_default(lines, (draft) => {
         draft[id].isSelected = isSelected;
@@ -31385,8 +31380,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           });
         }
       }));
-    }, [lines, settings, storage2]);
-    const moveSelected = (0, import_react49.useCallback)(debounce(({ x: x2 = 0, y: y2 = 0 }) => {
+    }, [lines, storage2]);
+    const moveSelected = (0, import_react49.useMemo)(() => debounce(({ x: x2 = 0, y: y2 = 0 }) => {
       storage2.update(LINES_KEY, immer_esm_default(lines, (draft) => {
         Object.keys(draft).forEach((key) => {
           const { isSelected, isX, initialX = 0, initialY = 0 } = draft[key];
@@ -31399,16 +31394,14 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
         });
       }));
-    }, { millis: 0 }), [lines, storage2]);
+    }, { millis: 5 }), [lines, storage2]);
     const resetInitialPositions = (0, import_react49.useCallback)(() => {
-      console.log("resetting...");
       storage2.update(LINES_KEY, immer_esm_default(lines, (draft) => {
         Object.keys(draft).forEach((key) => {
           draft[key].initialX = draft[key].x;
           draft[key].initialY = draft[key].y;
         });
       }));
-      console.log("reset");
     }, [lines, storage2]);
     return useValue({
       activateLine,
@@ -31434,7 +31427,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     }), []);
     (0, import_react50.useEffect)(() => {
       overlayContainer.innerHTML = "";
-    }, []);
+    }, [overlayContainer]);
     return settings.isActive ? import_react_dom.default.createPortal(/* @__PURE__ */ React.createElement(LinesOverlay, {
       unmount: unmount2,
       useStorage: useStorage2
@@ -31444,14 +31437,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     unmount: unmount2 = NOOP,
     useStorage: useStorage2
   }) {
-    const { addLine, lines, removeLine, removeAllLines, settings } = useLinesSettings({ useStorage: useStorage2 });
-    const { controls, isDraggable, isMoveable } = useLinesControls({ useStorage: useStorage2 });
+    const { addLine, lines, removeLine, removeAllLines } = useLinesSettings({ useStorage: useStorage2 });
+    const { isDraggable, isMoveable } = useLinesControls({ useStorage: useStorage2 });
     const cursorPositionRef = useCursorPosition({ isActive: true });
     const { moveSelected, resetInitialPositions } = useLinesSettings({ useStorage: useStorage2 });
     const onDrag = (0, import_react50.useCallback)(({ changeX, changeY }) => {
-      console.log({ changeX, changeY });
       moveSelected({ x: changeX, y: changeY });
-    }, []);
+    }, [moveSelected]);
     const { onMouseMove, onMouseUp, onMouseDown } = useDrag({
       isActive: isDraggable && !isMoveable,
       onDrag,
@@ -31463,9 +31455,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       callback: (e) => {
         e.preventDefault();
         const [clientX, clientY] = cursorPositionRef.current;
+        console.log(e.code);
         switch (e.code) {
           case "Backspace":
           case "Delete":
+          case "KeyD":
             return removeAllLines();
           case "ArrowUp":
             console.log("up");
@@ -31487,11 +31481,13 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       }
     }, [addLine, removeAllLines]);
     return /* @__PURE__ */ React.createElement(flex_default, {
+      onClick: stopPropagation,
       onMouseDown,
       onMouseUp,
       onMouseMove,
       sx: {
         variant: "boxes.pinned",
+        cursor: isDraggable ? "grab" : "default",
         pointerEvents: isDraggable ? "auto" : "none",
         alignItems: "center",
         justifyContent: "center"
@@ -31515,10 +31511,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     var _a;
     const isX = typeof line2.x !== "undefined";
     const valuePx = `${(_a = line2.x) != null ? _a : line2.y}px`;
-    const { activateLine } = useLinesSettings({ useStorage: useStorage2 });
+    const { activateLine, removeLine } = useLinesSettings({ useStorage: useStorage2 });
     const onClick = (0, import_react50.useCallback)(() => {
-      isDraggable && activateLine({ id: line2.id, isSelected: !line2.isSelected });
+      console.log("line.isSelected", line2.isSelected);
+      isMoveable && activateLine({ id: line2.id, isSelected: !line2.isSelected });
     }, [activateLine, isMoveable, line2]);
+    const onRemoveClick = (0, import_react50.useCallback)(() => removeLine(line2.id), [line2.id, removeLine]);
     return /* @__PURE__ */ React.createElement(box_default, {
       sx: {
         border: "1px dashed",
@@ -31533,7 +31531,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         height: isX ? null : "1px",
         background: "gold"
       }
-    }, /* @__PURE__ */ React.createElement(box_default, {
+    }, isDraggable && /* @__PURE__ */ React.createElement(Button, {
+      variant: "circle-tertiary",
+      sx: { position: "relative", top: isX ? 0 : "-10px", left: isX ? "-7.25px" : 0, zIndex: 3 },
+      onClick: onRemoveClick
+    }, /* @__PURE__ */ React.createElement(x_default, null)), /* @__PURE__ */ React.createElement(box_default, {
       onClick,
       sx: {
         position: "absolute",
@@ -31553,7 +31555,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     description: "Guidelines for your layout",
     url: "https://github.com/deltaepsilon/cmdk/tree/master/packages/command-k/plugins/lines",
     version: "0.0.1",
-    mount: (context) => import_react_dom2.default.render(/* @__PURE__ */ React.createElement(LinesPluginConnected, __spreadValues({}, context)), context.mountPoint),
+    mount: (context) => {
+      import_react_dom2.default.render(/* @__PURE__ */ React.createElement(LinesPluginConnected, __spreadValues({}, context)), context.mountPoint);
+    },
     unmount: NOOP
   };
   var lines_plugin_default = linesPlugin;
@@ -31615,9 +31619,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       sx: { marginLeft: "0px !important" }
     }, /* @__PURE__ */ React.createElement(command_default, null)), /* @__PURE__ */ React.createElement(Keycap, {
       variant: "shift"
-    }, /* @__PURE__ */ React.createElement(arrow_up_default, null)), /* @__PURE__ */ React.createElement(Keycap, {
-      variant: "action"
-    }, "Esc")), /* @__PURE__ */ React.createElement(text_default, null, "Deselect all"), /* @__PURE__ */ React.createElement(flex_default, null, /* @__PURE__ */ React.createElement(Keycap, null, /* @__PURE__ */ React.createElement(command_default, null)), /* @__PURE__ */ React.createElement(Keycap, {
+    }, /* @__PURE__ */ React.createElement(arrow_up_default, null)), /* @__PURE__ */ React.createElement(Keycap, null, "D")), /* @__PURE__ */ React.createElement(text_default, null, "Remove all"), /* @__PURE__ */ React.createElement(flex_default, null, /* @__PURE__ */ React.createElement(Keycap, null, /* @__PURE__ */ React.createElement(command_default, null)), /* @__PURE__ */ React.createElement(Keycap, {
       variant: "shift"
     }, /* @__PURE__ */ React.createElement(arrow_up_default, null)), /* @__PURE__ */ React.createElement(Keycap, null, "v")), /* @__PURE__ */ React.createElement(text_default, null, "+ Vertical"), /* @__PURE__ */ React.createElement(flex_default, null, /* @__PURE__ */ React.createElement(Keycap, null, /* @__PURE__ */ React.createElement(command_default, null)), /* @__PURE__ */ React.createElement(Keycap, {
       variant: "shift"
@@ -32138,7 +32140,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     })) : null;
   }
   function ImageWrapper({ useStorage: useStorage2 }) {
-    const draggableRef = (0, import_react59.useRef)(null);
     const { image } = useSelectedImage({ useStorage: useStorage2 });
     const {
       controls: { isScrollPinned },
@@ -32173,6 +32174,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       onMouseDown,
       onMouseUp,
       onMouseMove,
+      onMouseOut,
       "data-is-dragging": isDragging,
       draggable: false,
       src: image == null ? void 0 : image.base64,
